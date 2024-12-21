@@ -53,11 +53,11 @@ export default function Home({ navigation }) {
 }
 const Styles = StyleSheet.create({
     screenContainer: {
-        flex:1,
-       backgroundColor:"#0D0E10",
+        flex:0,
+        backgroundColor:"#0D0E10",
         flexDirection: 'column',
         flexWrap: 'nowrap',
-         padding:0
+        padding:12
     },
     cardContainer: {
         marginBottom: 16
@@ -98,18 +98,18 @@ const Styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     rightContent: {
-        marginHorizontal: 10
+        marginHorizontal: 20
     },
     moviesContent: {
         width: windowWidth,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: "space-between"
-
+        justifyContent: "space-between",
+        padding:5
     },
     viewAll: {
         padding: 5,
-        fontSize: 14,
+        fontSize: 16,
         color: "#ffffff"
     }
 })

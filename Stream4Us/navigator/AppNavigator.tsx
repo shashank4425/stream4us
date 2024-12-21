@@ -1,10 +1,11 @@
 import React from "react";
+import {Dimensions} from "react-native";
 import { useNavigation } from "expo-router";
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { Ionicons } from "@expo/vector-icons";
-import { View, Text, StyleSheet, ScrollView} from "react-native"
+import { Ionicons } from "@expo/vector-icons/MaterialCommunityIcons";
+import { Image, View, Text, StyleSheet, ScrollView} from "react-native"
 import Bollwood from "@/Screen/BollywoodMoviesScreen";
 import Hollwood from "@/Screen/HollywoodMoviesScreen";
 import BottomNavigator from "./BottomNavigator";
@@ -21,23 +22,30 @@ import LandScapeMoviePlayer from "@/Screen/VideoPlayer/LandscapeMoviePlayer";
 import PotraitMoviePlayer from "@/Screen/VideoPlayer/PotraitMoviePlayer";
 const Stack = createStackNavigator();
 const Drawer= createDrawerNavigator();
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 function AppNavigator({route}){
     return (
       
         <Stack.Navigator screenOptions={{
           cardStyle: {
-            backgroundColor:"#0D0E10"
-          }
-        }}>
+            backgroundColor:"#0D0E10",
+            width:windowWidth
+          },
+          headerTitle:() => 
+            <Image
+            style={{marginStart:1, width: windowWidth/3,
+               height: 33, backgroundColor:"#0D0E10" }}
+            source={require('../assets/images/stream4us/logo/stream4us.png')}
+          />        }}>
       {/* <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}/> */}
       <Stack.Screen name="Home" component={BottomNavigator} options={{
         headerLeft:()=>null,
         headerShown:true,
         headerStyle: {backgroundColor:"#0D0E10"},
-        headerTintColor:"#ffffff",
-        headerTitle:"Stream4Us"
-      }}/>
+        headerTintColor:"#ffffff"
+      }}      
+      />
       <Stack.Screen name="BollywoodMovies" component={Bollwood}/>
       <Stack.Screen name="HollywoodMovies" component={Hollwood}/>
       <Stack.Screen name="Series" component={Series}/>     
