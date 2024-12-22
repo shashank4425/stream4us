@@ -31,11 +31,11 @@ function AppNavigator({route}){
           cardStyle: {
             backgroundColor:"#0D0E10",
             width:windowWidth
-          },
+          },          
           headerTitle:() => 
             <Image
             style={{marginStart:1, width: windowWidth/3,
-               height: 33, backgroundColor:"#0D0E10" }}
+               height: 35, backgroundColor:"#0D0E10" }}
             source={require('../assets/images/stream4us/logo/stream4us.png')}
           />        }}>
       {/* <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}/> */}
