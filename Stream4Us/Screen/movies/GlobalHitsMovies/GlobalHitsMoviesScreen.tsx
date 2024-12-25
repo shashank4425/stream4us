@@ -9,15 +9,11 @@ const windowHeight = Dimensions.get('window').height;
 const Stack = createStackNavigator();
 
 export default function GlobalHitsMovies({navigation,route}) {
-    console.log(route.params);
-    
-    // const {name}=route.params;
-   
-    // useLayoutEffect(() => {
-    //     navigation.setOptions({
-    //         title:name
-    //     });
-    // },[navigation,name]);
+    useLayoutEffect(()=>{
+        navigation.setOptions({
+           headerTitle: route.params.title
+        }) 
+   },[navigation]);
     return (
         <SafeAreaView >
             <View>

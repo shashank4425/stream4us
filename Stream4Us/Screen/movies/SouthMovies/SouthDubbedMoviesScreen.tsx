@@ -8,16 +8,12 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const Stack = createStackNavigator();
-const navigation = useNavigation();
-export default function SouthDubbedMovies({route}) {
-
-//     const { name }=route.params.title;
-//    console.log(route.params.title);
-//     useLayoutEffect(() => {
-//         navigation.setOptions({
-//             title:name
-//         });
-//     },[navigation,name]);
+export default function SouthDubbedMovies({navigation,route}) {
+     useLayoutEffect(()=>{
+         navigation.setOptions({
+            headerTitle: route.params.title
+         }) 
+    },[navigation]);
     return (
         <SafeAreaView >
             <View>

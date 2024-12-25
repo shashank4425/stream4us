@@ -23,7 +23,7 @@ export default function Home({ navigation }) {
                                  </View>
                                  <View style={Styles.rightContent}>
                                     <Text style={Styles.viewAll}
-                                        onPress={() => navigation.navigate('Movies')}>view All
+                                        onPress={() => navigation.navigate(items.category, {title:items.category})}>view All
                                     </Text>
                                 </View>
                            </View>                             
@@ -60,22 +60,22 @@ const Styles = StyleSheet.create({
         padding:12
     },
     cardContainer: {
-        marginBottom: 16
+        marginBottom: 10
     },
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     cards: {
-        height: 170,
-        width: 140,
+        height: 180,
+        width: 130,
         borderRadius: 4,
         padding: 0,
         marginRight:12
     },
     imgSize: {
-        height: 160,
-        width: 140,
+        height: "100%",
+        width: "100%",
     },
     heading: {
         color: "#ffffff",

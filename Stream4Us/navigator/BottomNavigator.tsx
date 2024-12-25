@@ -23,12 +23,6 @@ export default function BottomNavigator({navigation}: {navigation: any}) {
           ), headerShown:false,
           headerLeft:()=>null
         }}/>
-        <BottomTab.Screen name='Series' component={Series} 
-        options={{headerShown:false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="watch" color={color} size={size} />
-          ),
-        }}/>
       </BottomTab.Navigator>
     )
   };

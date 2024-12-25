@@ -6,15 +6,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Image, View, Text, StyleSheet, ScrollView} from "react-native"
 import BottomNavigator from "./BottomNavigator";
-import Series from "@/Screen/Series/Series";
-import BollywoodSeries from "@/Screen/Series/BollywoodSeriesScreen";
-import HollywoodSeries from "@/Screen/Series/HollywoodSeriesScreen";
 
 import ActionMovies from "@/Screen/movies/ActionMovies/ActionMovies";
 import GlobalHitsMovies from "@/Screen/movies/GlobalHitsMovies/GlobalHitsMoviesScreen";
 import RomanticMovies from "@/Screen/movies/RemanceMovies/RomanticMovies";
 import SouthDubbedMovies from "@/Screen/movies/SouthMovies/SouthDubbedMoviesScreen";
 import MoviePlayer from "@/Screen/VideoPlayer/MoviePlayerScreen";
+import Home from "@/Screen/HomeScreen";
 
 const Stack = createStackNavigator();
 const Drawer= createDrawerNavigator();
@@ -30,20 +28,17 @@ function AppNavigator({route}){
         },          
         headerTitle:() => 
           <Image
-          style={{marginStart:1, width: windowWidth/3.5,
+          style={{marginStart:1, width: windowWidth/3.6,
              height: 40, backgroundColor:"#0D0E10" }}
           source={require('../assets/images/stream4us/logo/stream4us_logo.png')}
         />        }}>
-    <Stack.Screen name="Home" component={BottomNavigator} options={{
+    <Stack.Screen name="Home" component={Home} options={{
       headerLeft:()=>null,
       headerShown:true,
       headerStyle: {backgroundColor:"#0D0E10"},
       headerTintColor:"#ffffff"
     }}      
     />
-    <Stack.Screen name="Series" component={Series}/>     
-    <Stack.Screen name="BollywoodSeries" component={BollywoodSeries}/>
-    <Stack.Screen name="HollywoodSeries" component={HollywoodSeries}/>
     <Stack.Screen name="Action Movies" component={ActionMovies} options={{
       headerTitle:() => null, headerTintColor:"#FFF", headerStyle: {backgroundColor:"#0D0E10"}
     }}/>
