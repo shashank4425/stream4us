@@ -15,7 +15,6 @@ import { Ionicons } from "@expo/vector-icons"; // For icons
 import FontAwesomeIcon from "react-native-vector-icons/Feather";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Slider from "@react-native-community/slider";
-import Bollywood from "../BollywoodMoviesScreen";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 

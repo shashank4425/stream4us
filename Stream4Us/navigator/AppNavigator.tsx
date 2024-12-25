@@ -11,6 +11,7 @@ import ActionMovies from "@/Screen/movies/ActionMovies/ActionMovies";
 import GlobalHitsMovies from "@/Screen/movies/GlobalHitsMovies/GlobalHitsMoviesScreen";
 import RomanticMovies from "@/Screen/movies/RemanceMovies/RomanticMovies";
 import SouthDubbedMovies from "@/Screen/movies/SouthMovies/SouthDubbedMoviesScreen";
+import BhojpuriBhaukalovies from "@/Screen/movies/BhojpuriMovies/BhojpuriBhaukalMovies";
 import MoviePlayer from "@/Screen/VideoPlayer/MoviePlayerScreen";
 import Home from "@/Screen/HomeScreen";
 
@@ -49,6 +50,10 @@ function AppNavigator({route}){
       headerTitle:() => null, headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10"}
     }}/>      
     <Stack.Screen name="South Dubbed Movies" component={SouthDubbedMovies} options={{
+      headerTitle:() => null,  headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10"}
+    }}/>
+      
+      <Stack.Screen name="Bhojpuri Bhaukal" component={BhojpuriBhaukalovies} options={{
       headerTitle:() => null,  headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10"}
     }}/>
     <Stack.Screen name="MoviePlayer" component={MoviePlayer} options={{

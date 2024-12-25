@@ -60,22 +60,22 @@ const Styles = StyleSheet.create({
         padding:12
     },
     cardContainer: {
-        marginBottom: 10
+        marginBottom: 5
     },
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     cards: {
-        height: 180,
-        width: 130,
+        height: 152,
+        width: 120,
         borderRadius: 4,
         padding: 0,
-        marginRight:12
+        marginRight:10
     },
     imgSize: {
         height: "100%",
-        width: "100%",
+        width: "97%",
     },
     heading: {
         color: "#ffffff",
@@ -87,7 +87,7 @@ const Styles = StyleSheet.create({
         color: "#ffffff",
         fontWeight: "bold",
         alignItems: "flex-start",
-        fontSize: 14
+        fontSize: 4
     },
     leftContent: {
         marginBottom: 2,
