@@ -1,7 +1,5 @@
-export const bollywoodcomedymoviesList = [
+export const bollywoodactionmoviesList = [
 
-    {
-        "result": [
             {
                 "id": "3486540",
                 "mediaType": "MOVIE",
@@ -1142,6 +1140,4 @@ export const bollywoodcomedymoviesList = [
                     "imgAltTags": "Watch Golmaal 3 Online"
                 }
             }
-        ]
-    }
 ]

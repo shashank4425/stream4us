@@ -20,6 +20,7 @@ export default function HollywoodSeriesList({navigation}) {
                                 <TouchableOpacity onPress={()=> navigation.navigate("MoviePlayer",item)}>    
                                 <Image source={{uri:item.seo.ogImage}} 
                                 style={Styles.imgSize}/>
+                                <Text numberOfLines={1} style={Styles.title}>{item.fullTitle}</Text>
                                 </TouchableOpacity>
                             </View >
                             )
@@ -43,7 +44,7 @@ const Styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     cards: {
-        height: 160,
+        height: 200,
         width: 122,
         backgroundColor: "#0D0E10",
         borderRadius: 4,
@@ -58,7 +59,10 @@ const Styles = StyleSheet.create({
         color: "#808080",
         fontWeight: "bold",
         alignItems: "flex-start",
-        fontSize: 16
+        fontSize: 16,
+        padding:6,
+        textAlign: "center",
+        justifyContent: "center"
     }
     
 })

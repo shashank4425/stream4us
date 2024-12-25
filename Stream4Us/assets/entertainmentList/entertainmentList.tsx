@@ -2,7 +2,7 @@ export const entertainmentList = [
     
             {
                 "id":"22441",
-                "category":"South dubbed movies",
+                "category":"South Dubbed Movies",
                 "Movies": [
                    
                     {
@@ -69,7 +69,7 @@ export const entertainmentList = [
             },
             {
                 "id":"22442",
-                "category":"Action movies",
+                "category":"Action Movies",
                 "Movies": [
                     
                     {
@@ -136,7 +136,7 @@ export const entertainmentList = [
             },
             {
                 "id":"22443",
-                "category":"Global hits movies",
+                "category":"Global Hits Movies",
                 "Movies": [
                     
                     {

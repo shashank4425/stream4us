@@ -1,14 +1,23 @@
-import react, { useEffect } from "react"
+import react, { useEffect, useLayoutEffect } from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView, Image, FlatList, TouchableOpacity, Alert } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createStackNavigator } from '@react-navigation/stack';
-import { bollywoodmoviesList } from "@/assets/movies/bollywoodmovies/bollywoodmovies";
+import { globalhitsmoviesList } from "@/assets/movies/globalhitsmovies/globalhitsmovies";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const Stack = createStackNavigator();
 
-export default function ActionMovies({navigation,route}) {
+export default function GlobalHitsMovies({navigation,route}) {
+    console.log(route.params);
+    
+    // const {name}=route.params;
+   
+    // useLayoutEffect(() => {
+    //     navigation.setOptions({
+    //         title:name
+    //     });
+    // },[navigation,name]);
     return (
         <SafeAreaView >
             <View>
@@ -16,10 +25,10 @@ export default function ActionMovies({navigation,route}) {
                 <ScrollView>
                     <View style={Styles.container}>
                         
-                        {bollywoodmoviesList.map(item => {
+                        {globalhitsmoviesList.map(item => {
                           return (
                           <View key={item.id} style={Styles.cards}>
-                            <TouchableOpacity onPress={() => navigation.navigate("ActionMovie",item)}>
+                            <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer",item)}>
                               <Image source={{uri: item.seo.ogImage}}
                                style={Styles.imgSize}/>
                                <Text numberOfLines={1} style={Styles.title}>{item.fullTitle}</Text>

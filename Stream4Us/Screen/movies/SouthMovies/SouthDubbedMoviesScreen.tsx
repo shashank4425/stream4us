@@ -1,28 +1,37 @@
-import react, { useEffect } from "react"
-import { View, Text, StyleSheet, Dimensions, ScrollView, Image, FlatList, TouchableOpacity, Alert } from "react-native"
+import react, { useEffect, useLayoutEffect } from "react";
+import { useNavigation } from "expo-router";
+import { View, Text, StyleSheet, Dimensions, ScrollView, Image, TouchableOpacity, Alert } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createStackNavigator } from '@react-navigation/stack';
-import { bollywoodmoviesList } from "@/assets/movies/bollywoodmovies/bollywoodmovies";
+import { southdubbedmoviesList } from "@/assets/movies/southmovies/southmoviesinhindi";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const Stack = createStackNavigator();
+const navigation = useNavigation();
+export default function SouthDubbedMovies({route}) {
 
-export default function Bollywood({navigation,route}) {
+//     const { name }=route.params.title;
+//    console.log(route.params.title);
+//     useLayoutEffect(() => {
+//         navigation.setOptions({
+//             title:name
+//         });
+//     },[navigation,name]);
     return (
-        <SafeAreaView style={Styles.screenContainer}>
+        <SafeAreaView >
             <View>
                 
                 <ScrollView>
                     <View style={Styles.container}>
                         
-                        {bollywoodmoviesList.map(item => {
+                        {southdubbedmoviesList.map(item => {
                           return (
                           <View key={item.id} style={Styles.cards}>
-                            <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer",item)}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ActionMovie",item)}>
                               <Image source={{uri: item.seo.ogImage}}
                                style={Styles.imgSize}/>
-                               <Text numberOfLines={1} style={Styles.title}>{item.fullTitle}</Text>
+                               <Text numberOfLines={1} style={Styles.title}>{item.seo.page}</Text>
                                </TouchableOpacity>
                              </View>                             
                           )
@@ -34,13 +43,6 @@ export default function Bollywood({navigation,route}) {
     )
 }
 const Styles = StyleSheet.create({
-    screenContainer: {
-        flex:1,
-       backgroundColor:"#0D0E10",
-        flexDirection: 'column',
-        flexWrap: 'nowrap',
-         padding:0
-    },
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -48,7 +50,7 @@ const Styles = StyleSheet.create({
     cards: {
         height: 190,
         width: 122,
-        backgroundColor: "#0D0E10",
+        backgroundColor: "#000",
         borderRadius: 4,
         padding: 4,
         margin: 3   

@@ -8,7 +8,7 @@ export default function Splash({ navigation }) {
     useEffect(() => {
         setTimeout(() => {
             navigation.navigate("Home")
-        }, 400)
+        }, 4000)
     }, []);
     return (
         <View style={{ flex: 1 }}>

@@ -1,4 +1,4 @@
-export const hollywoodmoviesList = [
+export const globalhitsmoviesList = [
  
     {
         "id": "4027850",
