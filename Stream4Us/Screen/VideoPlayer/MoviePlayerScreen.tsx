@@ -42,7 +42,6 @@ const PotraitMoviePlayer = ({ route }) => {
   };
 
   const movieLink = route.params;
-
   const handlePlayPause = () => {
     if (isPlaying) {
       videoRef.current.pauseAsync();
@@ -184,7 +183,7 @@ const PotraitMoviePlayer = ({ route }) => {
               </View>
               <View style={styles.MiddleController}>
               <Text style={styles.vdTiming}>
-                {formatTime(currentTime)} / {formatTime(duration)}
+                {formatTime(currentTime)} / {movieLink.duration}
               </Text>
               <TouchableOpacity onPress={toggleScreen}>
                 <MaterialCommunityIcons style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
@@ -254,7 +253,7 @@ const PotraitMoviePlayer = ({ route }) => {
             </View>}
             {!islockScreen && <View style={styles.LandScapetopMiddleController}>
             <Text style={{paddingLeft:12, width: "92%", color: "#dcdcdc", fontWeight:"900", fontSize:12}}>
-              {formatTime(currentTime)} / {formatTime(duration)}
+              {formatTime(currentTime)} / {movieLink.duration}
             </Text>
             <TouchableOpacity onPress={toggleScreen}>
               <MaterialCommunityIcons style={styles.fsRotate} name={"fullscreen-exit"} size={24} color="white"

@@ -56,12 +56,12 @@ const Styles = StyleSheet.create({
         width:122,
     },
     title: {
-        color: "#808080",
+        color: "#fffaf0",
         fontWeight: "bold",
         alignItems: "flex-start",
-        fontSize: 16,
-        padding:6,
-        textAlign: "center",
-        justifyContent: "center"
+        fontSize: 14,
+        paddingTop:6,
+        textAlign: "left",
+        justifyContent: "flex-start"
     }    
 })

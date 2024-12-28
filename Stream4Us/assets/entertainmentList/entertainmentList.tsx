@@ -68,6 +68,7 @@ export const entertainmentList = [
                         "defaultLanguage": "Hindi",
                         "slug": "https://www.jiocinema.com/movies/badlapur/3488466/watch",
                         "line2": "Hindi ∙ Thriller ∙ A",
+                        "duration":"02:14:47",
                         "durationFormatted": "2h 15m",
                         "seo": {
                             "page": "Badlapur",
@@ -81,6 +82,7 @@ export const entertainmentList = [
                         "defaultLanguage": "Hindi",
                         "slug": "https://www.jiocinema.com/movies/go-goa-gone/3497006/watch",
                         "line2": "Hindi ∙ Action ∙ A",
+                        "duration":"01:42:09",
                         "durationFormatted": "1h 42m",
                         "seo": {
                             "page": "Go Goa Gone",
@@ -94,6 +96,7 @@ export const entertainmentList = [
                         "defaultLanguage": "Hindi",
                         "slug":"https://www.youtube.com/watch?v=LaXUtZLfvvA",
                         "line2": "Hindi ∙ Action ∙ U/A 13+",
+                        "duration":"02:25:38",
                         "durationFormatted": "2h 26m",
                         "seo": {
                             "page": "R... Rajkumar",
@@ -107,6 +110,7 @@ export const entertainmentList = [
                         "defaultLanguage": "Hindi",
                         "slug": "https://www.jiocinema.com/movies/bloody-daddy/3760812/watch",
                         "line2": "हि, म, +6 more ∙ Action, Drama ∙ U/A 16+",
+                        "duration":"02:01:50",
                         "durationFormatted": "2h 2m",
                         "seo": {
                             "page": "Bloody Daddy",

@@ -46,7 +46,7 @@ const Styles = StyleSheet.create({
     cards: {
         height: 190,
         width: 122,
-        backgroundColor: "#0D0E10",
+        backgroundColor: "#000",
         borderRadius: 4,
         padding: 4,
         margin: 3   
@@ -56,12 +56,12 @@ const Styles = StyleSheet.create({
         width:122,
     },
     title: {
-        color: "#808080",
+        color: "#fffaf0",
         fontWeight: "bold",
         alignItems: "flex-start",
-        fontSize: 16,
-        padding:6,
-        textAlign: "center",
-        justifyContent: "center"
+        fontSize: 14,
+        paddingTop:6,
+        textAlign: "left",
+        justifyContent: "flex-start"
     }    
 })

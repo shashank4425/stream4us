@@ -88,7 +88,7 @@ export const bollywoodactionmoviesList = [
                 "line2": "Action",
                 "durationFormatted": "3h",
                 "seo": {
-                    "page": "Khakee (2004)",
+                    "page": "Khakee",
                     "title": "Khakee (2004) Hindi Movie",
                     "description": "DCP Anant and his team get tasked with escorting an alleged terrorist to Mumbai. However, a rogue ex-police officer makes their task difficult as he tries to stop them from reaching their destination.",
                     "ogImage": "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/dMsqwWFl51t8jXR0tWzjEuO8H4l.jpg",
