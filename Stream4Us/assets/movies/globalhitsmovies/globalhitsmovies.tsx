@@ -2,13 +2,11 @@ export const globalhitsmoviesList = [
     {
         "id": "4027850",                
         "defaultLanguage": "Hindi",
-        "fullTitle": "Knight and Day",
-        "line1": "Knight and Day",
         "line2": "Hindi ∙ Action ∙ U/A 16+",
         "durationFormatted": "1h 53m",
         "seo": {
             "page": "Knight And Day",
-            "title": "Knight And Day (2010) Hindi Movie: Watch Full HD Movie Online On JioCinema",
+            "title": "Knight And Day (2010)",
             "ogImage": "https://v3img.voot.com/v3Storage/assets/3x4-1727763698905.jpg",
              "description": "Knight And Day (2010) Is A Action Hindi Film Starring Tom Cruise,Cameron Diaz,Peter Sarsgaard In The Lead Roles, Directed By James Mangold. Watch Now Or Download To Watch Later!",
         } 
@@ -16,7 +14,6 @@ export const globalhitsmoviesList = [
     {
         "id": "3926455",
         "defaultLanguage": "Hindi",
-        "fullTitle": "Gladiator II",
         "line2": "Action, Adventure, Drama",
         "durationFormatted": "2h 28m",
         "seo": {
@@ -29,7 +26,6 @@ export const globalhitsmoviesList = [
     {
         "id": "3926456",                
         "defaultLanguage": "Hindi",
-        "fullTitle": "Joker: Folie à Deux",
         "line2": "Drama, Crime, Thriller",
         "durationFormatted": "2h 18m",
         "seo": {            
@@ -42,12 +38,11 @@ export const globalhitsmoviesList = [
     {
         "id": "3926457",                
         "defaultLanguage": "Hindi",
-        "fullTitle": "Attack on Titan: Part 1",
         "line2": "हि, En ∙ Action, Adventure, Drama ∙ U/A 16+",
         "durationFormatted": "1h 34m",
         "seo": {            
             "page": "Attack On Titan: Part 1",
-            "title": "Attack On Titan: Part 1 (2015) Hindi Movie: Watch Full HD Movie Online On JioCinema",
+            "title": "Attack On Titan: Part 1 (2015)",
             "description": "Attack On Titan: Part 1 (2015) Is A Action Hindi Film Starring Haruma Miura,Kiko Mizuhara,Kanata Hongô In The Lead Roles, Directed By . Watch Now Or Download To Watch Later!",
             "ogImage": "https://v3img.voot.com/v3Storage/assets/attack3x4-1722488577186.jpg",
         } 
@@ -55,7 +50,6 @@ export const globalhitsmoviesList = [
     {
         "id": "3926458",                
         "defaultLanguage": "Hindi",
-        "fullTitle": "The Lion King",
         "line2": "Adventure, Drama, Family, Animation",
         "durationFormatted": "1h 58m",
         "seo": {            
