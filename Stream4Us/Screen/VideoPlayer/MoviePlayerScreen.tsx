@@ -209,7 +209,7 @@ const PotraitMoviePlayer = ({ route }) => {
            <View>
             <Video
               style={{
-                width: Dimensions.get("window").width,
+                width: "100%",
                 height: Dimensions.get("window").height,
               }}
               ref={videoRef}

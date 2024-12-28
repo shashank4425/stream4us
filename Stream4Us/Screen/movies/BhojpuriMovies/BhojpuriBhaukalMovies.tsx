@@ -44,7 +44,7 @@ const Styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     cards: {
-        height: 190,
+        height: 210,
         width: 122,
         backgroundColor: "#000",
         borderRadius: 4,
@@ -52,15 +52,17 @@ const Styles = StyleSheet.create({
         margin: 3   
     },
     imgSize: {
-        height:160,
-        width:122,
+        height:"89%",
+        width:"100%",
     },
     title: {
+        height:"12%",
+        width:"100%",
         color: "#fffaf0",
         fontWeight: "bold",
         alignItems: "flex-start",
         fontSize: 14,
-        paddingTop:6,
+        paddingTop:7,
         textAlign: "left",
         justifyContent: "flex-start"
     }    

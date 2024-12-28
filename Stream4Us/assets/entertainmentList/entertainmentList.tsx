@@ -7,9 +7,10 @@ export const entertainmentList = [
                     {
                         "id": "4058381",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/buddy/4058381/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Action ∙ U/A 13+",
                         "durationFormatted": "2h 11m",
+                        "duration":"",
                         "seo": {
                             "page": "Buddy",
                             "title": "Buddy (2024) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -20,9 +21,10 @@ export const entertainmentList = [
                     {
                         "id": "3987001",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/double-trouble/3987001/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Romance ∙ U/A 13+",
                         "durationFormatted": "2h 25m",
+                        "duration":"",
                         "seo": {
                             "page": "Double Trouble",
                             "title": "Double Trouble Movie: Watch Full Double Trouble Movie Dubbed in Hindi Online on JioCinema",
@@ -33,9 +35,10 @@ export const entertainmentList = [
                     {
                         "id": "3487480",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/petta/3487480/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Action ∙ U/A 16+",
                         "durationFormatted": "2h 43m",
+                        "duration":"",
                         "seo": {
                             "page": "Petta",
                             "title": "Petta (2019) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -46,9 +49,10 @@ export const entertainmentList = [
                     {
                         "id": "3484974",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/rowdy-lover/3484974/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Romance ∙ U/A 13+",
                         "durationFormatted": "1h 59m",
+                        "duration":"",
                         "seo": {
                              "page": "Rowdy Lover",
                             "title": "Rowdy Lover (2016) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -66,10 +70,10 @@ export const entertainmentList = [
                     {
                         "id": "3488466",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/badlapur/3488466/watch",
-                        "line2": "Hindi ∙ Thriller ∙ A",
-                        "duration":"02:14:47",
+                        "slug": "",
+                        "line2": "Hindi ∙ Thriller ∙ A",                        
                         "durationFormatted": "2h 15m",
+                        "duration":"02:14:47",
                         "seo": {
                             "page": "Badlapur",
                             "title": "Badlapur (2015) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -80,10 +84,10 @@ export const entertainmentList = [
                     {
                         "id": "3497006",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/go-goa-gone/3497006/watch",
-                        "line2": "Hindi ∙ Action ∙ A",
-                        "duration":"01:42:09",
+                        "slug": "",
+                        "line2": "Hindi ∙ Action ∙ A",                        
                         "durationFormatted": "1h 42m",
+                        "duration":"01:42:09",
                         "seo": {
                             "page": "Go Goa Gone",
                             "title": "Go Goa Gone (2013) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -94,10 +98,10 @@ export const entertainmentList = [
                     {
                         "id": "3496659",
                         "defaultLanguage": "Hindi",
-                        "slug":"https://www.youtube.com/watch?v=LaXUtZLfvvA",
-                        "line2": "Hindi ∙ Action ∙ U/A 13+",
-                        "duration":"02:25:38",
+                        "slug":"",
+                        "line2": "Hindi ∙ Action ∙ U/A 13+",                        
                         "durationFormatted": "2h 26m",
+                        "duration":"02:25:38",
                         "seo": {
                             "page": "R... Rajkumar",
                             "title": "R... Rajkumar (2013) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -108,10 +112,10 @@ export const entertainmentList = [
                     {
                         "id": "3760812",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/bloody-daddy/3760812/watch",
-                        "line2": "हि, म, +6 more ∙ Action, Drama ∙ U/A 16+",
-                        "duration":"02:01:50",
+                        "slug": "",
+                        "line2": "हि, म, +6 more ∙ Action, Drama ∙ U/A 16+",                        
                         "durationFormatted": "2h 2m",
+                        "duration":"02:01:50",
                         "seo": {
                             "page": "Bloody Daddy",
                             "title": "Bloody Daddy (2023) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -129,9 +133,10 @@ export const entertainmentList = [
                     {
                         "id": "4038456",
                         "defaultLanguage": "English",
-                        "slug": "https://www.jiocinema.com/movies/agent-elite/4038456/watch",
+                        "slug": "",
                         "line2": "हि, En ∙ Action ∙ U/A 16+",
                         "durationFormatted": "1h 30m",
+                        "duration":"",
                         "seo": {
                             "page": "Agent Elite",
                             "title": "Agent Elite (2012) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -142,9 +147,10 @@ export const entertainmentList = [
                     {
                         "id": "4027850",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/knight-and-day/4027850/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Action ∙ U/A 16+",
                         "durationFormatted": "1h 45m",
+                        "duration":"",
                         "seo": {
                             "page": "Knight And Day",
                             "title": "Knight And Day (2010) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -155,9 +161,10 @@ export const entertainmentList = [
                     {
                         "id": "4023707",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/spider-man-3/4023707/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Action ∙ U/A 16+",
                         "durationFormatted": "2h 13m",
+                        "duration":"",
                         "seo": {
                             "page": "Spider-Man 3",
                             "title": "Spider-Man 3 (2007) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -168,9 +175,10 @@ export const entertainmentList = [
                     {
                         "id": "4058377",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/meet-the-spartans/4058377/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Comedy ∙ A",
                         "durationFormatted": "2h 2m",
+                        "duration":"",
                         "seo": {
                             "page": "Meet The Spartans",
                             "title": "Meet The Spartans (2008) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -188,22 +196,24 @@ export const entertainmentList = [
                     {
                         "id": "3985637",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/dil-toh-baccha-hai-ji/3985637/watch",
-                        "line2": "Hindi ∙ Comedy ∙ U/A 16+",
-                        "durationFormatted": "2h 17m",
+                        "slug": "",
+                        "line2": "Comedy, Drama, Romance",
+                        "durationFormatted": "2h 47m",
+                        "duration":"",
                         "seo": {
-                            "page": "Dil Toh Baccha Hai Ji",
-                            "title": "Dil Toh Baccha Hai Ji (2011) Hindi Movie: Watch Full HD Movie Online On JioCinema",
-                            "description": "Dil Toh Baccha Hai Ji (2011) Is A Comedy Hindi Film Starring Ajay Devgn,Emraan Hashmi,Omi Vaidya In The Lead Roles, Directed By Madhur Bhandarkar. Watch Now Or Download To Watch Later!", 
-                            "ogImage": "https://v3img.voot.com/v3Storage/assets/3x4-1718598164115.jpg",
+                            "page": "Rab Ne Bana Di Jodi",
+                            "title": "Rab Ne Bana Di Jodi (2008)",
+                            "description": "A lonely 40-ish man, likely to remain a bachelor, has a chance to find the love of his life when he falls for a vivacious young woman.", 
+                            "ogImage": "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/m8x6I2qf3R98HtF4DmJXcdxCU64.jpg",
                         }
                     },
                     {
                         "id": "3984572",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/ishq-vishk/3984572/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Romance ∙ U/A 13+",
                         "durationFormatted": "2h 9m",
+                        "duration":"",
                         "seo": {
                             "page": "Ishq Vishk",
                             "title": "Ishq Vishk (2003) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -214,9 +224,10 @@ export const entertainmentList = [
                     {
                         "id": "3487646",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/tanu-weds-manu-returns/3487646/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Romance ∙ U/A 13+",
                         "durationFormatted": "2h 7m",
+                        "duration":"",
                         "seo": {
                             "page": "Tanu Weds Manu Returns",
                             "title": "Tanu Weds Manu Returns (2015) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -227,9 +238,10 @@ export const entertainmentList = [
                     {
                         "id": "3496656",
                         "defaultLanguage": "Hindi",
-                        "slug": "https://www.jiocinema.com/movies/goliyon-ki-raasleela-ram-leela/3496656/watch",
+                        "slug": "",
                         "line2": "Hindi ∙ Romance ∙ U/A 13+",
                         "durationFormatted": "2h 36m",
+                        "duration":"",
                         "seo": {
                             "page": "Goliyon Ki Raasleela Ram-Leela",
                             "title": "Goliyon Ki Raasleela Ram-Leela (2013) Hindi Movie: Watch Full HD Movie Online On JioCinema",
@@ -250,6 +262,7 @@ export const entertainmentList = [
                         "slug": "",
                         "line2": "Bhojpuri ∙ Drama ∙ U/A 16+",
                         "durationFormatted": "2h 25m",
+                        "duration":"",
                         "seo": {
                             "page": "Khiladi",
                             "title": "Khiladi (2023) Bhojpuri Movie",
@@ -263,6 +276,7 @@ export const entertainmentList = [
                         "slug": "",
                         "line2": "Bhojpuri ∙ Comedy ∙ U/A 13+",
                         "durationFormatted": "2h 31m",
+                        "duration":"",
                         "seo": {
                             "page": "Sajan Re Jhooth Mat Bolo",
                             "title": "Sajan Re Jhooth Mat Bolo (2023) Bhojpuri Movie",
@@ -276,6 +290,7 @@ export const entertainmentList = [
                         "slug": "",
                         "line2": "Bhojpuri ∙ Comedy ∙ U/A 13+",
                         "durationFormatted": "2h 31m",
+                        "duration":"",
                         "seo": {
                             "page": "Vivaah 2",
                             "title": "Vivaah 2. Bhojpuri Movie",
@@ -296,6 +311,7 @@ export const entertainmentList = [
                         "slug": "",
                         "line2": "Horror, Comedy ∙ U/A 16+",
                         "durationFormatted": "2h 23m",
+                        "duration":"",
                         "seo": {
                             "page": "Stree 2",
                             "title": "Stree 2 Horror Movie",
@@ -309,6 +325,7 @@ export const entertainmentList = [
                         "slug": "",
                         "line2": "Hindi ∙ Drama ∙ U/A 16+",
                         "durationFormatted": "1h 53m",
+                        "duration":"",
                         "seo": {
                             "page": "Tumbbad",
                             "title": "Tumbbad Bollywood Horror Movie",
@@ -322,6 +339,7 @@ export const entertainmentList = [
                         "slug": "",
                         "line2": "Horror, Comedy ∙ U/A 16+",
                         "durationFormatted": "2h 23m",
+                        "duration":"",
                         "seo": {
                             "page": "Bhool Bhulaiyaa 2",
                             "title": "Bhool Bhulaiyaa 2 Bollywood Horror Movie",
@@ -335,6 +353,7 @@ export const entertainmentList = [
                         "slug": "",
                         "line2": "Comedy, Horror, Thriller ∙ U/A 16+",
                         "durationFormatted": "2h 38m",
+                        "duration":"",
                         "seo": {
                             "page": "Bhool Bhulaiyaa",
                             "title": "Bhool Bhulaiyaa Bollywood Horror Movie",
@@ -348,6 +367,7 @@ export const entertainmentList = [
                         "slug": "",
                         "line2": "Thriller, Horror ∙ U/A 16+",
                         "durationFormatted": "2h 12m",
+                        "duration":"",
                         "seo": {
                             "page": "Shaitaan",
                             "title": "Shaitaan Bollywood Horror Movie",
