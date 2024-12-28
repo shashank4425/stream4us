@@ -280,6 +280,78 @@ export const entertainmentList = [
                         }
                     }
                 ]
+            },
+            {
+                "id":"225510",
+                "category":"Horror",
+                "Movies": [
+                    
+                    {
+                        "id": "22551011",
+                        "defaultLanguage": "Hindi",
+                        "slug": "",
+                        "line2": "Horror, Comedy ∙ U/A 16+",
+                        "durationFormatted": "2h 23m",
+                        "seo": {
+                            "page": "Stree 2",
+                            "title": "Stree 2 Horror Movie",
+                            "description": "After the events of Stree, the town of Chanderi is being haunted again. This time, women are mysteriously abducted by a terrifying headless entity. Once again, it's up to Vicky and his friends to save their town and loved ones.",
+                            "ogImage": "https://media.themoviedb.org/t/p/w220_and_h330_face/nfnhwfUEFuSOxxf4jDdBlY6Lccw.jpg",
+                        }
+                    },
+                    {
+                        "id": "22551012",
+                        "defaultLanguage": "Hindi",
+                        "slug": "",
+                        "line2": "Hindi ∙ Drama ∙ U/A 16+",
+                        "durationFormatted": "1h 53m",
+                        "seo": {
+                            "page": "Tumbbad",
+                            "title": "Tumbbad Bollywood Horror Movie",
+                            "description":"India, 1918. On the outskirts of Tumbbad, a cursed village where it always rains, Vinayak, along with his mother and his brother, care of a mysterious old woman who keeps the secret of an ancestral treasure that Vinayak gets obsessed with.", 
+                            "ogImage": "https://media.themoviedb.org/t/p/w220_and_h330_face/6qeRFImDskoIRkSCFatqeM2rM3k.jpg",
+                        }
+                    },
+                    {
+                        "id": "22551013",
+                        "defaultLanguage": "Hindi",
+                        "slug": "",
+                        "line2": "Horror, Comedy ∙ U/A 16+",
+                        "durationFormatted": "2h 23m",
+                        "seo": {
+                            "page": "Bhool Bhulaiyaa 2",
+                            "title": "Bhool Bhulaiyaa 2 Bollywood Horror Movie",
+                            "description":"When strangers Reet and Ruhan cross paths, their journey leads to an abandoned mansion and a dreaded spirit who has been trapped for eighteen years.", 
+                            "ogImage": "https://media.themoviedb.org/t/p/w220_and_h330_face/fw0oMHiMt9qOuKEJEmzFiCNAnXc.jpg",
+                        }
+                    },
+                    {
+                        "id": "22551014",
+                        "defaultLanguage": "Hindi",
+                        "slug": "",
+                        "line2": "Comedy, Horror, Thriller ∙ U/A 16+",
+                        "durationFormatted": "2h 38m",
+                        "seo": {
+                            "page": "Bhool Bhulaiyaa",
+                            "title": "Bhool Bhulaiyaa Bollywood Horror Movie",
+                            "description":"NRI Siddharth Chaturvedi and his wife Avni return to Siddharth's family's ancestral Varanasi palace while disregarding warnings of a curse and paranormal phenomena. Soon enough, inexplicable events begin occuring, which forces Siddharth to consult the eccentric psychiatrist Aditya Shrivastav to help solve the mystery.", 
+                            "ogImage": "https://media.themoviedb.org/t/p/w220_and_h330_face/soRW3p4GlPphHiFkwbqYGrodQ5S.jpg",
+                        }
+                    },
+                    {
+                        "id": "22551015",
+                        "defaultLanguage": "Hindi",
+                        "slug": "",
+                        "line2": "Thriller, Horror ∙ U/A 16+",
+                        "durationFormatted": "2h 12m",
+                        "seo": {
+                            "page": "Shaitaan",
+                            "title": "Shaitaan Bollywood Horror Movie",
+                            "description":"Kabir and his family's fun weekend retreat takes terrifying turn when an intruder takes over the control of the body of his teenage daughter, putting her at the mercy of his increasingly sinister orders.", 
+                            "ogImage": "https://media.themoviedb.org/t/p/w220_and_h330_face/srFiYiLJyU8nj4CltDV6uI3AE9q.jpg",
+                        }
+                    }
+                ]
             }
         ]
     
