@@ -103,6 +103,5 @@ export const bollywoodhorrormoviesList = [
                     "description":"Sanjana and Aditya decide to give their marriage one last chance. They plan a holiday in Ooty, but they don't know that a vengeful spirit is waiting for them.", 
                     "ogImage": "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/oc7d4jzqZ2Zat831pVSkvEIVMYa.jpg",
                 }
-            }
-          
+            }          
 ]

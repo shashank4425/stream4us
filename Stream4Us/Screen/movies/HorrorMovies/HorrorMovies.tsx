@@ -27,7 +27,7 @@ export default function HorrorMovies({navigation,route}) {
                             <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer",item)}>
                               <Image source={{uri: item.seo.ogImage}}
                                style={Styles.imgSize}/>
-                               <Text numberOfLines={1} style={Styles.title}>{item.seo.title}</Text>
+                               <Text numberOfLines={1} style={Styles.title}>{item.seo.page}</Text>
                                </TouchableOpacity>
                              </View>                             
                           )
