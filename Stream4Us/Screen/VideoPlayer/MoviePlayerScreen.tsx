@@ -55,6 +55,7 @@ const PotraitMoviePlayer = ({ route }) => {
     const currentPosition = await videoRef.current.getStatusAsync();
     videoRef.current.setPositionAsync(currentPosition.positionMillis - 10000);
   }
+  
   const moveVideoForward = async () => {
     const currentPosition = await videoRef.current.getStatusAsync();
     videoRef.current.setPositionAsync(currentPosition.positionMillis + 10000);
@@ -293,8 +294,6 @@ const PotraitMoviePlayer = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  
-
   controls: {
     position: "absolute",
     flexWrap: "wrap",

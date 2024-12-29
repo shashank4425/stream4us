@@ -60,7 +60,7 @@ const Styles = StyleSheet.create({
         padding:12
     },
     cardContainer: {
-        marginBottom: 6
+        marginBottom: 2
     },
     container: {
         flexDirection: 'row',
@@ -90,7 +90,6 @@ const Styles = StyleSheet.create({
         fontSize: 4
     },
     leftContent: {
-        marginBottom: 2,
         marginLeft: 3,
         textAlign: "right",
         width: windowWidth / 1.5,
@@ -108,7 +107,7 @@ const Styles = StyleSheet.create({
         padding:8
     },
     viewAll: {
-        padding: 5,
+        padding: 2,
         fontSize: 14,
         color: "#ffffff"
     }

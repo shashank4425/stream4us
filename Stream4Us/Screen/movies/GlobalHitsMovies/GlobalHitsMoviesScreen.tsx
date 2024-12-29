@@ -25,9 +25,12 @@ export default function GlobalHitsMovies({navigation,route}) {
                           return (
                           <View key={item.id} style={Styles.cards}>
                             <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer",item)}>
-                              <Image source={{uri: item.seo.ogImage}}
-                               style={Styles.imgSize}/>
-                               <Text numberOfLines={1} style={Styles.title}>{item.seo.page}</Text>
+                              <View style={Styles.imgContainer}>
+                                <Image source={{uri: item.seo.ogImage}} style={Styles.imgSize}/>
+                              </View>
+                              <View style={Styles.titleContainer}>
+                                <Text numberOfLines={1} style={Styles.title}>{item.seo.page}</Text>
+                              </View>
                                </TouchableOpacity>
                              </View>                             
                           )
@@ -44,19 +47,27 @@ const Styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     cards: {
-        height: 210,
-        width: 122,
+        height: 220,
+        width: 128,
         backgroundColor: "#000",
         borderRadius: 4,
         padding: 4,
-        margin: 3   
+        margin: 1   
+    },
+    imgContainer: {
+        height:"85%",
+        width:"100%",
     },
     imgSize: {
-        height:"89%",
+        height:"100%",
+        width:"100%",
+    },
+    titleContainer: {
+        height:"15%",
         width:"100%",
     },
     title: {
-        height:"12%",
+        height:"100%",
         width:"100%",
         color: "#fffaf0",
         fontWeight: "bold",
