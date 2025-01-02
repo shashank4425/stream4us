@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions} from "react-native";
+import {Dimensions, StatusBar} from "react-native";
 import { useNavigation } from "expo-router";
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -21,44 +21,43 @@ const Drawer= createDrawerNavigator();
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 function AppNavigator({route}){
-    return (
-      
+    return (      
       <Stack.Navigator screenOptions={{
         cardStyle: {
           backgroundColor:"#0D0E10",
           width:windowWidth
         },          
-        headerTitle:() => 
+        headerTitle:() =>
           <Image
-          style={{marginStart:1, width: windowWidth/3.6,
-             height: 40, backgroundColor:"#0D0E10" }}
-          source={require('../assets/images/stream4us/logo/stream4us_logo.png')}
+          style={{marginTop:-15, width: windowWidth/4.6,
+             height: 28 }}
+          source={require('../assets/images/stream4us/logo/stream4us_new.png')}
         />        }}>
     <Stack.Screen name="Home" component={Home} options={{
       headerLeft:()=>null,
       headerShown:true,
-      headerStyle: {backgroundColor:"#0D0E10"},
+      headerStyle: {backgroundColor:"#0D0E10", height:45},
       headerTintColor:"#ffffff"
     }}      
     />
     <Stack.Screen name="Action Movies" component={ActionMovies} options={{
-      headerTitle:() => null, headerTintColor:"#FFF", headerStyle: {backgroundColor:"#0D0E10"}
+      headerTitle:() => null, headerTintColor:"#FFF", headerStyle: {backgroundColor:"#0D0E10", height:55},
     }}/>
     <Stack.Screen name="Global Hits Movies" component={GlobalHitsMovies} options={{
-      headerTitle:() => null, headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10"}
+      headerTitle:() => null, headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10", height:55},
     }}/>
     <Stack.Screen name="Romantic Movies" component={RomanticMovies} options={{
-      headerTitle:() => null, headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10"}
+      headerTitle:() => null, headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10", height:55},
     }}/>      
     <Stack.Screen name="South Dubbed Movies" component={SouthDubbedMovies} options={{
-      headerTitle:() => null,  headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10"}
+      headerTitle:() => null,  headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10", height:55},
     }}/>
       
       <Stack.Screen name="Bhojpuri Bhaukal" component={BhojpuriBhaukalMovies} options={{
-      headerTitle:() => null,  headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10"}
+      headerTitle:() => null,  headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10", height:55},
     }}/>
     <Stack.Screen name="Horror" component={HorrorMovies} options={{
-      headerTitle:() => null,  headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10"}
+      headerTitle:() => null,  headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10", height:55},
     }}/>
     <Stack.Screen name="MoviePlayer" component={MoviePlayer} options={{
       headerShown:false

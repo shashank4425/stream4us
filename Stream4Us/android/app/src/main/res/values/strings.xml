@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">Stream4Us</string>
+  <string name="expo_system_ui_user_interface_style" translatable="false">automatic</string>
+  <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
+  <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+  <string name="server_client_id">855016977574-m6vnof4q4dp7fhnms9l4vapv1chfl3ob.apps.googleusercontent.com</string>
+</resources>

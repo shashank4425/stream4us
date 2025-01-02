@@ -4,7 +4,7 @@
     "slug": "Stream4Us",
     "version": "1.0.0",
     "orientation": "portrait",
-    "backgroundColor":"#0D0E10",
+    "backgroundColor": "#0D0E10",
     "icon": "./assets/images/stream4us/logo/stream4us_logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -16,7 +16,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/stream4us/logo/stream4us_logo.png",
         "backgroundColor": "#0D0E10"
-      }
+      },
+      "package": "com.stream4us"
     },
     "web": {
       "bundler": "metro",
@@ -24,6 +25,7 @@
       "favicon": "./assets/images/stream4us/logo/stream4us_logo.png"
     },
     "plugins": [
+      "@react-native-google-signin/google-signin",
       "expo-router",
       [
         "expo-splash-screen",

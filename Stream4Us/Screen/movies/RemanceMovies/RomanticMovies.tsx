@@ -14,6 +14,7 @@ export default function RomanticMovies({navigation,route}) {
            headerTitle: route.params.title
         }) 
    },[navigation]);
+   
     return (
         <SafeAreaView >
             <View>
@@ -34,9 +35,10 @@ export default function RomanticMovies({navigation,route}) {
                                </TouchableOpacity>
                              </View>                             
                           )
-                        })}                       
+                        })}   
+                                        
                     </View>
-                </ScrollView>
+                </ScrollView> 
             </View>
         </SafeAreaView>
     )
