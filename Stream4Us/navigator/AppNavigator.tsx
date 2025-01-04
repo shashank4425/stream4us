@@ -60,8 +60,8 @@ function AppNavigator({route}){
       headerTitle:() => null,  headerTintColor: "#FFF", headerStyle: {backgroundColor:"#0D0E10", height:55},
     }}/>
     <Stack.Screen name="MoviePlayer" component={MoviePlayer} options={{
-      headerShown:false
-    }}/>
+      headerShown:false, cardStyle: {width:"100%", height:"100%", backgroundColor:"#0D0E10"}
+          }}/>
     </Stack.Navigator>
     )
 }

@@ -18,7 +18,7 @@ import Slider from "@react-native-community/slider";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const PotraitMoviePlayer = ({ route }) => {
+const MoviePlayer = ({ route }) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [islockScreen, setIsLockScreen] = useState(false);
@@ -95,7 +95,7 @@ const PotraitMoviePlayer = ({ route }) => {
   useEffect(() => {
        const timeout= setTimeout(() => {
            setShowControls(false);
-       },6000)
+       },600000)
        return (() => {
         clearTimeout(timeout);
        })
@@ -106,7 +106,7 @@ const PotraitMoviePlayer = ({ route }) => {
 
    setTimeout(()=>{
     setShowControls(false);
-   },6000);
+   },600000);
   }
 
   useEffect(() => {
@@ -152,15 +152,13 @@ const PotraitMoviePlayer = ({ route }) => {
   return (
             
    <View style={{flex:1}}>
-     <StatusBar hidden={true} />
       <TouchableOpacity onPress={clickedScreen}>
         <View>
           {orientation == "portrait" ? 
           <TouchableWithoutFeedback onPress={handleControls}>
           <View>
-            <Video
-            
-              style={{ width: Dimensions.get("window").width, height: 250 }}
+            <Video            
+              style={{marginTop:-15, width: Dimensions.get("window").width, height: 260 }}
               ref={videoRef}
               onPlaybackStatusUpdate={handleVideoStatusUpdate}
               source={{
@@ -217,6 +215,7 @@ const PotraitMoviePlayer = ({ route }) => {
            : 
            <TouchableWithoutFeedback onPress={handleControls}>
            <View>
+           <StatusBar hidden={true} />
             <Video
               style={{
                 width: "100%",
@@ -289,7 +288,7 @@ const PotraitMoviePlayer = ({ route }) => {
       <View style={styles.container}>
         <View style={styles.contentMain}>
           <Text style={styles.mtitle}>{movieLink.seo.page}</Text>
-          <Text style={styles.mline}>{movieLink.line2}</Text>
+          <Text style={styles.mline}>{movieLink.line2} testt</Text>
         </View>
         <View>
           <Text style={styles.contentDes}>{movieLink.seo.description}</Text>
@@ -306,7 +305,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignContent: "flex-start",
     flexDirection: "column",
-    height: 250,
+    height: 240,
     width:"100%"
   },
   LandScapecontrols: {
@@ -325,7 +324,7 @@ const styles = StyleSheet.create({
    fontWeight:"700"
   },
   topController: {
-    height: "62%",
+    height: "60%",
     width: "99%",
     flexDirection: "row",
     marginTop: 25,
@@ -405,7 +404,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0D0E10",
     height: windowHeight,
     width: windowWidth,
-    padding: 10,
+    padding: 2,
   },
   contentMain: {
     margin: 4,
@@ -431,4 +430,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PotraitMoviePlayer;
+export default MoviePlayer;
