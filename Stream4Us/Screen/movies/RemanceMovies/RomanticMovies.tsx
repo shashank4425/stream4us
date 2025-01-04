@@ -16,9 +16,6 @@ export default function RomanticMovies({navigation,route}) {
    },[navigation]);
    
     return (
-        <SafeAreaView >
-            <View>
-                
                 <ScrollView>
                     <View style={Styles.container}>
                         
@@ -39,21 +36,20 @@ export default function RomanticMovies({navigation,route}) {
                                         
                     </View>
                 </ScrollView> 
-            </View>
-        </SafeAreaView>
     )
 }
 const Styles = StyleSheet.create({
     container: {
+        padding:12,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     cards: {
-        height: 220,
-        width: 128,
+        height: 210,
+        width: 120,
         backgroundColor: "#000",
         borderRadius: 4,
-        padding: 4,
+        padding: 2,
         margin: 1   
     },
     imgContainer: {

@@ -14,10 +14,7 @@ export default function SouthDubbedMovies({navigation,route}) {
             headerTitle: route.params.title
          }) 
     },[navigation]);
-    return (
-        <SafeAreaView >
-            <View>
-                
+    return (                
                 <ScrollView>
                     <View style={Styles.container}>
                         
@@ -38,21 +35,20 @@ export default function SouthDubbedMovies({navigation,route}) {
                         })}                       
                     </View>
                 </ScrollView>
-            </View>
-        </SafeAreaView>
     )
 }
 const Styles = StyleSheet.create({
     container: {
+        padding:12,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     cards: {
-        height: 220,
-        width: 128,
+        height: 210,
+        width: 120,
         backgroundColor: "#000",
         borderRadius: 4,
-        padding: 4,
+        padding: 2,
         margin: 1   
     },
     imgContainer: {

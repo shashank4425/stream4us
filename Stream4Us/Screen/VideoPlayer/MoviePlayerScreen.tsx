@@ -25,11 +25,12 @@ const PotraitMoviePlayer = ({ route }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [duration, setDuration] = useState(0);
-  const [vdduration, setVdDuration] = useState(0);
   const [orientation, setOrientation] = useState("portrait");
   const [sliderValue, setSliderValue] = useState(0);
   const [clicked, setClicked] = useState(false);
   const [status, setStatus] = useState({});
+  const [videoStatus, setVideoStatus] = useState({});
+  const [videoDuration, setVideoDuration] = useState(0);
 
   const [showControls, setShowControls] = useState(true);
 
@@ -39,6 +40,22 @@ const PotraitMoviePlayer = ({ route }) => {
     setTimeout(function () {
       setClicked(false);
     }, 4000);
+  };
+
+  const handleVideoStatusUpdate = (status) => {
+    setVideoStatus(status);
+    if (status.isLoaded) {
+      setIsLoaded(true);
+      setStatus(status.durationMillis);
+      setCurrentTime(status.positionMillis);
+      setVideoDuration(status.durationMillis / 1000); // in seconds
+      setSliderValue(status.positionMillis / 1000); // convert position to seconds
+    }
+  };
+  const handleSliderChange = (value) => {
+    if (videoRef.current) {
+      videoRef.current.setPositionAsync(value * 1000); // set position in milliseconds
+    }
   };
 
   const movieLink = route.params;
@@ -60,13 +77,7 @@ const PotraitMoviePlayer = ({ route }) => {
     const currentPosition = await videoRef.current.getStatusAsync();
     videoRef.current.setPositionAsync(currentPosition.positionMillis + 10000);
   }
-  const onPlaybackStatusUpdate = (status) => {
-    if (status.isLoaded) {
-      setIsLoaded(true);
-      setStatus(status.durationMillis);
-      setCurrentTime(status.positionMillis);
-    }
-  };
+  
 
   useEffect(() => {
     const backHandle = BackHandler.addEventListener("hardwareBackPress", () => {
@@ -139,8 +150,9 @@ const PotraitMoviePlayer = ({ route }) => {
     !islockScreen ? setIsLockScreen(true) : setIsLockScreen(false);
   }
   return (
-    <View>
-      <StatusBar hidden={true} />
+            
+   <View style={{flex:1}}>
+     <StatusBar hidden={true} />
       <TouchableOpacity onPress={clickedScreen}>
         <View>
           {orientation == "portrait" ? 
@@ -150,7 +162,7 @@ const PotraitMoviePlayer = ({ route }) => {
             
               style={{ width: Dimensions.get("window").width, height: 250 }}
               ref={videoRef}
-              onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+              onPlaybackStatusUpdate={handleVideoStatusUpdate}
               source={{
                 uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
               }}
@@ -195,8 +207,9 @@ const PotraitMoviePlayer = ({ route }) => {
               <Slider
                 style={styles.slider}
                 minimumValue={0}
-                maximumValue={isLoaded ? duration / 1000 : 0}
-                value={isLoaded ? currentTime / 1000 : 0}
+                maximumValue={videoDuration}
+                value={sliderValue}
+                onValueChange={handleSliderChange}
                 minimumTrackTintColor="#1FB28B"
                 maximumTrackTintColor="#D3D3D3"
                 thumbTintColor="#1FB28B"
@@ -214,12 +227,12 @@ const PotraitMoviePlayer = ({ route }) => {
                 height: Dimensions.get("window").height,
               }}
               ref={videoRef}
-              onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+              onPlaybackStatusUpdate={handleVideoStatusUpdate}
               source={{
-                uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                uri: "https://www.w3schools.com/html/mov_bbb.mp4",
               }}
               shouldPlay={!isPlaying}
-              resizeMode={ResizeMode.STRETCH}
+              resizeMode={ResizeMode.COVER}
               isLooping
               key={movieLink.id}
             />
@@ -265,8 +278,9 @@ const PotraitMoviePlayer = ({ route }) => {
             <Slider
               style={styles.slider}
               minimumValue={0}
-              maximumValue={isLoaded ? duration / 1000 : 0}
-              value={isLoaded ? currentTime / 1000 : 0}
+              maximumValue={videoDuration}
+              value={sliderValue}
+              onValueChange={handleSliderChange}
               minimumTrackTintColor="#1FB28B"
               maximumTrackTintColor="#D3D3D3"
               thumbTintColor="#1FB28B"
@@ -289,8 +303,9 @@ const PotraitMoviePlayer = ({ route }) => {
           <Text style={styles.contentDes}>{movieLink.seo.description}</Text>
         </View>
       </View>
-    </View>
-  );
+
+   </View>
+  )
 };
 
 const styles = StyleSheet.create({
@@ -343,8 +358,8 @@ const styles = StyleSheet.create({
  
   fifteenSecond: {
     fontSize: 8,
-    marginTop: 12,
-    marginLeft: 12,
+    marginTop: 15,
+    marginLeft: 15,
     color: "#fff",
     fontWeight: "600",
     position: "absolute",
