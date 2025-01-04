@@ -13,7 +13,7 @@ import { StatusBar } from "expo-status-bar";
 import { Video, ResizeMode } from "expo-av"; // Import Video from expo-av
 import { Ionicons } from "@expo/vector-icons"; // For icons
 import FontAwesomeIcon from "react-native-vector-icons/Feather";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Slider from "@react-native-community/slider";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -180,12 +180,8 @@ const PotraitMoviePlayer = ({ route }) => {
                 <Text style={styles.fifteenSecond}>10</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handlePlayPause}>
-                <Ionicons
-                  name={
-                    isPlaying ? "play-circle-outline" : "pause-circle-outline"
-                  }
-                  size={42}
-                  color="white"
+                <MaterialIcon
+                  name={isPlaying ? "play-circle-outline" : "pause-circle-outline"}size={42}color="white"
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={moveVideoForward}>
@@ -199,8 +195,8 @@ const PotraitMoviePlayer = ({ route }) => {
                 {formatTime(currentTime)} / {movieLink.duration}
               </Text>
               <TouchableOpacity onPress={toggleScreen}>
-                <MaterialCommunityIcons style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
-                ></MaterialCommunityIcons>
+                <MaterialIcon style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
+                ></MaterialIcon>
               </TouchableOpacity>
               </View>
               <View style={styles.sliderSection}>
@@ -224,7 +220,7 @@ const PotraitMoviePlayer = ({ route }) => {
             <Video
               style={{
                 width: "100%",
-                height: Dimensions.get("window").height,
+                height: "100%",
               }}
               ref={videoRef}
               onPlaybackStatusUpdate={handleVideoStatusUpdate}
@@ -240,8 +236,8 @@ const PotraitMoviePlayer = ({ route }) => {
             
             <View style={styles.LandScapecontrols}>
             <TouchableOpacity onPress={lockScreen}>
-              <FontAwesomeIcon style={styles.screenLockUnlock} name={islockScreen ? "lock" : "unlock"} size={24} color="white"
-            ></FontAwesomeIcon>
+              <MaterialIcon style={styles.screenLockUnlock} name={islockScreen ? "lock" : "lock-open"} size={24} color="white"
+            ></MaterialIcon>
             </TouchableOpacity>
             {!islockScreen && <View style={styles.LandScapetopController}>
            <TouchableOpacity onPress={moveVideoBack}>
@@ -250,13 +246,9 @@ const PotraitMoviePlayer = ({ route }) => {
               <Text style={styles.fifteenSecond}>10</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handlePlayPause}>
-              <Ionicons
-              style={styles.Rotate}
-                name={
-                  isPlaying ? "play-circle-outline" : "pause-circle-outline"
-                }
-                size={42}
-                color="white"
+              <MaterialIcon
+              style={styles.Rotate} 
+              name={ isPlaying ? "play-circle-outline" : "pause-circle-outline"}size={42}color="white"
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={moveVideoForward}>
@@ -270,8 +262,8 @@ const PotraitMoviePlayer = ({ route }) => {
               {formatTime(currentTime)} / {movieLink.duration}
             </Text>
             <TouchableOpacity onPress={toggleScreen}>
-              <MaterialCommunityIcons style={styles.fsRotate} name={"fullscreen-exit"} size={24} color="white"
-              ></MaterialCommunityIcons>
+              <MaterialIcon style={styles.fsRotate} name={"fullscreen-exit"} size={24} color="white"
+              ></MaterialIcon>
             </TouchableOpacity>
             </View>}
             {!islockScreen && <View style={styles.sliderSection}>
