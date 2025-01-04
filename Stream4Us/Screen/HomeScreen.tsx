@@ -6,14 +6,17 @@ import { entertainmentList } from "@/assets/entertainmentList/entertainmentList"
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 import { StatusBar } from "expo-status-bar";
+import TrendingMovies from "@/components/banner/TrendingMovies";
 
 export default function Home({ navigation }) {
     return (
         <View style={Styles.screenContainer}>
         
-            <StatusBar backgroundColor="#0D0E10" style="light" />            
+            <StatusBar backgroundColor="#0D0E10" style="light" /> 
+                      
             <ScrollView>
                 <View>
+                <TrendingMovies/> 
                     {entertainmentList.map(items => {
                         return(
                         <View style={Styles.cardContainer} key={items.id}>                        
@@ -53,7 +56,7 @@ export default function Home({ navigation }) {
 }
 const Styles = StyleSheet.create({
     screenContainer: {
-        flex:0,
+        flex:1,
         backgroundColor:"#0D0E10",
         flexDirection: 'column',
         flexWrap: 'nowrap',
