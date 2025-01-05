@@ -288,7 +288,7 @@ const MoviePlayer = ({ route }) => {
       <View style={styles.container}>
         <View style={styles.contentMain}>
           <Text style={styles.mtitle}>{movieLink.seo.page}</Text>
-          <Text style={styles.mline}>{movieLink.line2} testt</Text>
+          <Text style={styles.mline}>{movieLink.line2}</Text>
         </View>
         <View>
           <Text style={styles.contentDes}>{movieLink.seo.description}</Text>
