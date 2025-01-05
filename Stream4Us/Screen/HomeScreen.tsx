@@ -11,12 +11,11 @@ import TrendingMovies from "@/components/banner/TrendingMovies";
 export default function Home({ navigation }) {
     return (
         <View style={Styles.screenContainer}>
-        
             <StatusBar backgroundColor="#0D0E10" style="light" /> 
-                      
-            <ScrollView>
-                <View>
-                <TrendingMovies/> 
+                     
+                 <ScrollView>
+                 <TrendingMovies/> 
+                   <View>                
                     {entertainmentList.map(items => {
                         return(
                         <View style={Styles.cardContainer} key={items.id}>                        

@@ -5,8 +5,10 @@ const { width } = Dimensions.get('window');
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 import { bannerList } from "../../assets/bannerList/bannerList";
+import { useNavigation } from '@react-navigation/native';
 
 const TrendingMovies = () => {
+  const navigation=useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -24,7 +26,9 @@ const TrendingMovies = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.imageContainer}>
-      <Image source={{ uri: item.uri }} style={styles.image} />
+      <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer", item)}>
+      <Image source={{ uri: item.seo.ogImage }} style={styles.image} />
+      </TouchableOpacity>
     </View>
   );
 
