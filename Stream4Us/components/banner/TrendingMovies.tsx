@@ -1,15 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, FlatList, Text, StyleSheet, Image, Dimensions, Animated } from 'react-native';
+import { View, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions, Animated } from 'react-native';
 
 const { width } = Dimensions.get('window');
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-const images = [
-  { id: '1', uri: 'https://m.media-amazon.com/images/M/MV5BMzU5N2UwODktZWY4Mi00MGYzLWI1MzQtNmYzY2M0NzNkODc0XkEyXkFqcGc@._V1_.jpg' },
-  { id: '2', uri: 'https://v3img.voot.com/resizeMedium,w_810,h_1080/v3Storage/assets/3x4-1734588156138.jpg' },
-  { id: '3', uri: 'https://v3img.voot.com/resizeMedium,w_256,h_341/v3Storage/assets/3x4-1734588344070.jpg' },
-  { id: '4', uri: 'https://v3img.voot.com/resizeMedium,w_810,h_1080/v3Storage/assets/3x4-1734588156138.jpg' },
-];
+import { bannerList } from "../../assets/bannerList/bannerList";
 
 const TrendingMovies = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -19,7 +14,7 @@ const TrendingMovies = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       let nextIndex = activeIndex + 1;
-      if (nextIndex >= images.length) nextIndex = 0;
+      if (nextIndex >= bannerList.length) nextIndex = 0;
       setActiveIndex(nextIndex);
       flatListRef.current?.scrollToIndex({ animated: true, index: nextIndex });
     }, 5000); // Change every 5 seconds
@@ -39,7 +34,7 @@ const TrendingMovies = () => {
   );
 
   const dotPosition = scrollX.interpolate({
-    inputRange: [0, width, width * 2, width * 3],
+    inputRange: [0, width, width * 3, width * 4],
     outputRange: [0, 1, 2, 3],
     extrapolate: 'clamp',
   });
@@ -47,7 +42,7 @@ const TrendingMovies = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={images}
+        data={bannerList}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         horizontal
@@ -57,7 +52,7 @@ const TrendingMovies = () => {
         ref={flatListRef}
       />
       <View style={styles.dotsContainer}>
-        {images.map((_, index) => (
+        {bannerList.map((_, index) => (
           <View
             key={index}
             style={[
@@ -78,20 +73,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   imageContainer: {
-    width:windowWidth,
-    height:220,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    padding:4,
+    width:windowWidth/1.2,
+    height:200
   },
   image: {
-    width:"50%",
+    width:"100%",
     height: "100%",
-    resizeMode: 'cover',
+    resizeMode: 'contain',
+    borderRadius:12
   },
   dotsContainer: {
     position: 'relative',
-    paddingLeft:"8%",
-    bottom: 0,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
