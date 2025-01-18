@@ -1,8 +1,7 @@
 import React from "react";
 import {Dimensions, StatusBar} from "react-native";
-import { useNavigation } from "expo-router";
+import { SplashScreen, useNavigation } from "expo-router";
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Image, View, Text, StyleSheet, ScrollView} from "react-native"
 import BottomNavigator from "./BottomNavigator";
@@ -15,9 +14,9 @@ import BhojpuriBhaukalMovies from "@/Screen/movies/BhojpuriMovies/BhojpuriBhauka
 import HorrorMovies from "@/Screen/movies/HorrorMovies/HorrorMovies";
 import MoviePlayer from "@/Screen/VideoPlayer/MoviePlayerScreen";
 import Home from "@/Screen/HomeScreen";
+import Splash from "@/Screen/SplashScreen";
 
 const Stack = createStackNavigator();
-const Drawer= createDrawerNavigator();
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 function AppNavigator({route}){
@@ -31,8 +30,12 @@ function AppNavigator({route}){
           <Image
           style={{marginTop:-15, width: windowWidth/4.6,
              height: 28 }}
-          source={require('../assets/images/stream4us/logo/stream4us_new.png')}
+          source={require('../assets/images/stream4us/logo/pixelcut-export.png')}
         />        }}>
+    
+    <Stack.Screen name="Splash" component={Splash} options={{
+      headerShown:false
+    }}/>     
     <Stack.Screen name="Home" component={Home} options={{
       headerLeft:()=>null,
       headerShown:true,

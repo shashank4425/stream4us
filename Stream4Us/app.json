@@ -1,23 +1,25 @@
 {
   "expo": {
-    "name": "Stream4Us",
-    "slug": "Stream4Us",
+    "name": "Stream Us",
+    "slug": "stream-us",
     "version": "1.0.0",
     "orientation": "portrait",
     "backgroundColor": "#0D0E10",
     "icon": "./assets/images/stream4us/logo/stream4us_logo.png",
-    "scheme": "myapp",
+    "scheme": "com.example.streamus",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.streamus"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/stream4us/logo/stream4us_logo.png",
         "backgroundColor": "#0D0E10"
       },
-      "package": "com.stream4us"
+      "package": "com.example.streamus",
+      "versionCode": 2
     },
     "web": {
       "bundler": "metro",
@@ -25,17 +27,7 @@
       "favicon": "./assets/images/stream4us/logo/stream4us_logo.png"
     },
     "plugins": [
-      "@react-native-google-signin/google-signin",
       "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/stream4us/logo/stream4us_logo.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#0D0E10"
-        }
-      ],
       [
         "expo-screen-orientation",
         {
@@ -45,6 +37,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      }
     }
   }
 }
