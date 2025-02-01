@@ -1,36 +1,32 @@
+import react, { useEffect } from "react"
+import { View, StyleSheet, ActivityIndicator,Image } from "react-native"
 
-import AppNavigator from '@/navigator/AppNavigator';
-import { useDebugValue, useEffect } from 'react';
-import { Image, StyleSheet,Dimensions, Platform, SafeAreaView, ScrollView, View } from 'react-native';
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-export default function Splash({ navigation }) {
-
-    useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate("Home")
-        }, 5000)
-    }, []);
+export default function SplashScreen({navigation}) {
+    useEffect(() => {        
+          setTimeout(async () => {
+            navigation.navigate('Home');
+        }, 4000);
+      },  []);
+ 
     return (
-        <View style={styles.container}>
-            <View>
-            {/* <Image source={require("../assets/images/stream4us/logo/app_icon_new.png")} style={styles.imgSize} /> */}
+            <View style={Styles.container}>
+                <Image style={Styles.imgSize} 
+                source={require('../assets/images/stream4us/logo/stream4us-icon.png')}/>
+                <ActivityIndicator color="#fffaf0" size="large"/>
             </View>
-            
-        </View>
-    );
+    )
 }
-
-const styles = StyleSheet.create({
- container: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    backgroundColor:"#0D0E10",
- },
- imgSize: {
-    resizeMode:"cover",
-    height:70,
-    width:280
- }
-});
+const Styles = StyleSheet.create({
+    container: {
+        backgroundColor:"#0D0E10",
+        resizeMode:"cover",
+        justifyContent:'center',
+        alignItems:'center',
+        flex:1
+    },
+    imgSize: {
+        height:140,
+        width:110,
+    }
+    
+})

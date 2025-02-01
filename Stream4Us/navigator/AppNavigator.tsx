@@ -1,11 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import {Dimensions, StatusBar} from "react-native";
-import { SplashScreen, useNavigation } from "expo-router";
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { Image, View, Text, StyleSheet, ScrollView} from "react-native"
-import BottomNavigator from "./BottomNavigator";
-
+import { Image, StyleSheet} from "react-native"
 import ActionMovies from "@/Screen/movies/ActionMovies/ActionMovies";
 import GlobalHitsMovies from "@/Screen/movies/GlobalHitsMovies/GlobalHitsMoviesScreen";
 import RomanticMovies from "@/Screen/movies/RemanceMovies/RomanticMovies";
@@ -14,28 +11,29 @@ import BhojpuriBhaukalMovies from "@/Screen/movies/BhojpuriMovies/BhojpuriBhauka
 import HorrorMovies from "@/Screen/movies/HorrorMovies/HorrorMovies";
 import MoviePlayer from "@/Screen/VideoPlayer/MoviePlayerScreen";
 import Home from "@/Screen/HomeScreen";
-import Splash from "@/Screen/SplashScreen";
-
+import Splash from '@/Screen/SplashScreen';
+import * as NavigationBar from 'expo-navigation-bar';
 const Stack = createStackNavigator();
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 function AppNavigator({route}){
+  NavigationBar.setBackgroundColorAsync("#0D0E10")
     return (      
-      <Stack.Navigator screenOptions={{
+      <Stack.Navigator initialRouteName='Splash' screenOptions={{
         cardStyle: {
           backgroundColor:"#0D0E10",
           width:windowWidth
-        },          
-        headerTitle:() =>
+        },headerTitle:() =>
           <Image
           style={{marginTop:-15, width: windowWidth/4.6,
              height: 28 }}
-          source={require('../assets/images/stream4us/logo/pixelcut-export.png')}
-        />        }}>
-    
+          source={require('../assets/images/stream4us/logo/stream4us.png')}
+        />
+      }}>
     <Stack.Screen name="Splash" component={Splash} options={{
+      headerLeft:()=>null,
       headerShown:false
-    }}/>     
+    }}      />         
     <Stack.Screen name="Home" component={Home} options={{
       headerLeft:()=>null,
       headerShown:true,
