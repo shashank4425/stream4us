@@ -18,8 +18,8 @@ const TrendingMovies = () => {
       let nextIndex = activeIndex + 1;
       if (nextIndex >= bannerList.length) nextIndex = 0;
       setActiveIndex(nextIndex);
-      flatListRef.current?.scrollToIndex({ animated: true, index: nextIndex });
-    }, 5000); // Change every 5 seconds
+      flatListRef.current?.scrollToIndex({ animated: true,scrollX: true, index: nextIndex });
+    }, 3000); // Change every 5 seconds
 
     return () => clearInterval(interval); // Clean up on unmount
   }, [activeIndex]);
@@ -37,11 +37,14 @@ const TrendingMovies = () => {
     { useNativeDriver: false }
   );
 
-  const dotPosition = scrollX.interpolate({
-    inputRange: [0, width, width * 3, width * 4],
-    outputRange: [0, 1, 2, 3],
-    extrapolate: 'clamp',
-  });
+  const handleEndReached = () => {
+    if(activeIndex == bannerList.length -1){
+      setTimeout(() => {
+        flatListRef.current.scrollToIndex({index : 0 , animated : true});
+         setActiveIndex(0);
+      }, 3000);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -51,6 +54,7 @@ const TrendingMovies = () => {
         keyExtractor={(item) => item.id}
         horizontal
         pagingEnabled
+        onEndReached={handleEndReached}
         showsHorizontalScrollIndicator={false}
         onScroll={onScroll}
         ref={flatListRef}
@@ -77,14 +81,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   imageContainer: {
-    padding:4,
+    padding:0,
+    marginRight:8,
+    marginLeft:6,
     width:windowWidth/1.2,
-    height:200
+    height:186
   },
   image: {
+    backgroundColor:"#D9D9D9",
     width:"100%",
     height: "100%",
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     borderRadius:12
   },
   dotsContainer: {

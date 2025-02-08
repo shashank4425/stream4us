@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {Dimensions, StatusBar} from "react-native";
+import * as NavigationBar from 'expo-navigation-bar';
+NavigationBar.setBackgroundColorAsync("#0D0E10");  
 import { createStackNavigator } from '@react-navigation/stack';
-
-import { Image, StyleSheet} from "react-native"
+import { Image, Dimensions,StyleSheet,AppState,BackHandler} from "react-native"
 import ActionMovies from "@/Screen/movies/ActionMovies/ActionMovies";
 import GlobalHitsMovies from "@/Screen/movies/GlobalHitsMovies/GlobalHitsMoviesScreen";
 import RomanticMovies from "@/Screen/movies/RemanceMovies/RomanticMovies";
@@ -11,15 +11,22 @@ import BhojpuriBhaukalMovies from "@/Screen/movies/BhojpuriMovies/BhojpuriBhauka
 import HorrorMovies from "@/Screen/movies/HorrorMovies/HorrorMovies";
 import MoviePlayer from "@/Screen/VideoPlayer/MoviePlayerScreen";
 import Home from "@/Screen/HomeScreen";
+import * as Splashscreen  from 'expo-splash-screen'; 
 import Splash from '@/Screen/SplashScreen';
-import * as NavigationBar from 'expo-navigation-bar';
 const Stack = createStackNavigator();
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+Splashscreen.preventAutoHideAsync();
 export default function HomeScreen({route}){
-  NavigationBar.setBackgroundColorAsync("#0D0E10")
-    return (      
-      <Stack.Navigator initialRouteName='Splash' screenOptions={{
+  const [appState, setAppState] = useState(AppState.currentState);
+  useEffect(() => {
+    setTimeout(async () => {
+      await Splashscreen.hideAsync();
+    }, 1000);
+  }, []);
+ 
+  return (      
+      <Stack.Navigator initialRouteName={appState == 'active' ? 'Splash' : 'Home'} screenOptions={{
         cardStyle: {
           backgroundColor:"#0D0E10",
           width:windowWidth

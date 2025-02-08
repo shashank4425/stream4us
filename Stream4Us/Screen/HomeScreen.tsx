@@ -1,5 +1,5 @@
 import react, { useEffect,useState} from "react"
-import { View, Text, StyleSheet, Dimensions, ScrollView, Image, BackHandler, TouchableOpacity } from "react-native"
+import { View, Text, StyleSheet, Dimensions, ScrollView, Image, BackHandler, TouchableOpacity, AppState  } from "react-native"
 import { entertainmentList } from "@/assets/entertainmentList/entertainmentList";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -7,19 +7,29 @@ import { StatusBar } from "expo-status-bar";
 import TrendingMovies from "@/components/banner/TrendingMovies";
 
 export default function Home({ navigation }) {
+    const [appState, setAppState] = useState(AppState.currentState);
     useEffect(() => {
-        const backAction = () => { 
-        if(navigation.isFocused()){
-          BackHandler.exitApp();
-          return true; 
+       
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+          if (navigation.isFocused()) {
+            BackHandler.exitApp(); 
+            return true; // Prevent default back action (closing app)
+          }
+          return false; // Allow default behavior if app is not active
+        });
+        const appStateListener = AppState.addEventListener('change', (nextAppState) => {
+            if (nextAppState === 'background') {    
+                AppState.addEventListener('change', (nextAppState) =>{
+                    return true;
+                })          
+            }
+            setAppState(nextAppState);
+          });
+        return () => {
+          backHandler.remove();
+          appStateListener.remove();
         };
-        return false;
-       };
-      BackHandler.addEventListener("hardwareBackPress", backAction);
-      return () => {
-        BackHandler.removeEventListener("hardwareBackPress", backAction);
-      };
-    }, []); 
+      }, [appState]);
     return (
         <View style={Styles.screenContainer}>
         <StatusBar backgroundColor="#0D0E10" style="light" /> 
@@ -79,7 +89,7 @@ const Styles = StyleSheet.create({
         backgroundColor:"#0D0E10",
         flexDirection: 'column',
         flexWrap: 'nowrap',
-        padding:12
+        padding:10
     },
     cardContainer: {
         marginBottom: 2
@@ -89,15 +99,19 @@ const Styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     cards: {
-        height: 150,
+        backgroundColor:"#D9D9D9", 
+        height: 160,
         width: 110,
-        borderRadius: 4,
-        padding: 0,
-        marginRight:0
+        borderRadius: 12,
+        paddingTop:0,
+        paddingLeft:0,
+        paddingRight:0,
+        marginRight:5
     },
     imgSize: {
+        borderRadius: 12,
         height: "100%",
-        width: "96%",
+        width: "100%",
     },
     heading: {
         color: "#ffffff",
