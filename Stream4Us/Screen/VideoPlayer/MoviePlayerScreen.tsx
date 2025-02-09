@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback  } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import {
 import * as ScreenOrientation from "expo-screen-orientation";
 import { StatusBar } from "expo-status-bar";
 import { Video, ResizeMode } from "expo-av"; // Import Video from expo-av
-import { Ionicons } from "@expo/vector-icons"; // For icons
+import * as Brightness from 'expo-brightness';
 import FontAwesomeIcon from "react-native-vector-icons/Feather";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Slider from "@react-native-community/slider";
@@ -20,6 +20,7 @@ const windowHeight = Dimensions.get("window").height;
 
 const MoviePlayer = ({ route }) => {
   const videoRef = useRef(null);
+  
   const [isPlaying, setIsPlaying] = useState(false);
   const [islockScreen, setIsLockScreen] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -33,6 +34,8 @@ const MoviePlayer = ({ route }) => {
   const [videoDuration, setVideoDuration] = useState(0);
 
   const [showControls, setShowControls] = useState(true);
+  const [brightness, setBrightness] = useState(1);
+    const sliderValueRef = useRef(0);
 
   let durration = ":";
   const clickedScreen = () => {
@@ -95,7 +98,7 @@ const MoviePlayer = ({ route }) => {
   useEffect(() => {
        const timeout= setTimeout(() => {
            setShowControls(false);
-       },600000)
+       },4000)
        return (() => {
         clearTimeout(timeout);
        })
@@ -106,7 +109,7 @@ const MoviePlayer = ({ route }) => {
 
    setTimeout(()=>{
     setShowControls(false);
-   },600000);
+   },4000);
   }
 
   useEffect(() => {
@@ -149,6 +152,28 @@ const MoviePlayer = ({ route }) => {
   const lockScreen = async () => {
     !islockScreen ? setIsLockScreen(true) : setIsLockScreen(false);
   }
+// Function to get the current system brightness
+  const getCurrentBrightness = async () => {
+    const currentBrightness = await Brightness.getBrightnessAsync();
+    setBrightness(currentBrightness);
+  };
+
+  // Function to set the system brightness
+  const setSystemBrightness = async (value) => {
+    await Brightness.setBrightnessAsync(value);
+  };
+
+  // Throttled handler for slider value change
+  const handleBrightnessSliderChange = useCallback((value) => {
+      sliderValueRef.current = value;
+      setBrightness(value);
+      setSystemBrightness(value);
+   }, []);
+
+  useEffect(() => {
+    getCurrentBrightness();
+  }, []);
+  
   return (
             
    <View style={{flex:1}}>
@@ -202,7 +227,7 @@ const MoviePlayer = ({ route }) => {
                 style={styles.slider}
                 minimumValue={0}
                 maximumValue={videoDuration}
-                value={sliderValue}
+                value={sliderValue.current}
                 onValueChange={handleSliderChange}
                 minimumTrackTintColor="#1FB28B"
                 maximumTrackTintColor="#D3D3D3"
@@ -234,11 +259,28 @@ const MoviePlayer = ({ route }) => {
             { showControls && 
             
             <View style={styles.LandScapecontrols}>
+            <View style={styles.screenLockUnlock}>
             <TouchableOpacity onPress={lockScreen}>
-              <MaterialIcon style={styles.screenLockUnlock} name={islockScreen ? "lock" : "lock-open"} size={24} color="white"
+              <MaterialIcon style={styles.screenLUIcon} name={islockScreen ? "lock" : "lock-open"} size={24} color="white"
             ></MaterialIcon>
             </TouchableOpacity>
-            {!islockScreen && <View style={styles.LandScapetopController}>
+            </View>
+            {!islockScreen && 
+            <View style={styles.LandScapetopController}>
+              <View style={styles.LandScapeLeftController}>
+              <Slider
+              style={styles.brightnesSlider}
+              minimumValue={0}
+              maximumValue={1}
+              step={0.01}
+              value={sliderValue.current}
+              onValueChange={handleBrightnessSliderChange}
+              thumbTintColor="#fff"
+              minimumTrackTintColor="#747474"
+              maximumTrackTintColor="#0D0E10"
+            />
+            </View>
+            <View style={styles.LandScapeCenterController}>
            <TouchableOpacity onPress={moveVideoBack}>
               <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={24} color="white"
               ></FontAwesomeIcon>
@@ -255,7 +297,10 @@ const MoviePlayer = ({ route }) => {
               ></FontAwesomeIcon>
               <Text style={styles.fifteenSecond}>10</Text>
             </TouchableOpacity>
-            </View>}
+            </View>
+            <View style={styles.LandScapeRightController}></View>
+            </View>
+            }
             {!islockScreen && <View style={styles.LandScapetopMiddleController}>
             <Text style={{paddingLeft:12, width: "92%", color: "#dcdcdc", fontWeight:"900", fontSize:12}}>
               {formatTime(currentTime)} / {movieLink.duration}
@@ -264,13 +309,15 @@ const MoviePlayer = ({ route }) => {
               <MaterialIcon style={styles.fsRotate} name={"fullscreen-exit"} size={24} color="white"
               ></MaterialIcon>
             </TouchableOpacity>
+           
             </View>}
             {!islockScreen && <View style={styles.sliderSection}>
+            
             <Slider
               style={styles.slider}
               minimumValue={0}
               maximumValue={videoDuration}
-              value={sliderValue}
+              value={sliderValue.current}
               onValueChange={handleSliderChange}
               minimumTrackTintColor="#1FB28B"
               maximumTrackTintColor="#D3D3D3"
@@ -317,8 +364,13 @@ const styles = StyleSheet.create({
     width:"100%"
   },
   screenLockUnlock:{
-  textAlign:"right",
-  end:"auto",
+   height:"10%",
+   width:"100%",
+  },
+  screenLUIcon: {
+   end:"auto",
+  justifyContent:"flex-end",
+   position:"absolute",
    padding:12,
    fontSize:24,
    fontWeight:"700"
@@ -335,13 +387,28 @@ const styles = StyleSheet.create({
   LandScapetopController: {
     height: "70%",
     width: "100%",
-    flexDirection: "row",
-    marginTop: 0,
-    alignItems: "center",
-    padding:100,
-    justifyContent: "space-between",
+    flexDirection:"row",
+    display:"flex"
   },
-  
+  LandScapeLeftController: {
+    width:"20%",
+    height:"100%",
+    alignItems:"center",
+    justifyContent:"center",
+    flexDirection:"column"
+  },
+  LandScapeCenterController: {
+    width:"60%",
+    height:"100%",
+    flex:1,
+    alignItems:"center",
+    flexDirection:"row",
+    justifyContent:"space-around"
+  },
+  LandScapeRightController: {
+    width:"20%",
+    height:"100%"
+  },
   Rotate: {
     fontSize: 38,
     fontWeight: "100",
@@ -393,7 +460,12 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     flexDirection: "row"
   },
-
+  brightnesSlider :{
+    width: 160,
+    flexDirection:"row",
+    transform: [{ rotate: '-90deg' }],
+    
+  },
   slider: {
     width: windowWidth,
     color: "#fff",
