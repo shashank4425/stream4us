@@ -55,7 +55,7 @@ export default function Home({ navigation }) {
                             return (
                                 
                                 <View style={Styles.container} key={item.id}>
-                                    <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer", item)}>
+                                    <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer", {videoLink:item.seo.ogVideo,item:item})}>
                                     <View style={Styles.cards}>                                        
                                         <Image source={{ uri: item.seo.ogImage }}
                                             style={Styles.imgSize} />

@@ -60,8 +60,12 @@ const MoviePlayer = ({ route }) => {
       videoRef.current.setPositionAsync(value * 1000); // set position in milliseconds
     }
   };
+  
+  const movieLink= route.params.item;
+  
+  const { videoLink } = route.params;
+  const videoSource = require(`../../assets/video/bhojpuri/kalamchaba-gaini.mp4`)// Require the video
 
-  const movieLink = route.params;
   const handlePlayPause = () => {
     if (isPlaying) {
       videoRef.current.pauseAsync();
@@ -173,7 +177,7 @@ const MoviePlayer = ({ route }) => {
   useEffect(() => {
     getCurrentBrightness();
   }, []);
-  
+
   return (
             
    <View style={{flex:1}}>
@@ -186,9 +190,7 @@ const MoviePlayer = ({ route }) => {
               style={{marginTop:-15, width: Dimensions.get("window").width, height: 260 }}
               ref={videoRef}
               onPlaybackStatusUpdate={handleVideoStatusUpdate}
-              source={{
-                uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-              }}
+              source={videoSource}
               shouldPlay={!isPlaying}
               resizeMode={ResizeMode.CONTAIN}
               isLooping
@@ -215,7 +217,7 @@ const MoviePlayer = ({ route }) => {
               </View>
               <View style={styles.MiddleController}>
               <Text style={styles.vdTiming}>
-                {formatTime(currentTime)} / {movieLink.duration}
+                {formatTime(currentTime)} / {formatTime(duration)}
               </Text>
               <TouchableOpacity onPress={toggleScreen}>
                 <MaterialIcon style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
@@ -248,9 +250,7 @@ const MoviePlayer = ({ route }) => {
               }}
               ref={videoRef}
               onPlaybackStatusUpdate={handleVideoStatusUpdate}
-              source={{
-                uri: "https://www.w3schools.com/html/mov_bbb.mp4",
-              }}
+              source={videoSource}
               shouldPlay={!isPlaying}
               resizeMode={ResizeMode.COVER}
               isLooping
@@ -303,7 +303,7 @@ const MoviePlayer = ({ route }) => {
             }
             {!islockScreen && <View style={styles.LandScapetopMiddleController}>
             <Text style={{paddingLeft:12, width: "92%", color: "#dcdcdc", fontWeight:"900", fontSize:12}}>
-              {formatTime(currentTime)} / {movieLink.duration}
+              {formatTime(currentTime)} / {formatTime(duration)}
             </Text>
             <TouchableOpacity onPress={toggleScreen}>
               <MaterialIcon style={styles.fsRotate} name={"fullscreen-exit"} size={24} color="white"
