@@ -68,14 +68,14 @@ const TrendingMovies = () => {
         getItemLayout={getItemLayout} // Add getItemLayout here
         contentContainerStyle={styles.flatListContent} // Add custom content container style
       />
-      <View style={styles.dotsContainer}>
+      {/* <View style={styles.dotsContainer}>
         {bannerList.map((_, indexDot) => (
           <View
             key={indexDot}
             style={[styles.dot, { opacity: index === indexDot ? 1 : 0.5 }]}
           />
         ))}
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginRight: width * 0.04, // 5% margin to create space between images
   },
   firstImage: {
-    marginLeft: width * 0.12, // Make sure the first image has no left margin
+    marginLeft: width * 0.08, // Make sure the first image has no left margin
   },
   image: {
     backgroundColor: "#696969",

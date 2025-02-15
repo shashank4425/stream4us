@@ -62,7 +62,6 @@ const MoviePlayer = ({ route }) => {
   };
   
   const movieLink= route.params;
-  console.log(movieLink + "movieLink clicked")
   const { videoLink } = route.params;
   const videoSource = require(`../../assets/video/bhojpuri/kalamchaba-gaini.mp4`)// Require the video
 
