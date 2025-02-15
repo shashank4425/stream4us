@@ -63,7 +63,7 @@ const MoviePlayer = ({ route }) => {
   
   const movieLink= route.params;
   const { videoLink } = route.params;
-  const videoSource = require(`../../assets/video/bhojpuri/kalamchaba-gaini.mp4`)// Require the video
+  const videoSource = require(`../../assets/video/bhojpuri/sadiya-ke-pin.mp4`)// Require the video
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -103,18 +103,10 @@ const MoviePlayer = ({ route }) => {
            setShowControls(false);
        },4000)
        return (() => {
-        clearTimeout(timeout);
        })
   },[]);
 
-  const handleControls = async () => {
-   setShowControls(true);
-
-   setTimeout(()=>{
-    setShowControls(false);
-   },4000);
-  }
-
+  
   useEffect(() => {
     // Fetch the video duration once the video is loaded
     const setVideoDuration = async () => {
@@ -136,7 +128,6 @@ const MoviePlayer = ({ route }) => {
       minutes < 10 ? "0" : ""
     }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
-
   const toggleScreen = async () => {
     if (orientation === "portrait") {
       // Switch to landscape mode
@@ -153,8 +144,20 @@ const MoviePlayer = ({ route }) => {
     }
   };
   const lockScreen = async () => {
-    !islockScreen ? setIsLockScreen(true) : setIsLockScreen(false);
+    if(islockScreen==false){
+       setShowControls(false);
+       setIsLockScreen(true)
+    }else{
+    setIsLockScreen(false);setShowControls(true);
+    }
   }
+  const handleControls = async () => {
+    setShowControls(true);
+    setTimeout(() => {
+      setShowControls(false);
+  },4000)
+   }
+ 
 // Function to get the current system brightness
   const getCurrentBrightness = async () => {
     const currentBrightness = await Brightness.getBrightnessAsync();
@@ -181,22 +184,33 @@ const MoviePlayer = ({ route }) => {
    <View style={{flex:1}}>
       
         <View>
-          {orientation == "portrait" ? 
-          <TouchableWithoutFeedback onPress={handleControls}>
-          <View>
             <Video            
-              style={{marginTop:-15, width: Dimensions.get("window").width, height: 260 }}
+              style={
+                orientation == "portrait" ? 
+                {marginTop:-15, width: Dimensions.get("window").width, height: 260 } :
+                {width: Dimensions.get("window").width, height: "100%"}
+              }
               ref={videoRef}
               onPlaybackStatusUpdate={handleVideoStatusUpdate}
               source={videoSource}
               shouldPlay={!isPlaying}
               resizeMode={ResizeMode.CONTAIN}
               isLooping
-              key={movieLink.id}
             />
-             { showControls && 
-             <View style={styles.controls}>
-              <View style={styles.topController}>
+            </View>
+           
+            <TouchableWithoutFeedback onPress={handleControls}>
+            <View style={orientation == "portrait" ? styles.controls : styles.lscontrols}>
+            {orientation == "landscape" && 
+             <View style={styles.screenLockUnlock}>
+            <TouchableOpacity onPress={lockScreen}>
+              <MaterialIcon style={styles.screenLUIcon} name={islockScreen ? "lock" : "lock-open"} size={24} color="white"
+            ></MaterialIcon>
+            </TouchableOpacity>
+            </View>}
+            { showControls &&
+            <View>            
+            <View style={orientation == "portrait" ? styles.topMiddleController : styles.lsMiddleController  }>
              <TouchableOpacity onPress={moveVideoBack}>
                 <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={24} color="white"
                 ></FontAwesomeIcon>
@@ -211,122 +225,22 @@ const MoviePlayer = ({ route }) => {
                 <FontAwesomeIcon style={styles.Rotate} name="rotate-cw" size={24} color="white"
                 ></FontAwesomeIcon>
                 <Text style={styles.fifteenSecond}>10</Text>
-              </TouchableOpacity>
+              </TouchableOpacity>        
               </View>
-              <View style={styles.MiddleController}>
-              <Text style={styles.vdTiming}>
-                {formatTime(currentTime)} / {formatTime(duration)}
-              </Text>
+              <View  style={orientation == "portrait" ? styles.bottomController : styles.lsbottomController}>
+              <Text style={{paddingLeft:12, width: "92%", color: "#dcdcdc", fontWeight:"900", fontSize:12}}>
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </Text>
               <TouchableOpacity onPress={toggleScreen}>
                 <MaterialIcon style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
                 ></MaterialIcon>
-              </TouchableOpacity>
+              </TouchableOpacity>              
               </View>
-              <View style={styles.sliderSection}>
-                <Slider
-                minimumValue={0}
-                maximumValue={videoDuration}
-                value={sliderValue}
-                onValueChange={handleSliderChange}
-                minimumTrackTintColor="#1FB28B"
-                maximumTrackTintColor="#D3D3D3"
-                thumbTintColor="#1FB28B"
-              />  
-                </View>
-              </View>}
-           </View>
-           </TouchableWithoutFeedback>
-           : 
-           <TouchableWithoutFeedback onPress={handleControls}>
-           <View>
-           <StatusBar hidden={true} />
-            <Video
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-              ref={videoRef}
-              onPlaybackStatusUpdate={handleVideoStatusUpdate}
-              source={videoSource}
-              shouldPlay={!isPlaying}
-              resizeMode={ResizeMode.COVER}
-              isLooping
-              key={movieLink.id}
-            />
-            { showControls && 
-            
-            <View style={styles.LandScapecontrols}>
-            <View style={styles.screenLockUnlock}>
-            <TouchableOpacity onPress={lockScreen}>
-              <MaterialIcon style={styles.screenLUIcon} name={islockScreen ? "lock" : "lock-open"} size={24} color="white"
-            ></MaterialIcon>
-            </TouchableOpacity>
-            </View>
-            {!islockScreen && 
-            <View style={styles.LandScapetopController}>
-              <View style={styles.LandScapeLeftController}>
-              <Slider
-              style={styles.brightnesSlider}
-              minimumValue={0}
-              maximumValue={1}
-              step={0.01}
-              value={sliderValue}
-              onValueChange={handleBrightnessSliderChange}
-              thumbTintColor="#fff"
-              minimumTrackTintColor="#747474"
-              maximumTrackTintColor="#0D0E10"
-            />
-            </View>
-            <View style={styles.LandScapeCenterController}>
-           <TouchableOpacity onPress={moveVideoBack}>
-              <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={24} color="white"
-              ></FontAwesomeIcon>
-              <Text style={styles.fifteenSecond}>10</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handlePlayPause}>
-              <MaterialIcon
-              style={styles.Rotate} 
-              name={ isPlaying ? "play-circle-outline" : "pause-circle-outline"}size={42}color="white"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={moveVideoForward}>
-              <FontAwesomeIcon style={styles.Rotate} name="rotate-cw" size={24} color="white"
-              ></FontAwesomeIcon>
-              <Text style={styles.fifteenSecond}>10</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.LandScapeRightController}></View>
-            </View>
+              </View>
             }
-            {!islockScreen && <View style={styles.LandScapetopMiddleController}>
-            <Text style={{paddingLeft:12, width: "92%", color: "#dcdcdc", fontWeight:"900", fontSize:12}}>
-              {formatTime(currentTime)} / {formatTime(duration)}
-            </Text>
-            <TouchableOpacity onPress={toggleScreen}>
-              <MaterialIcon style={styles.fsRotate} name={"fullscreen-exit"} size={24} color="white"
-              ></MaterialIcon>
-            </TouchableOpacity>
-           
-            </View>}
-            {!islockScreen && <View style={styles.sliderSection}>
-            
-            <Slider
-              style={styles.slider}
-              minimumValue={0}
-              maximumValue={videoDuration}
-              value={sliderValue.current}
-              onValueChange={handleSliderChange}
-              minimumTrackTintColor="#1FB28B"
-              maximumTrackTintColor="#D3D3D3"
-              thumbTintColor="#1FB28B"
-            />
-             </View>}
-             </View>
-             }
-           </View>
-           </TouchableWithoutFeedback>
-          }
-        </View>
+            </View>
+            </TouchableWithoutFeedback>
+             
       
       <View style={styles.container}>
         <View style={styles.contentMain}>
@@ -343,68 +257,71 @@ const MoviePlayer = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
+  
   controls: {
     position: "absolute",
     flexWrap: "wrap",
     alignContent: "flex-start",
     flexDirection: "column",
     height: 240,
-    width:"100%"
-  },
-  LandScapecontrols: {
-    position: "absolute",
-    flexWrap: "wrap",
-    alignContent: "flex-start",
-    flexDirection: "column",
-    height: "100%",
-    width:"100%"
-  },
-  screenLockUnlock:{
-   height:"10%",
-   width:"100%",
-  },
-  screenLUIcon: {
-   end:"auto",
-  justifyContent:"flex-end",
-   position:"absolute",
-   padding:12,
-   fontSize:24,
-   fontWeight:"700"
+    width:"100%"  
   },
   topController: {
-    height: "60%",
-    width: "99%",
+    height: "100%",
+    width: "100%",
     flexDirection: "row",
-    marginTop: 25,
-    alignItems: "center",
+    alignItems: "center"
+  },
+  lscontrols :{
+    position: "absolute",
+    flexDirection: "column",
+    height: "100%",
+    width: "100%" 
+  },
+  topMiddleController:{
+    height: "80%",
+    width: "100%",
+    alignContent:"center",
+    alignItems:"center",
+    flexDirection: "row",
     padding:50,
     justifyContent: "space-between",
+    
+   },
+  screenLockUnlock:{
+    width:"100%",
+    end:"auto",
+    alignItems:"flex-end",
+    justifyContent:"flex-start"
+   },
+   lsMiddleController: {
+    position:"fixed", 
+    height:"80%",
+    width:"100%",    
+    flexDirection:"row",
+    alignItems:"center",
+    alignContent:"center",
+    justifyContent:"space-between",
+    padding:50
   },
-  LandScapetopController: {
-    height: "70%",
-    width: "100%",
+  lsbottomController:{
+    width:"100%",
+    height:"20%",
     flexDirection:"row",
     display:"flex"
   },
-  LandScapeLeftController: {
-    width:"20%",
-    height:"100%",
-    alignItems:"center",
-    justifyContent:"center",
-    flexDirection:"column"
-  },
-  LandScapeCenterController: {
-    width:"60%",
-    height:"100%",
-    flex:1,
-    alignItems:"center",
+  bottomController: {
+    width:"100%",
+    height:"20%",
     flexDirection:"row",
-    justifyContent:"space-around"
+    display:"flex"
   },
-  LandScapeRightController: {
-    width:"20%",
-    height:"100%"
-  },
+   screenLUIcon: {
+    position:"relative",
+    fontSize:24,
+    fontWeight:"700"
+   },
+  
   Rotate: {
     fontSize: 38,
     fontWeight: "100",
@@ -418,43 +335,11 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     position: "absolute",
   },
-
-  MiddleController: {
-    height: "18%",
-    width: "100%",
-    flexDirection: "row",
-    marginTop: 0,
-    alignItems: "center",
-    padding:0,
-    justifyContent: "space-between",
-  },
-  LandScapetopMiddleController: {
-    height: "8%",
-    width: "100%",
-    flexDirection: "row",
-    marginBottom:0,
-    alignItems: "flex-end",
-    position:"relative",
-    justifyContent: "space-between",
-  },
+ 
   fsRotate: {
     fontSize: 30,
     position: "fixed",
     fontWeight: "100",
-  },
-  vdTiming: {
-    width: "90%",
-    paddingLeft: 12,
-    color: "#dcdcdc",
-    fontWeight: "900",
-    fontSize: 11,
-  },
-  sliderSection: {
-    height: "9%",
-    width: "100%",
-    position: "relative",
-    flexWrap: "wrap",
-    flexDirection: "row"
   },
   brightnesSlider :{
     width: 160,
