@@ -20,7 +20,7 @@ const TrendingMovies = () => {
          }
          return nextIndex;
       });
-    }, 3000); // Change every 3 seconds
+    }, 4500); // Change every 3 seconds
 
     return () => clearInterval(interval); // Clean up on unmount
   }, [data]);
@@ -35,8 +35,8 @@ const TrendingMovies = () => {
   }, [index]);
 
   const getItemLayout = (data, index) => ({
-    length: width * 0.85, // Each item takes up 85% of the screen width
-    offset: (width * 0.85 + width * 0.05) * index, // Add space between items (5% of screen width)
+    length: width * 0.80, // Each item takes up 85% of the screen width
+    offset: (width * 0.80 + width * 0.04) * index, // Add space between items (2% of screen width)
     index, // The index of the item
   });
 
@@ -87,12 +87,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   imageContainer: {
-    width: width * 0.85, // Use 85% of the screen width for each item
-    height: height * 0.25,  // Adjust the height dynamically (e.g., 25% of screen height)
-    marginRight: width * 0.05, // 5% margin to create space between images
+    width: width * 0.80, // Use 95% of the screen width for each item
+    height: height * 0.20,  // Adjust the height dynamically (e.g., 25% of screen height)
+    marginRight: width * 0.04, // 5% margin to create space between images
   },
   firstImage: {
-    marginLeft: 0, // Make sure the first image has no left margin
+    marginLeft: width * 0.12, // Make sure the first image has no left margin
   },
   image: {
     backgroundColor: "#696969",
