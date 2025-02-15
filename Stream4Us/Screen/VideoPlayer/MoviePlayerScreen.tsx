@@ -100,7 +100,7 @@ const MoviePlayer = ({ route }) => {
 
   useEffect(() => {
        const timeout= setTimeout(() => {
-           setShowControls(false);
+           setShowControls(true);
        },4000)
        return (() => {
        })
@@ -152,9 +152,9 @@ const MoviePlayer = ({ route }) => {
     }
   }
   const handleControls = async () => {
-    setShowControls(true);
+    islockScreen != true ? setShowControls(true) : setShowControls(false);
     setTimeout(() => {
-      setShowControls(false);
+     showControls==true ? setShowControls(false) :setShowControls(true);
   },4000)
    }
  
@@ -182,7 +182,6 @@ const MoviePlayer = ({ route }) => {
   return (
             
    <View style={{flex:1}}>
-      
         <View>
             <Video            
               style={
@@ -197,8 +196,7 @@ const MoviePlayer = ({ route }) => {
               resizeMode={ResizeMode.CONTAIN}
               isLooping
             />
-            </View>
-           
+            </View>           
             <TouchableWithoutFeedback onPress={handleControls}>
             <View style={orientation == "portrait" ? styles.controls : styles.lscontrols}>
             {orientation == "landscape" && 
@@ -207,10 +205,26 @@ const MoviePlayer = ({ route }) => {
               <MaterialIcon style={styles.screenLUIcon} name={islockScreen ? "lock" : "lock-open"} size={24} color="white"
             ></MaterialIcon>
             </TouchableOpacity>
-            </View>}
+            </View>
+          }
             { showControls &&
-            <View>            
+            <View>          
             <View style={orientation == "portrait" ? styles.topMiddleController : styles.lsMiddleController  }>
+            {orientation=="landscape"?
+               <View style={styles.lsMiddleleftController}>
+              <Slider
+              style={styles.brightnesSlider}
+              minimumValue={0}
+              maximumValue={1}
+              step={0.01}
+              value={brightness.current}
+              onValueChange={handleBrightnessSliderChange}
+              thumbTintColor="#fff"
+              minimumTrackTintColor="#747474"
+              maximumTrackTintColor="#0D0E10"
+            />
+            </View>  :""}  
+            <View style={orientation == "portrait" ? {width:"100%", justifyContent:"space-between",flexDirection:"row"} : styles.lsMiddleRightController}>
              <TouchableOpacity onPress={moveVideoBack}>
                 <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={24} color="white"
                 ></FontAwesomeIcon>
@@ -227,8 +241,9 @@ const MoviePlayer = ({ route }) => {
                 <Text style={styles.fifteenSecond}>10</Text>
               </TouchableOpacity>        
               </View>
+              </View>
               <View  style={orientation == "portrait" ? styles.bottomController : styles.lsbottomController}>
-              <Text style={{paddingLeft:12, width: "92%", color: "#dcdcdc", fontWeight:"900", fontSize:12}}>
+              <Text style={{padding:12, width: "92%", color: "#dcdcdc", fontWeight:"900", fontSize:12}}>
               {formatTime(currentTime)} / {formatTime(duration)}
             </Text>
               <TouchableOpacity onPress={toggleScreen}>
@@ -239,8 +254,7 @@ const MoviePlayer = ({ route }) => {
               </View>
             }
             </View>
-            </TouchableWithoutFeedback>
-             
+            </TouchableWithoutFeedback>   
       
       <View style={styles.container}>
         <View style={styles.contentMain}>
@@ -294,23 +308,34 @@ const styles = StyleSheet.create({
     alignItems:"flex-end",
     justifyContent:"flex-start"
    },
+   
    lsMiddleController: {
     position:"fixed", 
     height:"80%",
-    width:"100%",    
+    width:"100%",
+    flexDirection:"row"
+  },
+  lsMiddleleftController:{
+    width:"20%",
+    height:"100%"
+  },
+  lsMiddleRightController:{
+    height:"100%",
+    width:"60%",
+    position:"fixed",
     flexDirection:"row",
     alignItems:"center",
     alignContent:"center",
-    justifyContent:"space-between",
-    padding:50
-  },
-  lsbottomController:{
+    justifyContent:"space-between"
+   },
+   
+  bottomController: {
     width:"100%",
     height:"20%",
     flexDirection:"row",
     display:"flex"
   },
-  bottomController: {
+  lsbottomController:{
     width:"100%",
     height:"20%",
     flexDirection:"row",
@@ -342,7 +367,9 @@ const styles = StyleSheet.create({
     fontWeight: "100",
   },
   brightnesSlider :{
-    width: 160,
+    top:"50%",
+    position:"absolute",
+    width: 100,
     flexDirection:"row",
     transform: [{ rotate: '-90deg' }],
     
