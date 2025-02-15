@@ -44,11 +44,10 @@ const Styles = StyleSheet.create({
     },
     cards: {
         height: 210,
-        width: 116,        
+        width: 122,        
         borderRadius: 12,
-        padding: 0,
-        marginTop: 2,
-        marginRight:6,   
+        padding: 4,
+        marginTop: 2   
     },
     imgContainer: {
         height:"85%",
@@ -56,7 +55,7 @@ const Styles = StyleSheet.create({
     },
     imgSize: {
         borderRadius: 12,
-        backgroundColor:"#D9D9D9",
+        backgroundColor:"#696969",
         height:"100%",
         width:"100%",
     },

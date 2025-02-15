@@ -99,9 +99,9 @@ const Styles = StyleSheet.create({
         flexWrap: 'wrap',
     },
     cards: {
-        backgroundColor:"#D9D9D9", 
+        backgroundColor:"#696969", 
         height: 160,
-        width: 110,
+        width: 115,
         borderRadius: 12,
         paddingTop:0,
         paddingLeft:0,
@@ -126,7 +126,7 @@ const Styles = StyleSheet.create({
         fontSize: 4
     },
     leftContent: {
-        marginLeft: 3,
+        marginLeft: 0,
         textAlign: "right",
         width: windowWidth / 1.5,
         marginHorizontal: 10,

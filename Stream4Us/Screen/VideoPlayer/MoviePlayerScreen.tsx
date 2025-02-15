@@ -38,12 +38,12 @@ const MoviePlayer = ({ route }) => {
     const sliderValueRef = useRef(0);
 
   let durration = ":";
-  const clickedScreen = () => {
-    clicked == true ? setClicked(false) : setClicked(true);
-    setTimeout(function () {
-      setClicked(false);
-    }, 4000);
-  };
+  // const clickedScreen = () => {
+  //   clicked == true ? setClicked(false) : setClicked(true);
+  //   setTimeout(function () {
+  //     setClicked(false);
+  //   }, 4000);
+  // };
 
   const handleVideoStatusUpdate = (status) => {
     setVideoStatus(status);
@@ -61,8 +61,8 @@ const MoviePlayer = ({ route }) => {
     }
   };
   
-  const movieLink= route.params.item;
-  
+  const movieLink= route.params;
+  console.log(movieLink + "movieLink clicked")
   const { videoLink } = route.params;
   const videoSource = require(`../../assets/video/bhojpuri/kalamchaba-gaini.mp4`)// Require the video
 
@@ -177,11 +177,10 @@ const MoviePlayer = ({ route }) => {
   useEffect(() => {
     getCurrentBrightness();
   }, []);
-
   return (
             
    <View style={{flex:1}}>
-      <TouchableOpacity onPress={clickedScreen}>
+      
         <View>
           {orientation == "portrait" ? 
           <TouchableWithoutFeedback onPress={handleControls}>
@@ -225,17 +224,16 @@ const MoviePlayer = ({ route }) => {
               </TouchableOpacity>
               </View>
               <View style={styles.sliderSection}>
-              <Slider
-                style={styles.slider}
+                <Slider
                 minimumValue={0}
                 maximumValue={videoDuration}
-                value={sliderValue.current}
+                value={sliderValue}
                 onValueChange={handleSliderChange}
                 minimumTrackTintColor="#1FB28B"
                 maximumTrackTintColor="#D3D3D3"
                 thumbTintColor="#1FB28B"
-              />
-               </View>
+              />  
+                </View>
               </View>}
            </View>
            </TouchableWithoutFeedback>
@@ -273,7 +271,7 @@ const MoviePlayer = ({ route }) => {
               minimumValue={0}
               maximumValue={1}
               step={0.01}
-              value={sliderValue.current}
+              value={sliderValue}
               onValueChange={handleBrightnessSliderChange}
               thumbTintColor="#fff"
               minimumTrackTintColor="#747474"
@@ -330,8 +328,7 @@ const MoviePlayer = ({ route }) => {
            </TouchableWithoutFeedback>
           }
         </View>
-      </TouchableOpacity>
-     
+      
       <View style={styles.container}>
         <View style={styles.contentMain}>
           <Text style={styles.mtitle}>{movieLink.seo.page}</Text>

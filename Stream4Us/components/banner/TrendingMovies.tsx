@@ -1,11 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions, Animated } from 'react-native';
+import { View, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
 import { bannerList } from "../../assets/bannerList/bannerList";
 import { useNavigation } from '@react-navigation/native';
 
-const { width } = Dimensions.get('window');
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const { width, height } = Dimensions.get('window'); // Get screen width and height
 
 const TrendingMovies = () => {
   const navigation = useNavigation();
@@ -29,22 +27,26 @@ const TrendingMovies = () => {
 
   useEffect(() => {
     if (flatListRef.current) {
-      // Ensure we are within bounds
       flatListRef.current.scrollToIndex({
         animated: true,
-        index: index // Use modulo to stay within the valid index range
+        index: index, // Scroll to the next index
       });
     }
   }, [index]);
 
   const getItemLayout = (data, index) => ({
-    length: 186, // Fixed height of each item
-    offset: 186 * index, // Each item is offset by its height from the start
+    length: width * 0.85, // Each item takes up 85% of the screen width
+    offset: (width * 0.85 + width * 0.05) * index, // Add space between items (5% of screen width)
     index, // The index of the item
   });
 
-  const renderItem = ({ item }) => (
-    <View style={styles.imageContainer}>
+  const renderItem = ({ item, index }) => (
+    <View
+      style={[
+        styles.imageContainer,
+        index === 0 ? styles.firstImage : {}, // Special style for the first image
+      ]}
+    >
       <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer", item)}>
         <Image source={{ uri: item.seo.ogImage }} style={styles.image} />
       </TouchableOpacity>
@@ -85,11 +87,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   imageContainer: {
-    padding: 0,
-    marginRight: 8,
-    marginLeft: 6,
-    width: windowWidth / 1.2,
-    height: 186,
+    width: width * 0.85, // Use 85% of the screen width for each item
+    height: height * 0.25,  // Adjust the height dynamically (e.g., 25% of screen height)
+    marginRight: width * 0.05, // 5% margin to create space between images
+  },
+  firstImage: {
+    marginLeft: 0, // Make sure the first image has no left margin
   },
   image: {
     backgroundColor: "#696969",
@@ -99,7 +102,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   dotsContainer: {
-    position: 'relative',
+    position: 'absolute',
+    bottom: 10,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
