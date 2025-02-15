@@ -9,12 +9,12 @@ import {
   TouchableWithoutFeedback
 } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
-import { StatusBar } from "expo-status-bar";
-import { Video, ResizeMode } from "expo-av"; // Import Video from expo-av
+import { Video, ResizeMode } from "expo-av";
 import * as Brightness from 'expo-brightness';
 import FontAwesomeIcon from "react-native-vector-icons/Feather";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Slider from "@react-native-community/slider";
+import { StatusBar } from "expo-status-bar";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -28,22 +28,13 @@ const MoviePlayer = ({ route }) => {
   const [duration, setDuration] = useState(0);
   const [orientation, setOrientation] = useState("portrait");
   const [sliderValue, setSliderValue] = useState(0);
-  const [clicked, setClicked] = useState(false);
   const [status, setStatus] = useState({});
   const [videoStatus, setVideoStatus] = useState({});
   const [videoDuration, setVideoDuration] = useState(0);
 
   const [showControls, setShowControls] = useState(true);
   const [brightness, setBrightness] = useState(1);
-    const sliderValueRef = useRef(0);
-
-  let durration = ":";
-  // const clickedScreen = () => {
-  //   clicked == true ? setClicked(false) : setClicked(true);
-  //   setTimeout(function () {
-  //     setClicked(false);
-  //   }, 4000);
-  // };
+  const sliderValueRef = useRef(0);
 
   const handleVideoStatusUpdate = (status) => {
     setVideoStatus(status);
@@ -51,13 +42,13 @@ const MoviePlayer = ({ route }) => {
       setIsLoaded(true);
       setStatus(status.durationMillis);
       setCurrentTime(status.positionMillis);
-      setVideoDuration(status.durationMillis / 1000); // in seconds
-      setSliderValue(status.positionMillis / 1000); // convert position to seconds
+      setVideoDuration(status.durationMillis / 1000);
+      setSliderValue(status.positionMillis / 1000);
     }
   };
   const handleSliderChange = (value) => {
     if (videoRef.current) {
-      videoRef.current.setPositionAsync(value * 1000); // set position in milliseconds
+      videoRef.current.setPositionAsync(value * 1000);
     }
   };
   
@@ -73,21 +64,16 @@ const MoviePlayer = ({ route }) => {
     }
     setIsPlaying(!isPlaying);
   };
-
   const moveVideoBack = async () => {
     const currentPosition = await videoRef.current.getStatusAsync();
     videoRef.current.setPositionAsync(currentPosition.positionMillis - 10000);
   }
-  
   const moveVideoForward = async () => {
     const currentPosition = await videoRef.current.getStatusAsync();
     videoRef.current.setPositionAsync(currentPosition.positionMillis + 10000);
   }
-  
-
   useEffect(() => {
     const backHandle = BackHandler.addEventListener("hardwareBackPress", () => {
-     
         ScreenOrientation.unlockAsync();
         ScreenOrientation.OrientationLock.PORTRAIT;
       
@@ -97,18 +83,8 @@ const MoviePlayer = ({ route }) => {
       backHandle.remove();
     };
   }, []);
-
-  useEffect(() => {
-       const timeout= setTimeout(() => {
-           setShowControls(true);
-       },4000)
-       return (() => {
-       })
-  },[]);
-
   
   useEffect(() => {
-    // Fetch the video duration once the video is loaded
     const setVideoDuration = async () => {
       if (videoRef.current) {
         const status = await videoRef.current.getStatusAsync();
@@ -130,19 +106,22 @@ const MoviePlayer = ({ route }) => {
   };
   const toggleScreen = async () => {
     if (orientation === "portrait") {
-      // Switch to landscape mode
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE
       );
       setOrientation("landscape");
     } else {
-      // Switch back to portrait mode
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT_UP
       );
       setOrientation("portrait");
     }
   };
+  useEffect(() => {
+  setTimeout(() => {
+      setShowControls(false);
+  },6000);
+  },[]);
   const lockScreen = async () => {
     if(islockScreen==false){
        setShowControls(false);
@@ -152,24 +131,22 @@ const MoviePlayer = ({ route }) => {
     }
   }
   const handleControls = async () => {
+    if(orientation=="landscape"){
     islockScreen != true ? setShowControls(true) : setShowControls(false);
-    setTimeout(() => {
-     showControls==true ? setShowControls(false) :setShowControls(true);
-  },4000)
+    }else{
+      showControls==true ? setShowControls(false) : setShowControls(true);
+    }
    }
  
-// Function to get the current system brightness
   const getCurrentBrightness = async () => {
     const currentBrightness = await Brightness.getBrightnessAsync();
     setBrightness(currentBrightness);
   };
 
-  // Function to set the system brightness
   const setSystemBrightness = async (value) => {
     await Brightness.setBrightnessAsync(value);
   };
 
-  // Throttled handler for slider value change
   const handleBrightnessSliderChange = useCallback((value) => {
       sliderValueRef.current = value;
       setBrightness(value);
@@ -182,6 +159,7 @@ const MoviePlayer = ({ route }) => {
   return (
             
    <View style={{flex:1}}>
+    <StatusBar hidden={true} />
         <View>
             <Video            
               style={
@@ -193,7 +171,7 @@ const MoviePlayer = ({ route }) => {
               onPlaybackStatusUpdate={handleVideoStatusUpdate}
               source={videoSource}
               shouldPlay={!isPlaying}
-              resizeMode={ResizeMode.CONTAIN}
+              resizeMode={ResizeMode.COVER}
               isLooping
             />
             </View>           
@@ -202,7 +180,7 @@ const MoviePlayer = ({ route }) => {
             {orientation == "landscape" && 
              <View style={styles.screenLockUnlock}>
             <TouchableOpacity onPress={lockScreen}>
-              <MaterialIcon style={styles.screenLUIcon} name={islockScreen ? "lock" : "lock-open"} size={24} color="white"
+              <MaterialIcon style={styles.screenLUIcon} name={islockScreen ? "lock" : "lock-open"} size={42} color="white"
             ></MaterialIcon>
             </TouchableOpacity>
             </View>
@@ -265,13 +243,11 @@ const MoviePlayer = ({ route }) => {
           <Text style={styles.contentDes}>{movieLink.seo.description}</Text>
         </View>
       </View>
-
    </View>
   )
 };
 
 const styles = StyleSheet.create({
-  
   controls: {
     position: "absolute",
     flexWrap: "wrap",
@@ -316,7 +292,7 @@ const styles = StyleSheet.create({
     flexDirection:"row"
   },
   lsMiddleleftController:{
-    width:"20%",
+    width:"16%",
     height:"100%"
   },
   lsMiddleRightController:{
@@ -337,13 +313,14 @@ const styles = StyleSheet.create({
   },
   lsbottomController:{
     width:"100%",
-    height:"20%",
+    height:"15%",
     flexDirection:"row",
     display:"flex"
   },
    screenLUIcon: {
     position:"relative",
-    fontSize:24,
+    fontSize:32,
+    padding:10,
     fontWeight:"700"
    },
   
@@ -367,7 +344,7 @@ const styles = StyleSheet.create({
     fontWeight: "100",
   },
   brightnesSlider :{
-    top:"50%",
+    top:"48%",
     position:"absolute",
     width: 100,
     flexDirection:"row",

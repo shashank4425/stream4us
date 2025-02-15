@@ -28,7 +28,7 @@ export const bhojpuribhaukalmoviesList = [
         "Sajan Re Jhooth Mat Bolo (2023) Is A Comedy Bhojpuri Film Starring Pradeep Pandey,Harshika Poonacha In The Lead Roles, Directed By Premanshu Singh.",
       ogImage:
         "https://v3img.voot.com/resizeMedium,w_810,h_1080/v3Storage/assets/3x4-1734588156138.jpg",
-      ogVideo:require('../../video/bhojpuri/harmuniya.mp4')  
+      ogVideo:require('../../video/bhojpuri/sadiya-ke-pin.mp4')  
     },
   },
   {

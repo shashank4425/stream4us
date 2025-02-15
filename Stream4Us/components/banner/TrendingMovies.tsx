@@ -3,14 +3,13 @@ import { View, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions } from 
 import { bannerList } from "../../assets/bannerList/bannerList";
 import { useNavigation } from '@react-navigation/native';
 
-const { width, height } = Dimensions.get('window'); // Get screen width and height
+const { width, height } = Dimensions.get('window'); 
 
 const TrendingMovies = () => {
   const navigation = useNavigation();
   const [index, setIndex] = useState(0);
   const flatListRef = useRef(null);
-  const [data, setData] = useState([...bannerList]); // Initial data
-
+  const [data, setData] = useState([...bannerList]);
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => {
@@ -20,31 +19,30 @@ const TrendingMovies = () => {
          }
          return nextIndex;
       });
-    }, 4500); // Change every 3 seconds
-
-    return () => clearInterval(interval); // Clean up on unmount
+    }, 4500);
+    return () => clearInterval(interval);
   }, [data]);
 
   useEffect(() => {
     if (flatListRef.current) {
       flatListRef.current.scrollToIndex({
         animated: true,
-        index: index, // Scroll to the next index
+        index: index,
       });
     }
   }, [index]);
 
   const getItemLayout = (data, index) => ({
-    length: width * 0.80, // Each item takes up 85% of the screen width
-    offset: (width * 0.80 + width * 0.04) * index, // Add space between items (2% of screen width)
-    index, // The index of the item
+    length: width * 0.80,
+    offset: (width * 0.80 + width * 0.04) * index,
+    index,
   });
 
   const renderItem = ({ item, index }) => (
     <View
       style={[
         styles.imageContainer,
-        index === 0 ? styles.firstImage : {}, // Special style for the first image
+        index === 0 ? styles.firstImage : {},
       ]}
     >
       <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer", item)}>
@@ -61,21 +59,13 @@ const TrendingMovies = () => {
         renderItem={renderItem}
         keyExtractor={(item, index) => item.id + index}
         horizontal
-        scrollEnabled={false} // Disable manual scroll
+        scrollEnabled={false}
         pagingEnabled
         onEndReachedThreshold={0.1}
         showsHorizontalScrollIndicator={false}
-        getItemLayout={getItemLayout} // Add getItemLayout here
-        contentContainerStyle={styles.flatListContent} // Add custom content container style
+        getItemLayout={getItemLayout}
+        contentContainerStyle={styles.flatListContent}
       />
-      {/* <View style={styles.dotsContainer}>
-        {bannerList.map((_, indexDot) => (
-          <View
-            key={indexDot}
-            style={[styles.dot, { opacity: index === indexDot ? 1 : 0.5 }]}
-          />
-        ))}
-      </View> */}
     </View>
   );
 };
@@ -87,12 +77,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   imageContainer: {
-    width: width * 0.80, // Use 95% of the screen width for each item
-    height: height * 0.20,  // Adjust the height dynamically (e.g., 25% of screen height)
-    marginRight: width * 0.04, // 5% margin to create space between images
+    width: width * 0.80,
+    height: height * 0.20, 
+    marginRight: width * 0.04,
   },
   firstImage: {
-    marginLeft: width * 0.08, // Make sure the first image has no left margin
+    marginLeft: width * 0.08,
   },
   image: {
     backgroundColor: "#696969",
@@ -118,7 +108,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   flatListContent: {
-    paddingHorizontal: 0, // Additional padding to the left and right of the FlatList content
+    paddingHorizontal: 0,
   },
 });
 

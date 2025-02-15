@@ -10,11 +10,11 @@ export default function SplashScreen({navigation}) {
         }, 3000);
       },  []);
     return (
-            <View style={Styles.container}>
-                <Image style={Styles.imgSize} 
-                source={require('../assets/images/stream4us/logo/stream4us-icon.png')}/>
-                <ActivityIndicator color="#fffaf0" size="large" style={{marginLeft:10}}/>
-            </View>
+        <View style={Styles.container}>
+           <Image style={Styles.imgSize} 
+            source={require('../assets/images/stream4us/logo/stream4us-icon.png')}/>
+            <ActivityIndicator color="#fffaf0" size="large" style={{marginLeft:10}}/>
+        </View>
     )
 }
 const Styles = StyleSheet.create({
@@ -30,5 +30,4 @@ const Styles = StyleSheet.create({
         width:110,
         resizeMode:"cover"
     }
-    
 })
