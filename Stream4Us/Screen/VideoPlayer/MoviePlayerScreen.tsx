@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Dimensions,
   BackHandler,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ActivityIndicator
 } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { Video, ResizeMode } from "expo-av";
@@ -15,13 +16,14 @@ import FontAwesomeIcon from "react-native-vector-icons/Feather";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Slider from "@react-native-community/slider";
 import { StatusBar } from "expo-status-bar";
-
+import NetInfo from "@react-native-community/netinfo";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const MoviePlayer = ({ route }) => {
   const videoRef = useRef(null);
-  
+  const [isConnected, setIsConnected] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [islockScreen, setIsLockScreen] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -37,6 +39,14 @@ const MoviePlayer = ({ route }) => {
   const [brightness, setBrightness] = useState(1);
   const sliderValueRef = useRef(0);
 
+  useEffect(() =>{
+   const unsubscribe = NetInfo.addEventListener(status => {
+     
+     setIsConnected(status.isConnected);
+     setIsLoading(status.isConnected ? false : true);
+   });
+   return () => unsubscribe();
+  })
   const handleVideoStatusUpdate = (status) => {
     setVideoStatus(status);
     if (status.isLoaded) {
@@ -73,17 +83,21 @@ const MoviePlayer = ({ route }) => {
     const currentPosition = await videoRef.current.getStatusAsync();
     videoRef.current.setPositionAsync(currentPosition.positionMillis + 10000);
   }
+
   useEffect(() => {
     const backHandle = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (orientation === "landscape") {
         ScreenOrientation.unlockAsync();
-        ScreenOrientation.OrientationLock.PORTRAIT;
-      
+        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+        setOrientation("portrait"); 
+        return true;
+      }
       return false;
     });
     return () => {
       backHandle.remove();
     };
-  }, []);
+  }, [orientation]);
   
   useEffect(() => {
     const setVideoDuration = async () => {
@@ -132,10 +146,13 @@ const MoviePlayer = ({ route }) => {
     }
   }
   const handleControls = async () => {
+    console.log(isLoading);
+    if(!isLoading){
     if(orientation=="landscape"){
     islockScreen != true ? setShowControls(true) : setShowControls(false);
     }else{
       showControls==true ? setShowControls(false) : setShowControls(true);
+    }
     }
     setTimeout(() => {
       setShowControls(false);
@@ -160,11 +177,20 @@ const MoviePlayer = ({ route }) => {
   useEffect(() => {
     getCurrentBrightness();
   }, []);
+  
   return (
             
    <View style={{flex:1}}>
     <StatusBar hidden={true} />
         <View>
+          {!isConnected && isLoading ? (
+          <View style={orientation == "portrait" ? 
+            {width: Dimensions.get("window").width, height: 260, justifyContent:"center"} :
+            {width: Dimensions.get("window").width, height: "100%",justifyContent:"center"}
+         }>
+            <ActivityIndicator size="large" color="red" />
+          </View>
+          ) : (
             <Video            
               style={
                 orientation == "portrait" ? 
@@ -177,7 +203,7 @@ const MoviePlayer = ({ route }) => {
               shouldPlay={!isPlaying}
               resizeMode={ResizeMode.COVER}
               isLooping
-            />
+            />)}
             </View>           
             <TouchableWithoutFeedback onPress={handleControls}>
             <View style={orientation == "portrait" ? styles.controls : styles.lscontrols}>
