@@ -33,8 +33,8 @@ const TrendingMovies = () => {
   }, [index]);
 
   const getItemLayout = (data, index) => ({
-    length: width * 0.80,
-    offset: (width * 0.80 + width * 0.04) * index,
+    length: width * 0.85,
+    offset: (width * 0.85 + width * 0.04) * index,
     index,
   });
 
@@ -59,7 +59,7 @@ const TrendingMovies = () => {
         renderItem={renderItem}
         keyExtractor={(item, index) => item.id + index}
         horizontal
-        scrollEnabled={false}
+        scrollEnabled={true}
         pagingEnabled
         onEndReachedThreshold={0.1}
         showsHorizontalScrollIndicator={false}
@@ -77,12 +77,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   imageContainer: {
-    width: width * 0.80,
+    width: width * 0.85,
     height: height * 0.20, 
     marginRight: width * 0.04,
   },
   firstImage: {
-    marginLeft: width * 0.08,
+    marginLeft: width * 0.05,
   },
   image: {
     backgroundColor: "#696969",

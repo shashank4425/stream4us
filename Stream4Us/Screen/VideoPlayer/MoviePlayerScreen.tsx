@@ -120,7 +120,7 @@ const MoviePlayer = ({ route }) => {
   useEffect(() => {
   setTimeout(() => {
       setShowControls(false);
-  },6000);
+  },4500);
   },[]);
   const lockScreen = async () => {
     if(islockScreen==false){
@@ -136,6 +136,9 @@ const MoviePlayer = ({ route }) => {
     }else{
       showControls==true ? setShowControls(false) : setShowControls(true);
     }
+    setTimeout(() => {
+      setShowControls(false);
+  },4500);
    }
  
   const getCurrentBrightness = async () => {
@@ -185,11 +188,12 @@ const MoviePlayer = ({ route }) => {
             </TouchableOpacity>
             </View>
           }
-            { showControls &&
+            
             <View>          
             <View style={orientation == "portrait" ? styles.topMiddleController : styles.lsMiddleController  }>
             {orientation=="landscape"?
-               <View style={styles.lsMiddleleftController}>
+             
+             <View style={showControls ? styles.lsMiddleleftController: {display:"none"}}>
               <Slider
               style={styles.brightnesSlider}
               minimumValue={0}
@@ -202,7 +206,8 @@ const MoviePlayer = ({ route }) => {
               maximumTrackTintColor="#0D0E10"
             />
             </View>  :""}  
-            <View style={orientation == "portrait" ? {width:"100%", justifyContent:"space-between",flexDirection:"row"} : styles.lsMiddleRightController}>
+            { showControls && 
+            <View style={orientation == "portrait" ? {marginTop:"10%",width:"100%", justifyContent:"space-between",flexDirection:"row"} : styles.lsMiddleRightController}>
              <TouchableOpacity onPress={moveVideoBack}>
                 <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={24} color="white"
                 ></FontAwesomeIcon>
@@ -218,19 +223,21 @@ const MoviePlayer = ({ route }) => {
                 ></FontAwesomeIcon>
                 <Text style={styles.fifteenSecond}>10</Text>
               </TouchableOpacity>        
+              </View>}
+              
               </View>
-              </View>
+              { showControls &&
               <View  style={orientation == "portrait" ? styles.bottomController : styles.lsbottomController}>
-              <Text style={{padding:12, width: "92%", color: "#dcdcdc", fontWeight:"900", fontSize:12}}>
+              <Text style={orientation == "portrait" ? styles.potraitLayout :styles.lsLayout}>
               {formatTime(currentTime)} / {formatTime(duration)}
             </Text>
               <TouchableOpacity onPress={toggleScreen}>
                 <MaterialIcon style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
                 ></MaterialIcon>
               </TouchableOpacity>              
+              </View>}
               </View>
-              </View>
-            }
+            
             </View>
             </TouchableWithoutFeedback>   
       
@@ -302,6 +309,7 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     alignItems:"center",
     alignContent:"center",
+    paddingLeft:75,
     justifyContent:"space-between"
    },
    
@@ -316,6 +324,20 @@ const styles = StyleSheet.create({
     height:"15%",
     flexDirection:"row",
     display:"flex"
+  },
+  potraitLayout:{
+    width: "90%",
+    padding:12, 
+    color: "#dcdcdc",
+    fontWeight:"900",
+    fontSize:12
+  },
+  lsLayout:{
+    width: "95%",
+    padding:12, 
+    color: "#dcdcdc",
+    fontWeight:"900",
+    fontSize:12
   },
    screenLUIcon: {
     position:"relative",
