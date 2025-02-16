@@ -15,6 +15,7 @@ import FontAwesomeIcon from "react-native-vector-icons/Feather";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Slider from "@react-native-community/slider";
 import { StatusBar } from "expo-status-bar";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 

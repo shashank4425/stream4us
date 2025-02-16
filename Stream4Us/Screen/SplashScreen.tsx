@@ -1,14 +1,23 @@
 import react, { useEffect } from "react"
 import * as NavigationBar from 'expo-navigation-bar';
 NavigationBar.setBackgroundColorAsync("#0D0E10"); 
-import { View, StyleSheet, ActivityIndicator,Image,AppState } from "react-native"
+import { View, StyleSheet, ActivityIndicator,Image,Animated } from "react-native"
 
 export default function SplashScreen({navigation}) {
-    useEffect(() => {   
-          setTimeout(async () => {
-            navigation.navigate('Home');
-        }, 3000);
-      },  []);
+    
+      const fadeAnim = new Animated.Value(0); 
+
+      useEffect(() => {
+        Animated.timing(fadeAnim, {
+          toValue: 1, 
+          duration: 3000, 
+          useNativeDriver: true, 
+        }).start();
+    
+        setTimeout(() => {
+          navigation.replace('Home');
+        }, 3000); 
+      }, []);  
     return (
         <View style={Styles.container}>
            <Image style={Styles.imgSize} 

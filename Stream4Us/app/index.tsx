@@ -11,22 +11,24 @@ import BhojpuriBhaukalMovies from "@/Screen/movies/BhojpuriMovies/BhojpuriBhauka
 import HorrorMovies from "@/Screen/movies/HorrorMovies/HorrorMovies";
 import MoviePlayer from "@/Screen/VideoPlayer/MoviePlayerScreen";
 import Home from "@/Screen/HomeScreen";
-import * as Splashscreen  from 'expo-splash-screen'; 
 import Splash from '@/Screen/SplashScreen';
 const Stack = createStackNavigator();
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-Splashscreen.preventAutoHideAsync();
+import * as SplashScreenLib from 'expo-splash-screen';
+
 export default function HomeScreen({route}){
-  const [appState, setAppState] = useState(AppState.currentState);
   useEffect(() => {
+    SplashScreenLib.preventAutoHideAsync();
     setTimeout(async () => {
-      await Splashscreen.hideAsync();
-    }, 1000);
+      await SplashScreenLib.hideAsync();
+    }, 2000); 
+    return () => {
+      SplashScreenLib.preventAutoHideAsync(); 
+    };
   }, []);
  
   return (      
-      <Stack.Navigator initialRouteName={appState == 'active' ? 'Splash' : 'Home'} screenOptions={{
+      <Stack.Navigator initialRouteName="Splash" screenOptions={{
         cardStyle: {
           backgroundColor:"#0D0E10",
           width:windowWidth
