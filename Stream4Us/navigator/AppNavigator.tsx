@@ -24,11 +24,7 @@ function AppNavigator({route}){
           backgroundColor:"#0D0E10",
           width:windowWidth
         },headerTitle:() =>
-          <Image
-          style={{marginTop:-15, width: windowWidth/4.6,
-             height: 28 }}
-          source={require('../assets/images/stream4us/logo/stream4us.png')}
-        />
+          
       }}>
     <Stack.Screen name="Splash" component={Splash} options={{
       headerLeft:()=>null,

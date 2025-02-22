@@ -1,7 +1,8 @@
 import react, { useEffect } from "react"
 import * as NavigationBar from 'expo-navigation-bar';
-NavigationBar.setBackgroundColorAsync("#0D0E10"); 
+NavigationBar.setVisibilityAsync('hidden');
 import { View, StyleSheet, ActivityIndicator,Image,Animated } from "react-native"
+import { StatusBar } from "expo-status-bar";
 
 export default function SplashScreen({navigation}) {
     
@@ -19,24 +20,24 @@ export default function SplashScreen({navigation}) {
         }, 3000); 
       }, []);  
     return (
+      
         <View style={Styles.container}>
+          <StatusBar hidden={true}/>
            <Image style={Styles.imgSize} 
-            source={require('../assets/images/stream4us/logo/stream4us-icon.png')}/>
-            <ActivityIndicator color="#fffaf0" size="large" style={{marginLeft:10}}/>
+            source={require('../assets/images/stream4us/logo/stream4us_splash.png')}/>
+           
         </View>
     )
 }
 const Styles = StyleSheet.create({
     container: {
-        backgroundColor:"#0D0E10",
-        resizeMode:"cover",
         justifyContent:'center',
         alignItems:'center',
         flex:1
     },
     imgSize: {
-        height:140,
-        width:110,
+        height:"100%",
+        width:"100%",
         resizeMode:"cover"
     }
 })

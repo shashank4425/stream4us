@@ -34,9 +34,9 @@ export default function HomeScreen({route}){
           width:windowWidth
         },headerTitle:() =>
           <Image
-          style={{marginTop:-15, width: windowWidth/4.6,
-             height: 28 }}
-          source={require('../assets/images/stream4us/logo/stream4us.png')}
+          style={{marginTop:-15, width: windowWidth/7,
+             height: 32,resizeMode:"contain" }}
+          source={require('../assets/images/stream4us/logo/stream4us_logo.png')}
         />
       }}>
     <Stack.Screen name="Splash" component={Splash} options={{
@@ -46,7 +46,7 @@ export default function HomeScreen({route}){
     <Stack.Screen name="Home" component={Home} options={{
       headerLeft:()=>null,
       headerShown:true,
-      headerStyle: {backgroundColor:"#0D0E10", height:45},
+      headerStyle: {backgroundColor:"#0D0E10", height:50},
       headerTintColor:"#ffffff"
     }}/> 
     <Stack.Screen name="Action Movies" component={ActionMovies} options={{

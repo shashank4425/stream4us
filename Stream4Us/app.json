@@ -4,8 +4,7 @@
     "slug": "stream4us",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/stream4us/logo/stream4us-icon.png",
-    "backgroundColor": "#0D0E10",
+    "icon": "./assets/images/stream4us/logo/stream4us_icon.png",
     "scheme": "com.example.streamus",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -15,8 +14,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/stream4us/logo/stream4us-adaptive-icon.png",
-        "backgroundColor": "#0D0E10"
+        "foregroundImage": "./assets/images/stream4us/logo/stream4us_adaptive-icon.png"
       },
       "package": "com.example.streamus",
       "versionCode": 2,
@@ -27,16 +25,15 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/stream4us/logo/stream4us-splash.png"
+      "favicon": "./assets/images/stream4us/logo/stream4us_splash.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/stream4us/logo/stream4us-splash.png",
-          "resizeMode": "contain",
-          "backgroundColor": "#0D0E10"
+          "image": "./assets/images/stream4us/logo/stream4us_splash.png",
+          "resizeMode": "contain"
         }
       ],
       [
@@ -52,9 +49,6 @@
     "extra": {
       "router": {
         "origin": false
-      },
-      "eas": {
-        "projectId": "5434cd7e-32cb-4bae-bec2-2fc2d65b137b"
       }
     }
   }
