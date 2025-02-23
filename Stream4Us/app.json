@@ -33,7 +33,7 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/stream4us/logo/stream4us_splash.png",
-          "resizeMode": "contain"
+          "resizeMode": "cover"
         }
       ],
       [
