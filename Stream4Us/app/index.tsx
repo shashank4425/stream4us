@@ -28,21 +28,21 @@ export default function HomeScreen({route}){
   }, []);
  
   return (      
-      <Stack.Navigator initialRouteName="Splash" screenOptions={{
+      <Stack.Navigator initialRouteName="Home" screenOptions={{
         cardStyle: {
           backgroundColor:"#0D0E10",
           width:windowWidth
         },headerTitle:() =>
           <Image
           style={{marginTop:-15, width: windowWidth/7,
-             height: 32,resizeMode:"contain" }}
+             height: 28,resizeMode:"contain" }}
           source={require('../assets/images/stream4us/logo/stream4us_logo.png')}
         />
       }}>
-    <Stack.Screen name="Splash" component={Splash} options={{
+    {/* <Stack.Screen name="Splash" component={Splash} options={{
       headerLeft:()=>null,
       headerShown:false
-    }}      />         
+    }}      />          */}
     <Stack.Screen name="Home" component={Home} options={{
       headerLeft:()=>null,
       headerShown:true,

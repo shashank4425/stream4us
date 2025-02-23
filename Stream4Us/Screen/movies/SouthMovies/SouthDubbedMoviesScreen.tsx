@@ -39,16 +39,16 @@ export default function SouthDubbedMovies({navigation,route}) {
 }
 const Styles = StyleSheet.create({
     container: {
-        padding:12,
+        padding:6,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     cards: {
         height: 210,
-        width: 122,        
+        width: windowWidth/3.10,        
         borderRadius: 12,
         padding: 4,
-        marginTop: 2   
+        marginTop: 0   
     },
     imgContainer: {
         height:"85%",

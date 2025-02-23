@@ -1,6 +1,6 @@
 import react, { useEffect } from "react"
 import * as NavigationBar from 'expo-navigation-bar';
-NavigationBar.setVisibilityAsync('hidden');
+
 import { View, StyleSheet, ActivityIndicator,Image,Animated } from "react-native"
 import { StatusBar } from "expo-status-bar";
 

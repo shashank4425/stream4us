@@ -7,29 +7,29 @@ import { StatusBar } from "expo-status-bar";
 import TrendingMovies from "@/components/banner/TrendingMovies";
 
 export default function Home({ navigation }) {
-    const [appState, setAppState] = useState(AppState.currentState);
-    useEffect(() => {
+    // const [appState, setAppState] = useState(AppState.currentState);
+    // useEffect(() => {
        
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-          if (navigation.isFocused()) {
-            BackHandler.exitApp(); 
-            return true; // Prevent default back action (closing app)
-          }
-          return false; // Allow default behavior if app is not active
-        });
-        const appStateListener = AppState.addEventListener('change', (nextAppState) => {
-            if (nextAppState === 'background') {    
-                AppState.addEventListener('change', (nextAppState) =>{
-                    return true;
-                })          
-            }
-            setAppState(nextAppState);
-          });
-        return () => {
-          backHandler.remove();
-          appStateListener.remove();
-        };
-      }, [appState]);
+    //     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+    //       if (navigation.isFocused()) {
+    //         BackHandler.exitApp(); 
+    //         return true; // Prevent default back action (closing app)
+    //       }
+    //       return false; // Allow default behavior if app is not active
+    //     });
+    //     const appStateListener = AppState.addEventListener('change', (nextAppState) => {
+    //         if (nextAppState === 'background') {    
+    //             AppState.addEventListener('change', (nextAppState) =>{
+    //                 return true;
+    //             })          
+    //         }
+    //         setAppState(nextAppState);
+    //       });
+    //     return () => {
+    //       backHandler.remove();
+    //       appStateListener.remove();
+    //     };
+    //   }, [appState]);
     return (
         <View style={Styles.screenContainer}>
         <StatusBar backgroundColor="#0D0E10" style="light" /> 
@@ -89,10 +89,10 @@ const Styles = StyleSheet.create({
         backgroundColor:"#0D0E10",
         flexDirection: 'column',
         flexWrap: 'nowrap',
-        padding:10
+        padding:0
     },
     cardContainer: {
-        marginBottom: 2
+        padding: 8
     },
     container: {
         flexDirection: 'row',
@@ -117,7 +117,7 @@ const Styles = StyleSheet.create({
         color: "#ffffff",
         fontWeight: "bold",
         alignItems: "flex-start",
-        fontSize: 14
+        fontSize: 16
     },
     title: {
         color: "#ffffff",
@@ -140,11 +140,11 @@ const Styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: "space-between",
-        padding:8
+        padding:10
     },
     viewAll: {
-        padding: 2,
-        fontSize: 14,
+        padding: 0,
+        fontSize: 16,
         color: "#ffffff"
     }
 })

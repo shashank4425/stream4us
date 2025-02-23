@@ -142,11 +142,13 @@ const MoviePlayer = ({ route }) => {
        setShowControls(false);
        setIsLockScreen(true)
     }else{
-    setIsLockScreen(false);setShowControls(true);
+    setIsLockScreen(false);
+    if(isConnected){
+    setShowControls(true);
+    }
     }
   }
   const handleControls = async () => {
-    console.log(isLoading);
     if(!isLoading){
     if(orientation=="landscape"){
     islockScreen != true ? setShowControls(true) : setShowControls(false);
@@ -177,7 +179,6 @@ const MoviePlayer = ({ route }) => {
   useEffect(() => {
     getCurrentBrightness();
   }, []);
-  
   return (
             
    <View style={{flex:1}}>
@@ -185,8 +186,8 @@ const MoviePlayer = ({ route }) => {
         <View>
           {!isConnected && isLoading ? (
           <View style={orientation == "portrait" ? 
-            {width: Dimensions.get("window").width, height: 260, justifyContent:"center"} :
-            {width: Dimensions.get("window").width, height: "100%",justifyContent:"center"}
+            {width: Dimensions.get("window").width, position:"fixed", height: 260, alignContent:"center",justifyContent:"center"} :
+            {width: Dimensions.get("window").width, position:"fixed", height: "100%",justifyContent:"center"}
          }>
             <ActivityIndicator size="large" color="red" />
           </View>

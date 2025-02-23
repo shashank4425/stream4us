@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
 import { bannerList } from "../../assets/bannerList/bannerList";
 import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 
 const { width, height } = Dimensions.get('window'); 
 
@@ -33,8 +34,8 @@ const TrendingMovies = () => {
   }, [index]);
 
   const getItemLayout = (data, index) => ({
-    length: width * 0.85,
-    offset: (width * 0.85 + width * 0.04) * index,
+    length: width,
+    offset: (width + width * 0) * index,
     index,
   });
 
@@ -53,6 +54,7 @@ const TrendingMovies = () => {
 
   return (
     <View style={styles.container}>
+      
       <FlatList
         ref={flatListRef}
         data={data}
@@ -77,19 +79,19 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   imageContainer: {
-    width: width * 0.85,
-    height: height * 0.20, 
-    marginRight: width * 0.04,
+    width: width,
+    height: height * 0.25, 
+    marginRight: width * 0,
   },
   firstImage: {
-    marginLeft: width * 0.05,
+    marginLeft: width * 0,
   },
   image: {
     backgroundColor: "#696969",
     width: "100%",
     height: "100%",
     resizeMode: 'cover',
-    borderRadius: 12,
+    borderRadius: 0,
   },
   dotsContainer: {
     position: 'absolute',
