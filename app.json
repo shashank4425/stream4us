@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "Stream4Us",
+    "slug": "Stream4Us",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/stream4us/logo/icon-stream4us.png",
+    "scheme": "com.example.streamus",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0D0E10",
+        "foregroundImage": "./assets/images/stream4us/logo/icon-stream4us.png",
+        "backgroundImage": "./assets/images/stream4us/logo/icon-stream4us.png",
+        "monochromeImage": "./assets/images/stream4us/logo/icon-stream4us.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/stream4us/logo/icon-stream4us.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/stream4us/logo/splash-stream4us.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#0D0E10",
+          "dark": {
+            "backgroundColor": "#0D0E10"
+          }
+        }
+      ],[
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "DEFAULT"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
