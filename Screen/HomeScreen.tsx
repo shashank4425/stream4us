@@ -1,10 +1,9 @@
-import react, { useEffect,useState} from "react"
-import { View, Text, StyleSheet, Dimensions, ScrollView, Image, BackHandler, TouchableOpacity, AppState  } from "react-native"
 import { entertainmentList } from "@/assets/entertainmentList/entertainmentList";
+import TrendingMovies from "@/components/banner/TrendingMovies";
+import { StatusBar } from "expo-status-bar";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-import { StatusBar } from "expo-status-bar";
-import TrendingMovies from "@/components/banner/TrendingMovies";
 
 export default function Home({ navigation }) {
     
@@ -70,7 +69,7 @@ const Styles = StyleSheet.create({
         padding:0
     },
     cardContainer: {
-        padding: 8
+        padding: windowWidth/30
     },
     container: {
         flexDirection: 'row',
@@ -94,7 +93,8 @@ const Styles = StyleSheet.create({
     heading: {
         color: "#ffffff",
         fontWeight: "bold",
-        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        textAlign: "left",
         fontSize: 16
     },
     title: {
@@ -104,24 +104,18 @@ const Styles = StyleSheet.create({
         fontSize: 4
     },
     leftContent: {
-        marginLeft: 0,
-        textAlign: "right",
-        width: windowWidth / 1.5,
-        marginHorizontal: 10,
-        justifyContent: "space-between"
-    },
-    rightContent: {
-        marginHorizontal: 20
+        width: windowWidth / 1.4
     },
     moviesContent: {
         width: windowWidth,
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: "space-between",
-        padding:10
+        flexWrap: 'nowrap',
+        display: "flex",
+        padding: windowWidth / 30
+
     },
     viewAll: {
-        padding: 0,
+        textAlign: "right",
         fontSize: 16,
         color: "#ffffff"
     }
