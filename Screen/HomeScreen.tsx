@@ -65,11 +65,11 @@ const Styles = StyleSheet.create({
         flex:1,
         backgroundColor:"#0D0E10",
         flexDirection: 'column',
-        flexWrap: 'nowrap',
-        padding:0
+        flexWrap: 'nowrap'
     },
     cardContainer: {
-        padding: windowWidth/30
+        paddingHorizontal:windowWidth/50,
+        paddingVertical: windowHeight/80
     },
     container: {
         flexDirection: 'row',
@@ -78,12 +78,12 @@ const Styles = StyleSheet.create({
     cards: {
         backgroundColor:"#696969", 
         height: 160,
-        width: 115,
+        width: windowWidth/3.1,
         borderRadius: 12,
         paddingTop:0,
         paddingLeft:0,
         paddingRight:0,
-        marginRight:5
+        marginRight:windowWidth/50
     },
     imgSize: {
         borderRadius: 12,
