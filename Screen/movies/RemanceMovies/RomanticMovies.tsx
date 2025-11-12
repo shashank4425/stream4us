@@ -1,8 +1,7 @@
-import react, { useEffect, useLayoutEffect } from "react";
-import { View, Text, StyleSheet, Dimensions, ScrollView, Image, FlatList, TouchableOpacity, Alert } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context";
-import { createStackNavigator } from '@react-navigation/stack';
 import { bollywoodromanticmoviesList } from "@/assets/movies/bollywoodmovies/romanticmovies/bollywoodromancemovies";
+import { createStackNavigator } from '@react-navigation/stack';
+import { useLayoutEffect } from "react";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -17,8 +16,7 @@ export default function RomanticMovies({navigation,route}) {
    
     return (
                 <ScrollView>
-                    <View style={Styles.container}>
-                        
+                    <View style={Styles.container}>                        
                         {bollywoodromanticmoviesList.map(item => {
                           return (
                           <View key={item.id} style={Styles.cards}>
@@ -39,17 +37,17 @@ export default function RomanticMovies({navigation,route}) {
     )
 }
 const Styles = StyleSheet.create({
-    container: {
-        padding:12,
+  container: {
+        padding:windowWidth/75,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     cards: {
+        paddingHorizontal:windowWidth/50,
+        paddingVertical: windowHeight/80,
         height: 210,
-        width: 122,        
-        borderRadius: 12,
-        padding: 4,
-        marginTop: 2   
+        width: windowWidth/3.1,        
+        borderRadius: 12
     },
     imgContainer: {
         height:"85%",

@@ -1,8 +1,7 @@
-import react, { useEffect, useLayoutEffect } from "react"
-import { View, Text, StyleSheet, Dimensions, ScrollView, Image, FlatList, TouchableOpacity } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context";
-import { createStackNavigator } from '@react-navigation/stack';
 import { bollywoodactionmoviesList } from "@/assets/movies/bollywoodmovies/actionmovies/bollywoodactionmovies";
+import { createStackNavigator } from '@react-navigation/stack';
+import { useLayoutEffect } from "react";
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -38,16 +37,16 @@ export default function ActionMovies({navigation,route}) {
 }
 const Styles = StyleSheet.create({
     container: {
-        padding:6,
+        padding:windowWidth/75,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     cards: {
+        paddingHorizontal:windowWidth/50,
+        paddingVertical: windowHeight/80,
         height: 210,
-        width: windowWidth/3.10,        
-        borderRadius: 12,
-        padding: 4,
-        marginTop: 0   
+        width: windowWidth/3.1,        
+        borderRadius: 12
     },
     imgContainer: {
         height:"85%",
