@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, FlatList, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
-import { bannerList } from "../../assets/bannerList/bannerList";
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
+import React, { useEffect, useRef, useState } from 'react';
+import { Dimensions, FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { bannerList } from "../../assets/bannerList/bannerList";
 
 const { width, height } = Dimensions.get('window'); 
 
@@ -90,8 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#696969",
     width: "100%",
     height: "100%",
-    resizeMode: 'cover',
-    borderRadius: 0,
+    resizeMode: 'contain'
   },
   dotsContainer: {
     position: 'absolute',

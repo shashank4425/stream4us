@@ -68,8 +68,8 @@ const Styles = StyleSheet.create({
         flexWrap: 'nowrap'
     },
     cardContainer: {
-        paddingHorizontal:windowWidth/50,
-        paddingVertical: windowHeight/80
+        paddingHorizontal:windowWidth/25,
+        paddingVertical: windowHeight/100
     },
     container: {
         flexDirection: 'row',
@@ -77,18 +77,17 @@ const Styles = StyleSheet.create({
     },
     cards: {
         backgroundColor:"#696969", 
-        height: 160,
-        width: windowWidth/3.1,
-        borderRadius: 12,
-        paddingTop:0,
-        paddingLeft:0,
-        paddingRight:0,
-        marginRight:windowWidth/50
+        height: 140,
+        width: windowWidth/3.5,
+        borderRadius: 6,
+        padding:0,
+        marginRight:5
     },
     imgSize: {
-        borderRadius: 12,
+        borderRadius: 6,
         height: "100%",
         width: "100%",
+        resizeMode:"cover"
     },
     heading: {
         color: "#ffffff",
@@ -111,7 +110,7 @@ const Styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'nowrap',
         display: "flex",
-        padding: windowWidth / 30
+        padding: windowWidth / 50
 
     },
     viewAll: {
