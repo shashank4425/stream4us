@@ -30,7 +30,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/stream4us/logo/splash-stream4us.png",
+          "image": "./assets/images/stream4us/logo/stream4us_icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#0D0E10",
