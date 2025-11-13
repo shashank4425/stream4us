@@ -36,24 +36,25 @@ export default function HorrorMovies({navigation,route}) {
     )
 }
 const Styles = StyleSheet.create({
-    container: {
-        padding:windowWidth/75,
+        container: {
+        padding:windowWidth/100,
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
     cards: {
         paddingHorizontal:windowWidth/50,
-        paddingVertical: windowHeight/80,
-        height: 210,
+        paddingVertical: windowHeight/100,
+        height: 180,
         width: windowWidth/3.1,        
-        borderRadius: 12
+        borderRadius: 6
     },
     imgContainer: {
+        resizeMode:"cover",
         height:"85%",
         width:"100%",
     },
     imgSize: {
-        borderRadius: 12,
+        borderRadius: 6,
         backgroundColor:"#696969",
         height:"100%",
         width:"100%",
