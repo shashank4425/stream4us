@@ -1,9 +1,8 @@
+import { commonStyles } from "@/assets/commoncss/commoncss";
 import { globalhitsmoviesList } from "@/assets/movies/globalhitsmovies/globalhitsmovies";
 import { createStackNavigator } from '@react-navigation/stack';
 import { useLayoutEffect } from "react";
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const Stack = createStackNavigator();
 
@@ -15,17 +14,17 @@ export default function GlobalHitsMovies({navigation,route}) {
    },[navigation]);
     return (
                 <ScrollView>
-                    <View style={Styles.container}>
+                    <View style={commonStyles.container}>
                         
                         {globalhitsmoviesList.map(item => {
                           return (
-                          <View key={item.id} style={Styles.cards}>
+                          <View key={item.id} style={commonStyles.cards}>
                             <TouchableOpacity onPress={() => navigation.navigate("MoviePlayer",item)}>
-                              <View style={Styles.imgContainer}>
-                                <Image source={{uri: item.seo.ogImage}} style={Styles.imgSize}/>
+                              <View style={commonStyles.imgContainer}>
+                                <Image source={{uri: item.seo.ogImage}} style={commonStyles.imgSize}/>
                               </View>
-                              <View style={Styles.titleContainer}>
-                                <Text numberOfLines={1} style={Styles.title}>{item.seo.page}</Text>
+                              <View style={commonStyles.titleContainer}>
+                                <Text numberOfLines={1} style={commonStyles.title}>{item.seo.page}</Text>
                               </View>
                                </TouchableOpacity>
                              </View>                             
@@ -36,42 +35,5 @@ export default function GlobalHitsMovies({navigation,route}) {
     )
 }
 const Styles = StyleSheet.create({
-        container: {
-        padding:windowWidth/100,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-    },
-    cards: {
-        paddingHorizontal:windowWidth/50,
-        paddingVertical: windowHeight/100,
-        height: 180,
-        width: windowWidth/3.1,        
-        borderRadius: 6
-    },
-    imgContainer: {
-        resizeMode:"cover",
-        height:"85%",
-        width:"100%",
-    },
-    imgSize: {
-        borderRadius: 6,
-        backgroundColor:"#696969",
-        height:"100%",
-        width:"100%",
-    },
-    titleContainer: {
-        height:"15%",
-        width:"100%",
-    },
-    title: {
-        height:"100%",
-        width:"100%",
-        color: "#fffaf0",
-        fontWeight: "bold",
-        alignItems: "flex-start",
-        fontSize: 14,
-        paddingTop:7,
-        textAlign: "left",
-        justifyContent: "flex-start"
-    }    
+    
 })

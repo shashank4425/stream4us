@@ -11,7 +11,7 @@ export default function Home({ navigation }) {
         <View style={Styles.screenContainer}>
         <StatusBar backgroundColor="#0D0E10" style="light" /> 
                  
-             <ScrollView>
+             <ScrollView directionalLockEnabled={true}>
              <TrendingMovies/> 
                <View>                
                 {entertainmentList.map(items => {
