@@ -13,7 +13,7 @@ export default function BhojpuriBhaukalMovies({navigation,route}) {
         }) 
    },[navigation]);
     return (
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={commonStyles.container}>
                         
                         {bhojpuribhaukalmoviesList.map(item => {
