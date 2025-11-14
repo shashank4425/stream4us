@@ -14,7 +14,7 @@ export default function ActionMovies({navigation,route}) {
         }) 
    },[navigation]);
     return (         
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={commonStyles.container}>
                         
                         {bollywoodactionmoviesList.map(item => {

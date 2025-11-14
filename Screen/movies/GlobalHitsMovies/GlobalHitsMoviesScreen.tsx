@@ -13,7 +13,7 @@ export default function GlobalHitsMovies({navigation,route}) {
         }) 
    },[navigation]);
     return (
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={commonStyles.container}>
                         
                         {globalhitsmoviesList.map(item => {

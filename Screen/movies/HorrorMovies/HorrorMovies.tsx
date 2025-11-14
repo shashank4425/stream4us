@@ -13,7 +13,7 @@ export default function HorrorMovies({navigation,route}) {
         }) 
    },[navigation]);
     return (
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={commonStyles.container}>
                         
                         {bollywoodhorrormoviesList.map(item => {

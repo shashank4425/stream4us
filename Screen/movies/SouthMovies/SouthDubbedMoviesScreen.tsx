@@ -12,7 +12,7 @@ export default function SouthDubbedMovies({navigation,route}) {
          }) 
     },[navigation]);
     return (                
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={commonStyles.container}>
                         
                         {southdubbedmoviesList.map(item => {

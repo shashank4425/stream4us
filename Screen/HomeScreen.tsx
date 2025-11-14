@@ -1,5 +1,6 @@
 import { entertainmentList } from "@/assets/entertainmentList/entertainmentList";
 import TrendingMovies from "@/components/banner/TrendingMovies";
+import { FontAwesome } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const windowWidth = Dimensions.get('window').width;
@@ -11,7 +12,7 @@ export default function Home({ navigation }) {
         <View style={Styles.screenContainer}>
         <StatusBar backgroundColor="#0D0E10" style="light" /> 
                  
-             <ScrollView directionalLockEnabled={true}>
+             <ScrollView showsVerticalScrollIndicator={false}>
              <TrendingMovies/> 
                <View>                
                 {entertainmentList.map(items => {
@@ -21,10 +22,10 @@ export default function Home({ navigation }) {
                              <View style={Styles.leftContent}>
                                 <Text style={Styles.heading}>{items.category}</Text>
                              </View>
-                             <View style={Styles.rightContent}>
-                                <Text style={Styles.viewAll}
-                                    onPress={() => navigation.navigate(items.category, {title:items.category})}>view All
-                                </Text>
+                             <View>
+                                <FontAwesome name="angle-right" size={24} color="#fff"
+                                    onPress={() => navigation.navigate(items.category, {title:items.category})}>
+                                </FontAwesome>
                             </View>
                        </View>                             
                       <ScrollView horizontal={true}>
@@ -103,7 +104,7 @@ const Styles = StyleSheet.create({
         fontSize: 4
     },
     leftContent: {
-        width: windowWidth / 1.4
+        width: windowWidth / 1.2
     },
     moviesContent: {
         width: windowWidth,
@@ -112,10 +113,5 @@ const Styles = StyleSheet.create({
         display: "flex",
         padding: windowWidth / 50
 
-    },
-    viewAll: {
-        textAlign: "right",
-        fontSize: 16,
-        color: "#ffffff"
     }
 })

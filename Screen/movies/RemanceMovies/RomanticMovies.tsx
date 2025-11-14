@@ -13,7 +13,7 @@ export default function RomanticMovies({navigation,route}) {
    },[navigation]);
    
     return (
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={commonStyles.container}>                        
                         {bollywoodromanticmoviesList.map(item => {
                           return (

@@ -4,6 +4,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export const commonStyles = StyleSheet.create({
     container: {
+        backgroundColor:"#0D0E10",
         paddingHorizontal:windowWidth/30,
         paddingVertical: windowHeight/100,
         flexDirection: 'row',
