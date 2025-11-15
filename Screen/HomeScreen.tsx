@@ -1,18 +1,47 @@
 import { entertainmentList } from "@/assets/entertainmentList/entertainmentList";
 import TrendingMovies from "@/components/banner/TrendingMovies";
 import { FontAwesome } from "@expo/vector-icons";
-import { StatusBar } from "expo-status-bar";
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useRef, useState } from "react";
+
+import { Dimensions, Image, Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function Home({ navigation }) {
-    
+   const lastState = useRef("top");
+   const[isNone, setIsNone] = useState("block");
+
+  const handleScroll = (e) => {
+    const y = e.nativeEvent.contentOffset.y;
+
+    // Android only
+    if (Platform.OS !== "android") return;
+
+    if (y > 200) {
+      if (lastState.current !== "black") {
+        console.log(y +" greater");
+        setIsNone("none");
+        StatusBar.setBackgroundColor("#000000", true);
+        lastState.current = "black"
+      }
+    } else {
+      if (lastState.current !== "transparent") {
+        setIsNone("block");
+        StatusBar.setBackgroundColor("transparent", true);
+        lastState.current = "transparent";
+      }
+    }
+  };
     return (
+        <>
         <View style={Styles.screenContainer}>
-        <StatusBar backgroundColor="#0D0E10" style="light" /> 
-                 
-             <ScrollView showsVerticalScrollIndicator={false}>
+            
+            <Image
+              style={{marginTop:windowHeight/20, width: windowWidth/5, padding: 2, position: "absolute", zIndex:1,
+                height: 30,resizeMode:"contain" }}
+                source={require('../assets/images/stream4us/logo/app-logo-stream4us.png')}
+            />
+             <ScrollView showsVerticalScrollIndicator={false} onScroll={handleScroll}>
              <TrendingMovies/> 
                <View>                
                 {entertainmentList.map(items => {
@@ -48,8 +77,8 @@ export default function Home({ navigation }) {
                 })}
             </View>
         </ScrollView>
-    
- </View>
+      </View>
+    </>
     )
 }
 const Styles = StyleSheet.create({
@@ -68,6 +97,14 @@ const Styles = StyleSheet.create({
         flexDirection: 'column',
         flexWrap: 'nowrap'
     },
+    statusBarBg: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: StatusBar.currentHeight || 40,
+    zIndex: 999,
+  },
     cardContainer: {
         paddingHorizontal:windowWidth/25,
         paddingVertical: windowHeight/100
