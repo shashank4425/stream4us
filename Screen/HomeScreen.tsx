@@ -2,47 +2,45 @@ import { entertainmentList } from "@/assets/entertainmentList/entertainmentList"
 import TrendingMovies from "@/components/banner/TrendingMovies";
 import { FontAwesome } from "@expo/vector-icons";
 import React, { useRef, useState } from "react";
-
 import { Dimensions, Image, Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function Home({ navigation }) {
    const lastState = useRef("top");
-   const[isNone, setIsNone] = useState("block");
+   const[isNone, setIsNone] = useState(true);
 
-  const handleScroll = (e) => {
+ const handleScroll = (e) => {
     const y = e.nativeEvent.contentOffset.y;
 
     // Android only
     if (Platform.OS !== "android") return;
 
-    if (y > 200) {
+    if (y > 100) {
       if (lastState.current !== "black") {
-        console.log(y +" greater");
-        setIsNone("none");
-        StatusBar.setBackgroundColor("#000000", true);
+        setIsNone(false);
+        StatusBar.setBackgroundColor("#0D0E10");
         lastState.current = "black"
       }
     } else {
       if (lastState.current !== "transparent") {
-        setIsNone("block");
+        setIsNone(true);
         StatusBar.setBackgroundColor("transparent", true);
         lastState.current = "transparent";
       }
     }
   };
     return (
-        <>
         <View style={Styles.screenContainer}>
-            
-            <Image
+            {isNone && <Image
               style={{marginTop:windowHeight/20, width: windowWidth/5, padding: 2, position: "absolute", zIndex:1,
                 height: 30,resizeMode:"contain" }}
                 source={require('../assets/images/stream4us/logo/app-logo-stream4us.png')}
-            />
-             <ScrollView showsVerticalScrollIndicator={false} onScroll={handleScroll}>
-             <TrendingMovies/> 
+            />}
+             <ScrollView 
+                 showsVerticalScrollIndicator={false} onScroll={handleScroll}
+                 scrollEventThrottle={16}>
+              <TrendingMovies/>
                <View>                
                 {entertainmentList.map(items => {
                     return(
@@ -78,7 +76,6 @@ export default function Home({ navigation }) {
             </View>
         </ScrollView>
       </View>
-    </>
     )
 }
 const Styles = StyleSheet.create({

@@ -1,22 +1,19 @@
-import React, { useState, useRef, useEffect, useCallback  } from "react";
+import NetInfo from "@react-native-community/netinfo";
+import { ResizeMode, Video } from "expo-av";
+import * as Brightness from 'expo-brightness';
+import * as ScreenOrientation from "expo-screen-orientation";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
-  View,
+  ActivityIndicator,
+  BackHandler,
+  Dimensions,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-  BackHandler,
-  TouchableWithoutFeedback,
-  ActivityIndicator
+  View
 } from "react-native";
-import * as ScreenOrientation from "expo-screen-orientation";
-import { Video, ResizeMode } from "expo-av";
-import * as Brightness from 'expo-brightness';
 import FontAwesomeIcon from "react-native-vector-icons/Feather";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
-import Slider from "@react-native-community/slider";
-import { StatusBar } from "expo-status-bar";
-import NetInfo from "@react-native-community/netinfo";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -135,7 +132,7 @@ const MoviePlayer = ({ route }) => {
   useEffect(() => {
   setTimeout(() => {
       setShowControls(false);
-  },4500);
+  },4500000);
   },[]);
   const lockScreen = async () => {
     if(islockScreen==false){
@@ -151,14 +148,14 @@ const MoviePlayer = ({ route }) => {
   const handleControls = async () => {
     if(!isLoading){
     if(orientation=="landscape"){
-    islockScreen != true ? setShowControls(true) : setShowControls(false);
+    islockScreen != true ? setShowControls(true) : setShowControls(true);
     }else{
       showControls==true ? setShowControls(false) : setShowControls(true);
     }
     }
     setTimeout(() => {
       setShowControls(false);
-  },4500);
+  },45000000);
    }
  
   const getCurrentBrightness = async () => {
@@ -194,8 +191,8 @@ const MoviePlayer = ({ route }) => {
             <Video            
               style={
                 orientation == "portrait" ? 
-                {marginTop:-15, width: Dimensions.get("window").width, height: 260 } :
-                {width: Dimensions.get("window").width, height: "100%"}
+                {marginTop:0, width: Dimensions.get("window").width, height: 260 } :
+                {width: "100%", height: "100%"}
               }
               ref={videoRef}
               onPlaybackStatusUpdate={handleVideoStatusUpdate}
@@ -205,37 +202,10 @@ const MoviePlayer = ({ route }) => {
               isLooping
             />)}
             </View>           
-            <TouchableWithoutFeedback onPress={handleControls}>
-            <View style={orientation == "portrait" ? styles.controls : styles.lscontrols}>
-            {orientation == "landscape" && 
-             <View style={styles.screenLockUnlock}>
-            <TouchableOpacity onPress={lockScreen}>
-              <MaterialIcon style={styles.screenLUIcon} name={islockScreen ? "lock" : "lock-open"} size={42} color="white"
-            ></MaterialIcon>
-            </TouchableOpacity>
-            </View>
-          }
-            
-            <View>          
-            <View style={orientation == "portrait" ? styles.topMiddleController : styles.lsMiddleController  }>
-            {orientation=="landscape"?
-             
-             <View style={showControls ? styles.lsMiddleleftController: {display:"none"}}>
-              <Slider
-              style={styles.brightnesSlider}
-              minimumValue={0}
-              maximumValue={1}
-              step={0.01}
-              value={brightness.current}
-              onValueChange={handleBrightnessSliderChange}
-              thumbTintColor="#fff"
-              minimumTrackTintColor="#747474"
-              maximumTrackTintColor="#0D0E10"
-            />
-            </View>  :""}  
-            { showControls && 
-            <View style={orientation == "portrait" ? {marginTop:"10%",width:"100%", justifyContent:"space-between",flexDirection:"row"} : styles.lsMiddleRightController}>
-             <TouchableOpacity onPress={moveVideoBack}>
+            { showControls &&  orientation=="portrait" ?
+              <View style={styles.controls}>
+              <View style={styles.potraitControle}>  
+              <TouchableOpacity onPress={moveVideoBack}>
                 <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={24} color="white"
                 ></FontAwesomeIcon>
                 <Text style={styles.fifteenSecond}>10</Text>
@@ -249,24 +219,27 @@ const MoviePlayer = ({ route }) => {
                 <FontAwesomeIcon style={styles.Rotate} name="rotate-cw" size={24} color="white"
                 ></FontAwesomeIcon>
                 <Text style={styles.fifteenSecond}>10</Text>
-              </TouchableOpacity>        
-              </View>}
-              
+              </TouchableOpacity>       
               </View>
-              { showControls &&
-              <View  style={orientation == "portrait" ? styles.bottomController : styles.lsbottomController}>
-              <Text style={orientation == "portrait" ? styles.potraitLayout :styles.lsLayout}>
+             <View  style={styles.bottomController}>
+              <View style={styles.potraitDuration}>
+              <Text style={styles.potraitDurationTxt}>
               {formatTime(currentTime)} / {formatTime(duration)}
             </Text>
+            </View>
+            <View style={styles.potraitFullscreen}>
               <TouchableOpacity onPress={toggleScreen}>
                 <MaterialIcon style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
                 ></MaterialIcon>
-              </TouchableOpacity>              
-              </View>}
+              </TouchableOpacity> 
+              </View> 
               </View>
+              </View>
+              :
+              <View>
+                </View>
             
-            </View>
-            </TouchableWithoutFeedback>   
+            }
       
       <View style={styles.container}>
         <View style={styles.contentMain}>
@@ -281,26 +254,74 @@ const MoviePlayer = ({ route }) => {
   )
 };
 
+
 const styles = StyleSheet.create({
   controls: {
     position: "absolute",
-    flexWrap: "wrap",
-    alignContent: "flex-start",
-    flexDirection: "column",
-    height: 240,
+    justifyContent:"center",
+    flexDirection: "row",
+    flexWrap:"wrap",
+    height: 260,
     width:"100%"  
   },
-  topController: {
-    height: "100%",
-    width: "100%",
+  potraitControle: {
+    margin:"5%",
+    height:180,
+    width:"90%",
+    justifyContent:"center",
+    alignContent:"center",
+    textAlign:"center",
     flexDirection: "row",
+    flexWrap:"wrap",
     alignItems: "center"
   },
-  lscontrols :{
+  bottomController: {
+    display:"flex",
+    width:"90%",
+    color:"#fff",
+    flexWrap:"nowrap",
+    flexDirection:"row",
+  },
+ potraitDuration :{
+    width:"90%",
+    textAlign:"center",
+    justifyContent:"center"
+  },
+  potraitDurationTxt:{
+    color:"#fff"
+  },
+  
+  potraitFullscreen: {
+   justifyContent:"flex-end",
+   position:"relative"
+  },
+
+  Rotate: {
+    justifyContent:"space-between",
+    fontSize: 40,
+    padding:50,
+    fontWeight: "100",
+  },
+   fifteenSecond: {
+    fontSize: 8,
+    color: "#fff",
+    marginLeft:"48%",
+    marginTop:"48%",
+    fontWeight: "600",
+    justifyContent:"center",
     position: "absolute",
-    flexDirection: "column",
-    height: "100%",
-    width: "100%" 
+  },
+
+  lscontrols :{
+    backgroundColor:"red",
+    zIndex:0,
+    position: "absolute",
+    margin:"5%",
+    justifyContent:"center",
+    alignContent:"center", 
+    width: "90%",
+    height: "80%"
+    
   },
   topMiddleController:{
     height: "80%",
@@ -318,34 +339,23 @@ const styles = StyleSheet.create({
     alignItems:"flex-end",
     justifyContent:"flex-start"
    },
-   
+
+
    lsMiddleController: {
-    position:"fixed", 
-    height:"80%",
-    width:"100%",
-    flexDirection:"row"
+    position:"relative",
+    justifyContent:"center",
+    height: windowHeight/2,
+    width: windowWidth/2,
   },
-  lsMiddleleftController:{
-    width:"16%",
-    height:"100%"
-  },
-  lsMiddleRightController:{
-    height:"100%",
-    width:"60%",
-    position:"fixed",
+  lsIconsController: {
+    padding:"15%",
+    position:"relative",
     flexDirection:"row",
-    alignItems:"center",
+    justifyContent:"space-between",
     alignContent:"center",
-    paddingLeft:75,
-    justifyContent:"space-between"
-   },
-   
-  bottomController: {
-    width:"100%",
-    height:"20%",
-    flexDirection:"row",
-    display:"flex"
+    textAlign:"center",
   },
+  
   lsbottomController:{
     width:"100%",
     height:"15%",
@@ -360,7 +370,7 @@ const styles = StyleSheet.create({
     fontSize:12
   },
   lsLayout:{
-    width: "95%",
+    width: "100%",
     padding:12, 
     color: "#dcdcdc",
     fontWeight:"900",
@@ -372,20 +382,9 @@ const styles = StyleSheet.create({
     padding:10,
     fontWeight:"700"
    },
-  
-  Rotate: {
-    fontSize: 38,
-    fontWeight: "100",
-  },
+
  
-  fifteenSecond: {
-    fontSize: 8,
-    marginTop: 15,
-    marginLeft: 15,
-    color: "#fff",
-    fontWeight: "600",
-    position: "absolute",
-  },
+  
  
   fsRotate: {
     fontSize: 30,
@@ -394,11 +393,10 @@ const styles = StyleSheet.create({
   },
   brightnesSlider :{
     top:"48%",
-    position:"absolute",
+    position:"relative",
     width: 100,
     flexDirection:"row",
     transform: [{ rotate: '-90deg' }],
-    
   },
   slider: {
     width: windowWidth,

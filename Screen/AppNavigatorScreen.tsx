@@ -42,8 +42,7 @@ export default function AppNavigatorScreen({route}){
  
   return (
     <>
-    <StatusBar translucent={true} backgroundColor="transparent" barStyle="light-content"
-                 /> 
+    <StatusBar translucent backgroundColor="transparent" barStyle="light-content"/>        
      <Stack.Navigator initialRouteName="Home" screenOptions={{
         cardStyle: {
           backgroundColor:"#0D0E10",
