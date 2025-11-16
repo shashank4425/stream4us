@@ -132,7 +132,7 @@ const MoviePlayer = ({ route }) => {
   useEffect(() => {
   setTimeout(() => {
       setShowControls(false);
-  },4500000);
+  },4500);
   },[]);
   const lockScreen = async () => {
     if(islockScreen==false){
@@ -148,14 +148,14 @@ const MoviePlayer = ({ route }) => {
   const handleControls = async () => {
     if(!isLoading){
     if(orientation=="landscape"){
-    islockScreen != true ? setShowControls(true) : setShowControls(true);
+    islockScreen != true ? setShowControls(true) : setShowControls(false);
     }else{
       showControls==true ? setShowControls(false) : setShowControls(true);
     }
     }
     setTimeout(() => {
       setShowControls(false);
-  },45000000);
+  },4500);
    }
  
   const getCurrentBrightness = async () => {
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   potraitDurationTxt:{
     color:"#fff"
   },
-  
+
   potraitFullscreen: {
    justifyContent:"flex-end",
    position:"relative"
