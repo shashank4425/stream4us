@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View
 } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/Feather";
@@ -36,13 +37,13 @@ const MoviePlayer = ({ route }) => {
   const [brightness, setBrightness] = useState(1);
   const sliderValueRef = useRef(0);
 
-  useEffect(() =>{
-   const unsubscribe = NetInfo.addEventListener(status => {
-     
-     setIsConnected(status.isConnected);
-     setIsLoading(status.isConnected ? false : true);
-   });
-   return () => unsubscribe();
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(status => {
+
+      setIsConnected(status.isConnected);
+      setIsLoading(status.isConnected ? false : true);
+    });
+    return () => unsubscribe();
   })
   const handleVideoStatusUpdate = (status) => {
     setVideoStatus(status);
@@ -59,10 +60,10 @@ const MoviePlayer = ({ route }) => {
       videoRef.current.setPositionAsync(value * 1000);
     }
   };
-  
-  const movieLink= route.params;
+
+  const movieLink = route.params;
   const { videoLink } = route.params;
-  const videoSource = require(`../../assets/video/bhojpuri/sadiya-ke-pin.mp4`)// Require the video
+  const videoSource = require(`../../assets/video/bhojpuri/kalamchaba-gaini.mp4`)// Require the video
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -86,7 +87,7 @@ const MoviePlayer = ({ route }) => {
       if (orientation === "landscape") {
         ScreenOrientation.unlockAsync();
         ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-        setOrientation("portrait"); 
+        setOrientation("portrait");
         return true;
       }
       return false;
@@ -95,7 +96,7 @@ const MoviePlayer = ({ route }) => {
       backHandle.remove();
     };
   }, [orientation]);
-  
+
   useEffect(() => {
     const setVideoDuration = async () => {
       if (videoRef.current) {
@@ -112,9 +113,8 @@ const MoviePlayer = ({ route }) => {
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
-    return `${hours > 59 ? hours + ":" : ""}${
-      minutes < 10 ? "0" : ""
-    }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    return `${hours > 59 ? hours + ":" : ""}${minutes < 10 ? "0" : ""
+      }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
   const toggleScreen = async () => {
     if (orientation === "portrait") {
@@ -130,34 +130,35 @@ const MoviePlayer = ({ route }) => {
     }
   };
   useEffect(() => {
-  setTimeout(() => {
+    setTimeout(() => {
       setShowControls(false);
-  },4500);
-  },[]);
+    }, 4500);
+  }, []);
   const lockScreen = async () => {
-    if(islockScreen==false){
-       setShowControls(false);
-       setIsLockScreen(true)
-    }else{
-    setIsLockScreen(false);
-    if(isConnected){
-    setShowControls(true);
-    }
+    if (islockScreen == false) {
+      setShowControls(false);
+      setIsLockScreen(true)
+    } else {
+      setIsLockScreen(false);
+      if (isConnected) {
+        setShowControls(true);
+      }
     }
   }
   const handleControls = async () => {
-    if(!isLoading){
-    if(orientation=="landscape"){
-    islockScreen != true ? setShowControls(true) : setShowControls(false);
-    }else{
-      showControls==true ? setShowControls(false) : setShowControls(true);
+   console.log("Click");
+    if (!isLoading) {
+      if (orientation == "landscape") {
+        islockScreen != true ? setShowControls(true) : setShowControls(false);
+      } else {
+        showControls == true ? setShowControls(false) : setShowControls(true);
+      }
     }
-    }
-    setTimeout(() => {
+     setTimeout(() => {
       setShowControls(false);
   },4500);
-   }
- 
+  }
+
   const getCurrentBrightness = async () => {
     const currentBrightness = await Brightness.getBrightnessAsync();
     setBrightness(currentBrightness);
@@ -168,31 +169,33 @@ const MoviePlayer = ({ route }) => {
   };
 
   const handleBrightnessSliderChange = useCallback((value) => {
-      sliderValueRef.current = value;
-      setBrightness(value);
-      setSystemBrightness(value);
-   }, []);
+    sliderValueRef.current = value;
+    setBrightness(value);
+    setSystemBrightness(value);
+  }, []);
 
   useEffect(() => {
     getCurrentBrightness();
   }, []);
   return (
-            
-   <View style={{flex:1}}>
+    <>
+    <TouchableWithoutFeedback onPress={handleControls}>
+      <View style={{ flex: 1, marginTop: 35 }}>
         <View>
           {!isConnected && isLoading ? (
-          <View style={orientation == "portrait" ? 
-            {width: Dimensions.get("window").width, position:"fixed", height: 260, alignContent:"center",justifyContent:"center"} :
-            {width: Dimensions.get("window").width, position:"fixed", height: "100%",justifyContent:"center"}
-         }>
-            <ActivityIndicator size="large" color="red" />
-          </View>
+            <View style={orientation == "portrait" ?
+              { width: Dimensions.get("window").width, position: "fixed", height: 200, alignContent: "center", justifyContent: "center" } :
+              { width: Dimensions.get("window").width, position: "fixed", height: "100%", justifyContent: "center" }
+            }>
+              <ActivityIndicator size="large" color="red" />
+            </View>
           ) : (
-            <Video            
+
+            <Video
               style={
-                orientation == "portrait" ? 
-                {marginTop:0, width: Dimensions.get("window").width, height: 260 } :
-                {width: "100%", height: "100%"}
+                orientation == "portrait" ?
+                  { width: Dimensions.get("window").width, height: 200 } :
+                  { width: "100%", height: "100%" }
               }
               ref={videoRef}
               onPlaybackStatusUpdate={handleVideoStatusUpdate}
@@ -200,57 +203,65 @@ const MoviePlayer = ({ route }) => {
               shouldPlay={!isPlaying}
               resizeMode={ResizeMode.COVER}
               isLooping
-            />)}
-            </View>           
-            { showControls &&  orientation=="portrait" ?
-              <View style={styles.controls}>
-              <View style={styles.potraitControle}>  
-              <TouchableOpacity onPress={moveVideoBack}>
-                <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={24} color="white"
-                ></FontAwesomeIcon>
-                <Text style={styles.fifteenSecond}>10</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handlePlayPause}>
-                <MaterialIcon
-                  name={isPlaying ? "play-circle-outline" : "pause-circle-outline"}size={42}color="white"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={moveVideoForward}>
-                <FontAwesomeIcon style={styles.Rotate} name="rotate-cw" size={24} color="white"
-                ></FontAwesomeIcon>
-                <Text style={styles.fifteenSecond}>10</Text>
-              </TouchableOpacity>       
-              </View>
-             <View  style={styles.bottomController}>
-              <View style={styles.potraitDuration}>
-              <Text style={styles.potraitDurationTxt}>
-              {formatTime(currentTime)} / {formatTime(duration)}
-            </Text>
-            </View>
-            <View style={styles.potraitFullscreen}>
-              <TouchableOpacity onPress={toggleScreen}>
-                <MaterialIcon style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
-                ></MaterialIcon>
-              </TouchableOpacity> 
-              </View> 
-              </View>
-              </View>
-              :
-              <View>
+            />
+          )}
+              {orientation == "landscape" ? 
+                 <View style={styles.screenLockUnlock}>
+                  <TouchableOpacity onPress={lockScreen}>
+                    <MaterialIcon style={styles.screenLUIcon} name={islockScreen ? "lock" : "lock-open"} size={42} color="white"
+                    ></MaterialIcon>
+                  </TouchableOpacity>
+                </View> : ""}
+          
+            {showControls && (
+              <View style={orientation == "portrait" ? styles.controls : styles.lscontrols}>
+                 
+                <View style={orientation == "portrait" ? styles.potraitControle : styles.lsControle}>
+                  <TouchableOpacity onPress={moveVideoBack}>
+                    <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={24} color="white"
+                    ></FontAwesomeIcon>
+                    <Text style={styles.fifteenSecond}>10</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={handlePlayPause}>
+                    <MaterialIcon
+                      name={isPlaying ? "play-circle-outline" : "pause-circle-outline"} size={42} color="white"
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={moveVideoForward}>
+                    <FontAwesomeIcon style={styles.Rotate} name="rotate-cw" size={24} color="white"
+                    ></FontAwesomeIcon>
+                    <Text style={styles.fifteenSecond}>10</Text>
+                  </TouchableOpacity>
                 </View>
-            
-            }
-      
-      <View style={styles.container}>
-        <View style={styles.contentMain}>
-          <Text style={styles.mtitle}>{movieLink.seo.page}</Text>
-          <Text style={styles.mline}>{movieLink.line2}</Text>
+                <View style={orientation == "portrait" ? styles.bottomController : styles.lsbottomController}>
+                  <View style={orientation == "portrait" ? styles.potraitDuration : styles.lsDuration}>
+                    <Text style={styles.potraitDurationTxt}>
+                      {formatTime(currentTime)} / {formatTime(duration)}
+                    </Text>
+                  </View>
+                  <View style={styles.potraitFullscreen}>
+                    <TouchableOpacity onPress={toggleScreen}>
+                      <MaterialIcon style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
+                      ></MaterialIcon>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            )}
         </View>
-        <View>
-          <Text style={styles.contentDes}>{movieLink.seo.description}</Text>
-        </View>
+        {orientation == "portrait" ?
+          <View style={styles.container}>
+            <View style={styles.contentMain}>
+              <Text style={styles.mtitle}>{movieLink.seo.page}</Text>
+              <Text style={styles.mline}>{movieLink.line2}</Text>
+            </View>
+            <View>
+              <Text style={styles.contentDes}>{movieLink.seo.description}</Text>
+            </View>
+          </View> : ""}
       </View>
-   </View>
+      </TouchableWithoutFeedback>
+    </>
   )
 };
 
@@ -258,144 +269,118 @@ const MoviePlayer = ({ route }) => {
 const styles = StyleSheet.create({
   controls: {
     position: "absolute",
-    justifyContent:"center",
+    justifyContent: "center",
     flexDirection: "row",
-    flexWrap:"wrap",
-    height: 260,
-    width:"100%"  
+    flexWrap: "wrap",
+    height: 200,
+    width: "100%"
   },
   potraitControle: {
-    margin:"5%",
-    height:180,
-    width:"90%",
-    justifyContent:"center",
-    alignContent:"center",
-    textAlign:"center",
+    margin: "2%",
+    height: 140,
+    width: "90%",
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
     flexDirection: "row",
-    flexWrap:"wrap",
+    flexWrap: "wrap",
+    alignItems: "center"
+  },
+
+  lscontrols: {
+    zIndex: 0,
+    position: "absolute",
+    marginLeft: "10%",
+    justifyContent: "center",
+    alignContent: "center",
+    width: "80%",
+    height: "100%"
+  },
+  screenLockUnlock: {
+    width: "90%",
+    position:"absolute",
+    end:"auto",
+    marginLeft:"1%",
+    alignItems: "flex-end",
+    justifyContent: "flex-start"
+  },
+  screenLUIcon: {
+    position: "relative",
+    fontSize: 32,
+    padding: 10,
+    fontWeight: "700"
+  },
+  lsControle: {
+    height: 140,
+    width: "100%",
+    margin: "5%",
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "center"
   },
   bottomController: {
-    display:"flex",
-    width:"90%",
-    color:"#fff",
-    flexWrap:"nowrap",
-    flexDirection:"row",
+    display: "flex",
+    width: "90%",
+    color: "#fff",
+    flexWrap: "nowrap",
+    flexDirection: "row",
   },
- potraitDuration :{
-    width:"90%",
-    textAlign:"center",
-    justifyContent:"center"
+  lsbottomController: {
+    display: "flex",
+    marginTop: "5%",
+    flexWrap: "nowrap",
+    flexDirection: "row",
   },
-  potraitDurationTxt:{
-    color:"#fff"
+  potraitDuration: {
+    width: "90%",
+    textAlign: "center",
+    justifyContent: "center"
+  },
+  lsDuration: {
+    width: "95%",
+    end:"auto",
+    textAlign: "center",
+    justifyContent: "center"
+  },
+
+  potraitDurationTxt: {
+    color: "#fff"
   },
 
   potraitFullscreen: {
-   justifyContent:"flex-end",
-   position:"relative"
+    justifyContent: "flex-end",
+    position: "fixed"
   },
 
   Rotate: {
-    justifyContent:"space-between",
+    justifyContent: "space-between",
     fontSize: 40,
-    padding:50,
+    padding: 50,
     fontWeight: "100",
   },
-   fifteenSecond: {
+  fifteenSecond: {
     fontSize: 8,
     color: "#fff",
-    marginLeft:"48%",
-    marginTop:"48%",
+    marginLeft: "48%",
+    marginTop: "48%",
     fontWeight: "600",
-    justifyContent:"center",
+    justifyContent: "center",
     position: "absolute",
   },
 
-  lscontrols :{
-    backgroundColor:"red",
-    zIndex:0,
-    position: "absolute",
-    margin:"5%",
-    justifyContent:"center",
-    alignContent:"center", 
-    width: "90%",
-    height: "80%"
-    
-  },
-  topMiddleController:{
-    height: "80%",
-    width: "100%",
-    alignContent:"center",
-    alignItems:"center",
-    flexDirection: "row",
-    padding:50,
-    justifyContent: "space-between",
-    
-   },
-  screenLockUnlock:{
-    width:"100%",
-    end:"auto",
-    alignItems:"flex-end",
-    justifyContent:"flex-start"
-   },
-
-
-   lsMiddleController: {
-    position:"relative",
-    justifyContent:"center",
-    height: windowHeight/2,
-    width: windowWidth/2,
-  },
-  lsIconsController: {
-    padding:"15%",
-    position:"relative",
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignContent:"center",
-    textAlign:"center",
-  },
-  
-  lsbottomController:{
-    width:"100%",
-    height:"15%",
-    flexDirection:"row",
-    display:"flex"
-  },
-  potraitLayout:{
-    width: "90%",
-    padding:12, 
-    color: "#dcdcdc",
-    fontWeight:"900",
-    fontSize:12
-  },
-  lsLayout:{
-    width: "100%",
-    padding:12, 
-    color: "#dcdcdc",
-    fontWeight:"900",
-    fontSize:12
-  },
-   screenLUIcon: {
-    position:"relative",
-    fontSize:32,
-    padding:10,
-    fontWeight:"700"
-   },
-
- 
-  
- 
   fsRotate: {
     fontSize: 30,
     position: "fixed",
     fontWeight: "100",
   },
-  brightnesSlider :{
-    top:"48%",
-    position:"relative",
+  brightnesSlider: {
+    top: "48%",
+    position: "relative",
     width: 100,
-    flexDirection:"row",
+    flexDirection: "row",
     transform: [{ rotate: '-90deg' }],
   },
   slider: {

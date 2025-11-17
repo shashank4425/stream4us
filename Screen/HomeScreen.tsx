@@ -1,45 +1,72 @@
 import { entertainmentList } from "@/assets/entertainmentList/entertainmentList";
 import TrendingMovies from "@/components/banner/TrendingMovies";
 import { FontAwesome } from "@expo/vector-icons";
-import React, { useRef, useState } from "react";
-import { Dimensions, Image, Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Constants from "expo-constants";
+import React, { useState } from "react";
+import { Animated, Dimensions, Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function Home({ navigation }) {
-   const lastState = useRef("top");
-   const[isNone, setIsNone] = useState(true);
+//    const lastState = useRef("top");
+//    const[isNone, setIsNone] = useState(true);
 
- const handleScroll = (e) => {
-    const y = e.nativeEvent.contentOffset.y;
+//  const handleScroll = (e) => {
+//     const y = e.nativeEvent.contentOffset.y;
 
-    // Android only
-    if (Platform.OS !== "android") return;
+//     // Android only
+//     if (Platform.OS !== "android") return;
 
-    if (y > 100) {
-      if (lastState.current !== "black") {
-        setIsNone(false);
-        StatusBar.setBackgroundColor("#0D0E10");
-        lastState.current = "black"
-      }
-    } else {
-      if (lastState.current !== "transparent") {
-        setIsNone(true);
-        StatusBar.setBackgroundColor("transparent", true);
-        lastState.current = "transparent";
-      }
-    }
-  };
+//     if (y > 100) {
+//       if (lastState.current !== "black") {
+//         setIsNone(false);
+//         StatusBar.setBackgroundColor("#0D0E10");
+//         lastState.current = "black"
+//       }
+//     } else {
+//       if (lastState.current !== "transparent") {
+//         setIsNone(true);
+//         StatusBar.setBackgroundColor("transparent", true);
+//         lastState.current = "transparent";
+//       }
+//     }
+//   };
+const [scrollY] = useState(new Animated.Value(0));
+  const STATUS_BAR_HEIGHT = Constants.statusBarHeight;
+
+  const bgColor = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: ["rgba(0,0,0,0)", "rgba(0,0,0,1)"],
+    extrapolate: "clamp",
+  });
     return (
         <View style={Styles.screenContainer}>
-            {isNone && <Image
+            {/* {isNone && <Image
               style={{marginTop:windowHeight/20, width: windowWidth/5, padding: 2, position: "absolute", zIndex:1,
                 height: 30,resizeMode:"contain" }}
                 source={require('../assets/images/stream4us/logo/app-logo-stream4us.png')}
-            />}
-             <ScrollView 
-                 showsVerticalScrollIndicator={false} onScroll={handleScroll}
-                 scrollEventThrottle={16}>
+            />} */}
+             <Animated.View
+                style={{
+                height: STATUS_BAR_HEIGHT,
+                backgroundColor: bgColor,
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                zIndex: 10,
+                }}
+            />
+            
+             <Animated.ScrollView
+                scrollEventThrottle={16} onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                { useNativeDriver: false }
+                )}>
+            <StatusBar
+                translucent backgroundColor="transparent"
+                barStyle="light-content"
+            />
               <TrendingMovies/>
                <View>                
                 {entertainmentList.map(items => {
@@ -74,7 +101,7 @@ export default function Home({ navigation }) {
                   )
                 })}
             </View>
-        </ScrollView>
+        </Animated.ScrollView>
       </View>
     )
 }
