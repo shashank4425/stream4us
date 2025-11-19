@@ -9,8 +9,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function Home({ navigation }) {
 //    const lastState = useRef("top");
-//    const[isNone, setIsNone] = useState(true);
-
+    const[isNone, setIsNone] = useState(true);
 //  const handleScroll = (e) => {
 //     const y = e.nativeEvent.contentOffset.y;
 
@@ -33,15 +32,21 @@ export default function Home({ navigation }) {
 //   };
 const [scrollY] = useState(new Animated.Value(0));
   const STATUS_BAR_HEIGHT = Constants.statusBarHeight;
-
+  
   const bgColor = scrollY.interpolate({
     inputRange: [0, 100],
     outputRange: ["rgba(0,0,0,0)", "rgba(0,0,0,1)"],
     extrapolate: "clamp",
   });
+
+  const iconOpacity = scrollY.interpolate({
+    inputRange: [0, 100],     // same as bgColor change
+    outputRange: [1, 0],      // show → hide
+    extrapolate: "clamp",
+    });
     return (
         <View style={Styles.screenContainer}>
-            {/* {isNone && <Image
+            {/* {STATUS_BAR_HEIGHT > 0 && <Image
               style={{marginTop:windowHeight/20, width: windowWidth/5, padding: 2, position: "absolute", zIndex:1,
                 height: 30,resizeMode:"contain" }}
                 source={require('../assets/images/stream4us/logo/app-logo-stream4us.png')}
@@ -57,8 +62,22 @@ const [scrollY] = useState(new Animated.Value(0));
                 zIndex: 10,
                 }}
             />
+            <Animated.Image
+                source={require('../assets/images/stream4us/logo/app-logo-stream4us.png')}
+                style={{
+                marginTop:windowHeight/20, 
+                width: windowWidth/5, 
+                padding: 2, 
+                position: "absolute",
+                zIndex:1,
+                height: 30,resizeMode:"contain",
+                opacity: iconOpacity, // 👈 animate visibility
+                }}
+                resizeMode="contain"
+            />
+
             
-             <Animated.ScrollView
+             <Animated.ScrollView showsVerticalScrollIndicator={false}
                 scrollEventThrottle={16} onScroll={Animated.event(
                 [{ nativeEvent: { contentOffset: { y: scrollY } } }],
                 { useNativeDriver: false }

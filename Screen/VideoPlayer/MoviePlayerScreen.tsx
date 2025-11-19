@@ -1,12 +1,14 @@
 import NetInfo from "@react-native-community/netinfo";
 import { ResizeMode, Video } from "expo-av";
 import * as Brightness from 'expo-brightness';
+import * as NavigationBar from "expo-navigation-bar";
 import * as ScreenOrientation from "expo-screen-orientation";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   BackHandler,
   Dimensions,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -81,13 +83,17 @@ const MoviePlayer = ({ route }) => {
     const currentPosition = await videoRef.current.getStatusAsync();
     videoRef.current.setPositionAsync(currentPosition.positionMillis + 10000);
   }
-
-  useEffect(() => {
+   useEffect(() => {
     const backHandle = BackHandler.addEventListener("hardwareBackPress", () => {
       if (orientation === "landscape") {
         ScreenOrientation.unlockAsync();
         ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
         setOrientation("portrait");
+        setTimeout(async () => {
+         await NavigationBar.setVisibilityAsync("visible");
+         await NavigationBar.setBehaviorAsync("inset-swipe");
+         StatusBar.setHidden(false);
+        },150)
         return true;
       }
       return false;
@@ -121,18 +127,26 @@ const MoviePlayer = ({ route }) => {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE
       );
+      setTimeout(async () => {
+         await NavigationBar.setVisibilityAsync("hidden");
+         await NavigationBar.setBehaviorAsync("overlay-swipe");
+         StatusBar.setHidden(true);
+      },150);
       setOrientation("landscape");
     } else {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT_UP
       );
+      NavigationBar.setVisibilityAsync("visible");
+      await NavigationBar.setBehaviorAsync("inset-swipe");
+      StatusBar.setHidden(false);
       setOrientation("portrait");
     }
   };
   useEffect(() => {
     setTimeout(() => {
       setShowControls(false);
-    }, 4500);
+    }, 45000000);
   }, []);
   const lockScreen = async () => {
     if (islockScreen == false) {
@@ -146,7 +160,7 @@ const MoviePlayer = ({ route }) => {
     }
   }
   const handleControls = async () => {
-   console.log("Click");
+  
     if (!isLoading) {
       if (orientation == "landscape") {
         islockScreen != true ? setShowControls(true) : setShowControls(false);
@@ -156,7 +170,7 @@ const MoviePlayer = ({ route }) => {
     }
      setTimeout(() => {
       setShowControls(false);
-  },4500);
+  },4500000);
   }
 
   const getCurrentBrightness = async () => {
@@ -180,7 +194,7 @@ const MoviePlayer = ({ route }) => {
   return (
     <>
     <TouchableWithoutFeedback onPress={handleControls}>
-      <View style={{ flex: 1, marginTop: 35 }}>
+      <View style={{ flex: 1}}>
         <View>
           {!isConnected && isLoading ? (
             <View style={orientation == "portrait" ?
@@ -194,41 +208,42 @@ const MoviePlayer = ({ route }) => {
             <Video
               style={
                 orientation == "portrait" ?
-                  { width: Dimensions.get("window").width, height: 200 } :
+                  {marginTop: 35, width: Dimensions.get("window").width, height: 200 } :
                   { width: "100%", height: "100%" }
               }
               ref={videoRef}
               onPlaybackStatusUpdate={handleVideoStatusUpdate}
-              source={videoSource}
+              source={videoSource}              
               shouldPlay={!isPlaying}
               resizeMode={ResizeMode.COVER}
               isLooping
             />
           )}
-              {orientation == "landscape" ? 
-                 <View style={styles.screenLockUnlock}>
-                  <TouchableOpacity onPress={lockScreen}>
+             {orientation == "landscape" && (
+                  <View style={styles.screenLockUnlock}>
+                  <TouchableOpacity onPress={lockScreen}>                 
                     <MaterialIcon style={styles.screenLUIcon} name={islockScreen ? "lock" : "lock-open"} size={42} color="white"
                     ></MaterialIcon>
                   </TouchableOpacity>
-                </View> : ""}
+                </View>
+               )} 
           
             {showControls && (
               <View style={orientation == "portrait" ? styles.controls : styles.lscontrols}>
                  
                 <View style={orientation == "portrait" ? styles.potraitControle : styles.lsControle}>
                   <TouchableOpacity onPress={moveVideoBack}>
-                    <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={24} color="white"
+                    <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={16} color="white"
                     ></FontAwesomeIcon>
                     <Text style={styles.fifteenSecond}>10</Text>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={handlePlayPause}>
                     <MaterialIcon
-                      name={isPlaying ? "play-circle-outline" : "pause-circle-outline"} size={42} color="white"
+                      name={isPlaying ? "play-circle-outline" : "pause-circle-outline"} size={56} color="white"
                     />
                   </TouchableOpacity>
                   <TouchableOpacity onPress={moveVideoForward}>
-                    <FontAwesomeIcon style={styles.Rotate} name="rotate-cw" size={24} color="white"
+                    <FontAwesomeIcon style={styles.Rotate} name="rotate-cw" size={16} color="white"
                     ></FontAwesomeIcon>
                     <Text style={styles.fifteenSecond}>10</Text>
                   </TouchableOpacity>
@@ -276,8 +291,8 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   potraitControle: {
-    margin: "2%",
-    height: 140,
+    marginTop: "10%",
+    height: 160,
     width: "90%",
     justifyContent: "center",
     alignContent: "center",
@@ -288,33 +303,36 @@ const styles = StyleSheet.create({
   },
 
   lscontrols: {
-    zIndex: 0,
     position: "absolute",
     marginLeft: "10%",
+    marginTop:"1%",
     justifyContent: "center",
     alignContent: "center",
     width: "80%",
     height: "100%"
   },
   screenLockUnlock: {
-    width: "90%",
-    position:"absolute",
-    end:"auto",
-    marginLeft:"1%",
-    alignItems: "flex-end",
-    justifyContent: "flex-start"
+   zIndex:1,
+   top:"4%",
+   padding:5, 
+   justifyContent:"flex-end",
+   alignItems:"flex-end",
+   end:"auto",
+   width:"80%",
+   marginLeft:"10%",
+   position:"absolute",
+   height:"auto",
   },
   screenLUIcon: {
     position: "relative",
     fontSize: 32,
-    padding: 10,
+    padding:5,
     fontWeight: "700"
   },
   lsControle: {
-    height: 140,
+    height: "58%",
     width: "100%",
-    margin: "5%",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignContent: "center",
     textAlign: "center",
     flexDirection: "row",
@@ -330,7 +348,6 @@ const styles = StyleSheet.create({
   },
   lsbottomController: {
     display: "flex",
-    marginTop: "5%",
     flexWrap: "nowrap",
     flexDirection: "row",
   },
@@ -357,14 +374,14 @@ const styles = StyleSheet.create({
 
   Rotate: {
     justifyContent: "space-between",
-    fontSize: 40,
+    fontSize: 32,
     padding: 50,
     fontWeight: "100",
   },
   fifteenSecond: {
     fontSize: 8,
     color: "#fff",
-    marginLeft: "48%",
+    marginLeft: "47%",
     marginTop: "48%",
     fontWeight: "600",
     justifyContent: "center",
@@ -372,7 +389,7 @@ const styles = StyleSheet.create({
   },
 
   fsRotate: {
-    fontSize: 30,
+    fontSize: 36,
     position: "fixed",
     fontWeight: "100",
   },
