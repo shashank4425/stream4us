@@ -1,19 +1,92 @@
 import { entertainmentList } from "@/assets/entertainmentList/entertainmentList";
 import TrendingMovies from "@/components/banner/TrendingMovies";
 import { FontAwesome } from "@expo/vector-icons";
-import { StatusBar } from "expo-status-bar";
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Constants from "expo-constants";
+import React, { useState } from "react";
+import { Animated, Dimensions, Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function Home({ navigation }) {
-    
+//    const lastState = useRef("top");
+    const[isNone, setIsNone] = useState(true);
+//  const handleScroll = (e) => {
+//     const y = e.nativeEvent.contentOffset.y;
+
+//     // Android only
+//     if (Platform.OS !== "android") return;
+
+//     if (y > 100) {
+//       if (lastState.current !== "black") {
+//         setIsNone(false);
+//         StatusBar.setBackgroundColor("#0D0E10");
+//         lastState.current = "black"
+//       }
+//     } else {
+//       if (lastState.current !== "transparent") {
+//         setIsNone(true);
+//         StatusBar.setBackgroundColor("transparent", true);
+//         lastState.current = "transparent";
+//       }
+//     }
+//   };
+const [scrollY] = useState(new Animated.Value(0));
+  const STATUS_BAR_HEIGHT = Constants.statusBarHeight;
+  
+  const bgColor = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: ["rgba(0,0,0,0)", "rgba(0,0,0,1)"],
+    extrapolate: "clamp",
+  });
+
+  const iconOpacity = scrollY.interpolate({
+    inputRange: [0, 100],     // same as bgColor change
+    outputRange: [1, 0],      // show → hide
+    extrapolate: "clamp",
+    });
     return (
         <View style={Styles.screenContainer}>
-        <StatusBar backgroundColor="#0D0E10" style="light" /> 
-                 
-             <ScrollView showsVerticalScrollIndicator={false}>
-             <TrendingMovies/> 
+            {/* {STATUS_BAR_HEIGHT > 0 && <Image
+              style={{marginTop:windowHeight/20, width: windowWidth/5, padding: 2, position: "absolute", zIndex:1,
+                height: 30,resizeMode:"contain" }}
+                source={require('../assets/images/stream4us/logo/app-logo-stream4us.png')}
+            />} */}
+             <Animated.View
+                style={{
+                height: STATUS_BAR_HEIGHT,
+                backgroundColor: bgColor,
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                zIndex: 10,
+                }}
+            />
+            <Animated.Image
+                source={require('../assets/images/stream4us/logo/app-logo-stream4us.png')}
+                style={{
+                marginTop:windowHeight/20, 
+                width: windowWidth/5, 
+                padding: 2, 
+                position: "absolute",
+                zIndex:1,
+                height: 30,resizeMode:"contain",
+                opacity: iconOpacity, // 👈 animate visibility
+                }}
+                resizeMode="contain"
+            />
+
+            
+             <Animated.ScrollView showsVerticalScrollIndicator={false}
+                scrollEventThrottle={16} onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                { useNativeDriver: false }
+                )}>
+            <StatusBar
+                translucent backgroundColor="transparent"
+                barStyle="light-content"
+            />
+              <TrendingMovies/>
                <View>                
                 {entertainmentList.map(items => {
                     return(
@@ -47,9 +120,8 @@ export default function Home({ navigation }) {
                   )
                 })}
             </View>
-        </ScrollView>
-    
- </View>
+        </Animated.ScrollView>
+      </View>
     )
 }
 const Styles = StyleSheet.create({
@@ -68,6 +140,14 @@ const Styles = StyleSheet.create({
         flexDirection: 'column',
         flexWrap: 'nowrap'
     },
+    statusBarBg: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: StatusBar.currentHeight || 40,
+    zIndex: 999,
+  },
     cardContainer: {
         paddingHorizontal:windowWidth/25,
         paddingVertical: windowHeight/100

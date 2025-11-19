@@ -12,9 +12,9 @@ export const commonStyles = StyleSheet.create({
     },
     cards: {
         height: 180,
-        width: windowWidth/3.4,        
+        width: windowWidth/3.6,        
         borderRadius: 5,
-        marginRight: 6
+        margin: 6
     },
     imgContainer: {
         height:"85%",

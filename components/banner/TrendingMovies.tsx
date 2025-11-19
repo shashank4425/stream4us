@@ -74,12 +74,12 @@ const TrendingMovies = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 0,
-    justifyContent: 'flex-start',
+    padding:0,
+    justifyContent:"flex-start"
   },
   imageContainer: {
     width: width,
-    height: height * 0.25, 
+    height: height * 0.30, 
     marginRight: width * 0,
   },
   firstImage: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#696969",
     width: "100%",
     height: "100%",
-    resizeMode: 'contain'
+    resizeMode: 'cover'
   },
   dotsContainer: {
     position: 'absolute',

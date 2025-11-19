@@ -10,7 +10,7 @@ import { DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 import * as NavigationBar from 'expo-navigation-bar';
 import React from 'react';
-import { Dimensions, Image, StyleSheet } from "react-native";
+import { Dimensions, StatusBar, StyleSheet } from "react-native";
 NavigationBar.setBackgroundColorAsync("#0D0E10");  
 const Stack = createStackNavigator();
 const windowWidth = Dimensions.get('window').width;
@@ -40,22 +40,19 @@ export default function AppNavigatorScreen({route}){
   //   };
   // }, []);
  
-  return ( 
-      <Stack.Navigator initialRouteName="Home" screenOptions={{
+  return (
+    <>
+    <StatusBar translucent backgroundColor="transparent" barStyle="light-content"/>        
+     <Stack.Navigator initialRouteName="Home" screenOptions={{
         cardStyle: {
           backgroundColor:"#0D0E10",
           width:windowWidth,
           paddingBottom:windowHeight/15
-        },headerTitle:() =>
-          <Image
-          style={{marginTop:0, width: windowWidth/7, padding: 2,
-             height: 30,resizeMode:"contain" }}
-          source={require('../assets/images/stream4us/logo/app-logo-stream4us.png')}
-        />
+        }
       }}>
     <Stack.Screen name="Home" component={Home} options={{
       headerLeft:()=>null,
-      headerShown:true,
+      headerShown:false,
       headerStyle: {backgroundColor:"#0D0E10", height:windowHeight/10},
       headerTintColor:"#ffffff"
     }}/> 
@@ -88,6 +85,7 @@ export default function AppNavigatorScreen({route}){
       headerShown:false, cardStyle: {width:"100%", height:"100%", backgroundColor:"#0D0E10"}
           }}/>
     </Stack.Navigator>
+     </>
     )
 }
 
