@@ -146,7 +146,7 @@ const MoviePlayer = ({ route }) => {
   useEffect(() => {
     setTimeout(() => {
       setShowControls(false);
-    }, 45000000);
+    }, 4500);
   }, []);
   const lockScreen = async () => {
     if (islockScreen == false) {
@@ -170,7 +170,7 @@ const MoviePlayer = ({ route }) => {
     }
      setTimeout(() => {
       setShowControls(false);
-  },4500000);
+  },4500);
   }
 
   const getCurrentBrightness = async () => {
@@ -228,7 +228,7 @@ const MoviePlayer = ({ route }) => {
                 </View>
                )} 
           
-            {showControls && (
+            {isConnected && !isLoading && showControls && (
               <View style={orientation == "portrait" ? styles.controls : styles.lscontrols}>
                  
                 <View style={orientation == "portrait" ? styles.potraitControle : styles.lsControle}>
@@ -253,12 +253,12 @@ const MoviePlayer = ({ route }) => {
                     <Text style={styles.potraitDurationTxt}>
                       {formatTime(currentTime)} / {formatTime(duration)}
                     </Text>
-                  </View>
-                  <View style={styles.potraitFullscreen}>
+                   </View>
+                   <View style={orientation == "portrait" ? styles.potraitFullscreen : styles.lsFullscreen}>
                     <TouchableOpacity onPress={toggleScreen}>
                       <MaterialIcon style={styles.fsRotate} name={"fullscreen"} size={24} color="white"
                       ></MaterialIcon>
-                    </TouchableOpacity>
+                    </TouchableOpacity>                  
                   </View>
                 </View>
               </View>
@@ -315,9 +315,8 @@ const styles = StyleSheet.create({
    zIndex:1,
    top:"4%",
    padding:5, 
-   justifyContent:"flex-end",
+   justifyContent:"center",
    alignItems:"flex-end",
-   end:"auto",
    width:"80%",
    marginLeft:"10%",
    position:"absolute",
@@ -347,29 +346,30 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   lsbottomController: {
-    display: "flex",
-    flexWrap: "nowrap",
-    flexDirection: "row",
+    width: "100%",
+    flexDirection:"row",
+    height:"auto",
   },
   potraitDuration: {
     width: "90%",
-    textAlign: "center",
-    justifyContent: "center"
+    display:"flex",
+    flexDirection:"row",
+    justifyContent: "flex-start"
   },
   lsDuration: {
-    width: "95%",
-    end:"auto",
-    textAlign: "center",
-    justifyContent: "center"
+    width:"93%",
+    padding:5,
   },
 
   potraitDurationTxt: {
     color: "#fff"
   },
-
   potraitFullscreen: {
     justifyContent: "flex-end",
-    position: "fixed"
+    position: "relative"
+  },
+  lsFullscreen : {
+    end:"auto"
   },
 
   Rotate: {
@@ -390,7 +390,6 @@ const styles = StyleSheet.create({
 
   fsRotate: {
     fontSize: 36,
-    position: "fixed",
     fontWeight: "100",
   },
   brightnesSlider: {
