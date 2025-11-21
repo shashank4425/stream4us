@@ -1,6 +1,7 @@
 import NetInfo from "@react-native-community/netinfo";
-import { ResizeMode, Video } from "expo-av";
+import Slider from '@react-native-community/slider';
 import * as Brightness from 'expo-brightness';
+
 import * as NavigationBar from "expo-navigation-bar";
 import * as ScreenOrientation from "expo-screen-orientation";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -17,6 +18,7 @@ import {
 } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/Feather";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
+import Video from "react-native-video";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -26,15 +28,13 @@ const MoviePlayer = ({ route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [islockScreen, setIsLockScreen] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isSeeking, setIsSeeking] = useState(false);
   const [orientation, setOrientation] = useState("portrait");
-  const [sliderValue, setSliderValue] = useState(0);
-  const [status, setStatus] = useState({});
-  const [videoStatus, setVideoStatus] = useState({});
-  const [videoDuration, setVideoDuration] = useState(0);
-
+const [controlsVisible, setControlsVisible] = useState(true);
+const hideTimer = useRef(null);
   const [showControls, setShowControls] = useState(true);
   const [brightness, setBrightness] = useState(1);
   const sliderValueRef = useRef(0);
@@ -68,20 +68,17 @@ const MoviePlayer = ({ route }) => {
   const videoSource = require(`../../assets/video/bhojpuri/kalamchaba-gaini.mp4`)// Require the video
 
   const handlePlayPause = () => {
-    if (isPlaying) {
-      videoRef.current.pauseAsync();
-    } else {
-      videoRef.current.pauseAsync();
-    }
     setIsPlaying(!isPlaying);
   };
   const moveVideoBack = async () => {
-    const currentPosition = await videoRef.current.getStatusAsync();
-    videoRef.current.setPositionAsync(currentPosition.positionMillis - 10000);
+    const newTime = Math.max(currentTime - 10, 0);
+    videoRef.current.seek(newTime);
+    setCurrentTime(newTime);
   }
   const moveVideoForward = async () => {
-    const currentPosition = await videoRef.current.getStatusAsync();
-    videoRef.current.setPositionAsync(currentPosition.positionMillis + 10000);
+    const newTime = Math.min(currentTime + 10, duration);
+    videoRef.current.seek(newTime);
+    setCurrentTime(newTime);
   }
    useEffect(() => {
     const backHandle = BackHandler.addEventListener("hardwareBackPress", () => {
@@ -103,46 +100,50 @@ const MoviePlayer = ({ route }) => {
     };
   }, [orientation]);
 
-  useEffect(() => {
-    const setVideoDuration = async () => {
-      if (videoRef.current) {
-        const status = await videoRef.current.getStatusAsync();
-        setDuration(status.durationMillis);
-      }
-    };
-    setVideoDuration();
-  }, [videoRef]);
+  // useEffect(() => {
+  //   const setVideoDuration = async () => {
+  //     if (videoRef.current) {
+  //       const status = await videoRef.current.getStatusAsync();
+  //       setDuration(status.durationMillis);
+  //     }
+  //   };
+  //   setVideoDuration();
+  // }, [videoRef]);
 
-  const formatTime = (status) => {
-    const totalSeconds = Math.floor(status / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
+  // const formatTime = (status) => {
+  //   const totalSeconds = Math.floor(status / 1000);
+  //   const hours = Math.floor(totalSeconds / 3600);
+  //   const minutes = Math.floor((totalSeconds % 3600) / 60);
+  //   const seconds = totalSeconds % 60;
 
-    return `${hours > 59 ? hours + ":" : ""}${minutes < 10 ? "0" : ""
-      }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
+  //   return `${hours > 59 ? hours + ":" : ""}${minutes < 10 ? "0" : ""
+  //     }${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  // };
+const formatTime = (t) => {
+  const m = Math.floor(t / 60);
+  const s = Math.floor(t % 60);
+  return `${m}:${s < 10 ? "0" : ""}${s}`;
+};
+
   const toggleScreen = async () => {
-    if (orientation === "portrait") {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.LANDSCAPE
-      );
-      setTimeout(async () => {
-         await NavigationBar.setVisibilityAsync("hidden");
+  if (orientation === "portrait") {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    setOrientation("landscape");
+    // Force layout refresh
+    setTimeout(async () => {
+        await NavigationBar.setVisibilityAsync("hidden");
          await NavigationBar.setBehaviorAsync("overlay-swipe");
          StatusBar.setHidden(true);
-      },150);
-      setOrientation("landscape");
-    } else {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.PORTRAIT_UP
-      );
+    }, 200);
+  } else {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+      setOrientation("portrait");
       NavigationBar.setVisibilityAsync("visible");
       await NavigationBar.setBehaviorAsync("inset-swipe");
       StatusBar.setHidden(false);
-      setOrientation("portrait");
-    }
-  };
+  }
+};
+
   useEffect(() => {
     setTimeout(() => {
       setShowControls(false);
@@ -168,10 +169,32 @@ const MoviePlayer = ({ route }) => {
         showControls == true ? setShowControls(false) : setShowControls(true);
       }
     }
+    console.log(showControls + "Calling ..")
      setTimeout(() => {
       setShowControls(false);
   },4500);
   }
+
+  const startHideTimer = () => {
+  // Clear previous timer
+  if (hideTimer.current) {
+    clearTimeout(hideTimer.current);
+  }
+
+  // Hide after 4 seconds
+  hideTimer.current = setTimeout(() => {
+    setControlsVisible(false);
+  }, 4000);
+};
+
+const onVideoPress = () => {
+  if(controlsVisible){
+   setControlsVisible(false);
+  }else{
+    setControlsVisible(true);
+  }
+  startHideTimer();
+};
 
   const getCurrentBrightness = async () => {
     const currentBrightness = await Brightness.getBrightnessAsync();
@@ -188,13 +211,13 @@ const MoviePlayer = ({ route }) => {
     setSystemBrightness(value);
   }, []);
 
+
   useEffect(() => {
     getCurrentBrightness();
   }, []);
   return (
     <>
-    <TouchableWithoutFeedback onPress={handleControls}>
-      <View style={{ flex: 1}}>
+       <View style={{ flex: 1}}>
         <View>
           {!isConnected && isLoading ? (
             <View style={orientation == "portrait" ?
@@ -204,21 +227,45 @@ const MoviePlayer = ({ route }) => {
               <ActivityIndicator size="large" color="red" />
             </View>
           ) : (
-
             <Video
-              style={
-                orientation == "portrait" ?
-                  {marginTop: 35, width: Dimensions.get("window").width, height: 200 } :
-                  { width: "100%", height: "100%" }
-              }
-              ref={videoRef}
-              onPlaybackStatusUpdate={handleVideoStatusUpdate}
-              source={videoSource}              
-              shouldPlay={!isPlaying}
-              resizeMode={ResizeMode.COVER}
-              isLooping
-            />
+                ref={videoRef}
+                source={videoSource}
+                paused={isPlaying}
+                onLoad={(data) => setDuration(data.duration)}   // seconds
+                onProgress={(data) => setCurrentTime(data.currentTime)}  // seconds
+                
+                onEnd={() => {
+                  handleVideoStatusUpdate({
+                    didJustFinish: true,
+                  });
+                }}
+                resizeMode="cover"
+                repeat={true}
+                style={
+                  orientation === "portrait"
+                    ? {
+                        marginTop: 35,
+                        width: "100%",
+                        height: 200,
+                      }
+                    : {
+                        width: "100%",
+                        height: "100%",
+                      }
+                }
+              />
           )}
+          <TouchableWithoutFeedback onPress={onVideoPress}>
+            <View
+              style={{
+                position: "absolute",
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+              }}
+            />
+          </TouchableWithoutFeedback>
              {orientation == "landscape" && (
                   <View style={styles.screenLockUnlock}>
                   <TouchableOpacity onPress={lockScreen}>                 
@@ -228,22 +275,26 @@ const MoviePlayer = ({ route }) => {
                 </View>
                )} 
           
-            {isConnected && !isLoading && showControls && (
-              <View style={orientation == "portrait" ? styles.controls : styles.lscontrols}>
+            {isConnected 
+            && !isLoading && !islockScreen && controlsVisible  && (
+              <View style={{position: "absolute",  justifyContent: "flex-start",alignContent: "center",width: "85%",
+              height: "90%", margin:"8%",}}>
                  
                 <View style={orientation == "portrait" ? styles.potraitControle : styles.lsControle}>
                   <TouchableOpacity onPress={moveVideoBack}>
-                    <FontAwesomeIcon style={styles.Rotate} name="rotate-ccw" size={16} color="white"
+                    <FontAwesomeIcon style={orientation == "portait" ? styles.Rotate : styles.lsRotate} name="rotate-ccw" size={36} color="white"
                     ></FontAwesomeIcon>
                     <Text style={styles.fifteenSecond}>10</Text>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={handlePlayPause}>
-                    <MaterialIcon
-                      name={isPlaying ? "play-circle-outline" : "pause-circle-outline"} size={56} color="white"
+                    <View style={orientation == "portait" ? {position:"relative", marginTop:"65%"} : {marginTop:"35%"}}>
+                      <MaterialIcon
+                      name={isPlaying ? "play-circle-outline" : "pause-circle-outline"} size={60} color="white"
                     />
+                    </View>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={moveVideoForward}>
-                    <FontAwesomeIcon style={styles.Rotate} name="rotate-cw" size={16} color="white"
+                    <FontAwesomeIcon style={orientation == "portait" ? styles.Rotate : styles.lsRotate} name="rotate-cw" size={36} color="white"
                     ></FontAwesomeIcon>
                     <Text style={styles.fifteenSecond}>10</Text>
                   </TouchableOpacity>
@@ -260,6 +311,29 @@ const MoviePlayer = ({ route }) => {
                       ></MaterialIcon>
                     </TouchableOpacity>                  
                   </View>
+                    
+                </View>
+                <View style={orientation == "portrait" ? styles.sliderController : styles.lsSliderController}>
+                    <Slider
+                      value={currentTime}
+                      minimumValue={0}
+                      maximumValue={duration}
+                      minimumTrackTintColor="#fff"
+                      maximumTrackTintColor="#888"
+                      thumbTintColor="#fff"
+
+                      // when user starts dragging
+                      onSlidingStart={() => setIsSeeking(true)}
+
+                      // update UI while dragging
+                      onValueChange={(time) => setCurrentTime(time)}
+
+                      // when sliding ends, seek the video
+                      onSlidingComplete={(time) => {
+                        setIsSeeking(false);
+                        videoRef.current.seek(time);
+                      }}
+                    />
                 </View>
               </View>
             )}
@@ -275,42 +349,54 @@ const MoviePlayer = ({ route }) => {
             </View>
           </View> : ""}
       </View>
-      </TouchableWithoutFeedback>
+      
     </>
   )
 };
 
 
 const styles = StyleSheet.create({
-  controls: {
-    position: "absolute",
-    justifyContent: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    height: 200,
-    width: "100%"
-  },
+
   potraitControle: {
-    marginTop: "10%",
-    height: 160,
-    width: "90%",
-    justifyContent: "center",
-    alignContent: "center",
-    textAlign: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center"
+    marginTop: "7%",
+    height: "60%",
+    width: "100%",
+    flexDirection:"row",
   },
 
-  lscontrols: {
-    position: "absolute",
-    marginLeft: "10%",
-    marginTop:"1%",
-    justifyContent: "center",
-    alignContent: "center",
-    width: "80%",
-    height: "100%"
+  Rotate: {
+    justifyContent:"space-between",
+    marginTop:"10%",
+    height:"100%",
+    padding:40,
+    alignItems:"center",
+    position:"relative"
   },
+  lsRotate : {
+   marginTop:"20%",
+  },
+  fifteenSecond: {
+    fontSize: 7,
+    color: "#fff",
+    marginLeft: "45%",
+    marginTop: "58%",
+    fontWeight: "600",
+    justifyContent: "center",
+    position: "absolute",
+  },
+ bottomController: {
+    display: "flex",
+    width: "100%",
+    height:"20%",
+    color: "#fff",
+    flexWrap: "nowrap",
+    flexDirection: "row"
+  },
+  sliderController:{
+    height:"auto",
+    color: "#fff",
+  },
+ 
   screenLockUnlock: {
    zIndex:1,
    top:"4%",
@@ -329,7 +415,7 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   lsControle: {
-    height: "58%",
+    height: "70%",
     width: "100%",
     justifyContent: "space-around",
     alignContent: "center",
@@ -338,13 +424,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "center"
   },
-  bottomController: {
-    display: "flex",
-    width: "90%",
-    color: "#fff",
-    flexWrap: "nowrap",
-    flexDirection: "row",
-  },
+ 
   lsbottomController: {
     width: "100%",
     flexDirection:"row",
@@ -372,21 +452,7 @@ const styles = StyleSheet.create({
     end:"auto"
   },
 
-  Rotate: {
-    justifyContent: "space-between",
-    fontSize: 32,
-    padding: 50,
-    fontWeight: "100",
-  },
-  fifteenSecond: {
-    fontSize: 8,
-    color: "#fff",
-    marginLeft: "47%",
-    marginTop: "48%",
-    fontWeight: "600",
-    justifyContent: "center",
-    position: "absolute",
-  },
+  
 
   fsRotate: {
     fontSize: 36,
@@ -399,12 +465,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     transform: [{ rotate: '-90deg' }],
   },
-  slider: {
-    width: windowWidth,
-    color: "#fff",
-    position: "relative",
+  
+  lsSliderController:{
+    height:"5%", color: "#fff",
   },
-
   container: {
     backgroundColor: "#0D0E10",
     height: windowHeight,
